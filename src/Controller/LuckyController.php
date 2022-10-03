@@ -19,9 +19,10 @@ class LuckyController extends AbstractController
         $number = random_int(0, 100);
 
         return $this->render(
-            'lucky/number.html.twig',
+            'display.html.twig',
             [
-                'number' => $number
+                'title' => 'Lucky number',
+                'data' => "Lucky number : $number."
             ]
         );
     }
@@ -43,8 +44,12 @@ class LuckyController extends AbstractController
             'Ola'
         ];
 
-        return new Response(
-            "<html lang='en'><body>" . $sentences[$number] . "</body></html>"
+        return $this->render(
+            'display.html.twig',
+            [
+                'title' => 'Random Welcome',
+                'data' => $sentences[$number]
+            ]
         );
     }
 
@@ -62,8 +67,12 @@ class LuckyController extends AbstractController
             $str .= '8';
         }
 
-        return new Response(
-            "<html lang='en'><body>$str</body></html>"
+        return $this->render(
+            'display.html.twig',
+            [
+                'title' => 'Random Eight',
+                'data' => $str
+            ]
         );
     }
 
@@ -79,8 +88,12 @@ class LuckyController extends AbstractController
             $str .= '8';
         }
 
-        return new Response(
-            "<html lang='en'><body>$str</body></html>"
+        return $this->render(
+            'display.html.twig',
+            [
+                'title' => 'Eight',
+                'data' => $str
+            ]
         );
     }
 

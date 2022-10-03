@@ -13,3 +13,4 @@ h1 {
 ```
 5. Faire en sorte que le fichier style.css soit appliqué à la page `/` (index)
 6. Factoriser les modèles grâce aux extends et aux includes
+7. Ajouter un système de navigation sur toutes vos pages (navbar)

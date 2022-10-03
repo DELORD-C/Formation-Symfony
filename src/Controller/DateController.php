@@ -15,9 +15,10 @@ class DateController extends AbstractController
     function day(): Response
     {
         return $this->render(
-            'date/day.html.twig',
+            'display.html.twig',
             [
-                'day' => date('l')
+                'title' => 'Week actual day',
+                'data' => date('l')
             ]
         );
     }

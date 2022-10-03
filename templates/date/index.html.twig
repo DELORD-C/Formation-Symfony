@@ -1,6 +1,7 @@
-<html lang="en">
-{{ include('parts/head.html.twig') }}
-<body>
+{% extends "base.html.twig" %}
+
+{% block title %}{{ parent() }}Index{% endblock %}
+
+{% block body %}
     <h1>Welcome !</h1>
-</body>
-</html>
+{% endblock %}
