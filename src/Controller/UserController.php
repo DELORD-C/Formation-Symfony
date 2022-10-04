@@ -3,12 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\UserType;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,12 +17,7 @@ class UserController extends AbstractController
     function create (Request $request, EntityManagerInterface $em): Response
     {
         $user = new User();
-        $form = $this->createFormBuilder($user)
-            ->add('name', TextType::class)
-            ->add('email', EmailType::class)
-            ->add('password', PasswordType::class)
-            ->add('Submit', SubmitType::class)
-            ->getForm();
+        $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
 
@@ -39,5 +32,45 @@ class UserController extends AbstractController
            'title' => 'User creation',
            'form' => $form
         ]);
+    }
+
+    #[Route('/user/list')]
+    function list (UserRepository $userRepository): Response
+    {
+        $users = $userRepository->findAll();
+
+        return $this->render('user/list.html.twig', [
+            'title' => 'User list',
+            'users' => $users
+        ]);
+    }
+
+    #[Route('/user/edit/{user}')]
+    function edit (User $user, Request $request, EntityManagerInterface $em): Response
+    {
+        $form = $this->createForm(UserType::class, $user);
+
+        $form->remove('password');
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = $form->getData();
+            $em->persist($user);
+            $em->flush();
+            return $this->redirectToRoute('app_user_list');
+        }
+
+        return $this->renderForm('user/create.html.twig', [
+            'title' => 'User edition',
+            'form' => $form
+        ]);
+    }
+
+    #[Route('/user/delete/{user}')]
+    function delete (User $user, EntityManagerInterface $em): Response
+    {
+        $em->remove($user);
+        $em->flush();
+        return $this->redirectToRoute('app_user_list');
     }
 }
