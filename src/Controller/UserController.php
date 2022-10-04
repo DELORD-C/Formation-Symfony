@@ -25,7 +25,7 @@ class UserController extends AbstractController
             $user = $form->getData();
             $em->persist($user);
             $em->flush();
-            return $this->redirectToRoute('app_user_create');
+            return $this->redirectToRoute('app_user_list');
         }
 
         return $this->renderForm('user/create.html.twig', [

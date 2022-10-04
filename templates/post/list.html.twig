@@ -7,22 +7,22 @@
         <thead>
             <tr>
                 <th>Name</th>
-                <th>Email</th>
+                <th>Author</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>
-        {% for user in users %}
+        {% for post in posts %}
             <tr>
-                <td>{{ user.name }}</td>
-                <td>{{ user.email }}</td>
+                <td>{{ post.name }}</td>
+                <td>{{ post.user.name }}</td>
                 <td>
-                    <a href="{{ path('app_user_edit', {'user': user.id}) }}">Edit</a>
-                    <a href="{{ path('app_user_delete', {'user': user.id}) }}">Delete</a>
+                    <a href="{{ path('app_post_edit', {'post': post.id}) }}">Edit</a>
+                    <a href="{{ path('app_post_delete', {'post': post.id}) }}">Delete</a>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-    <a href="{{ path('app_user_create') }}">Create User</a>
+    <a href="{{ path('app_post_create') }}">Create Post</a>
 {% endblock %}
