@@ -1,0 +1,19 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ parent() }}{{ title }}{% endblock %}
+
+{% block body %}
+    <h1>{{ title }}</h1>
+    {% if error %}
+        {{ error.messageKey }}
+    {% endif %}
+    <form method="post">
+        <label for="username">Email:</label>
+        <input type="text" id="username" name="_username" value="{{ last_username }}"/>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="_password"/>
+
+        <button type="submit">Login</button>
+    </form>
+{% endblock %}

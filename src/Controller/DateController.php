@@ -22,15 +22,4 @@ class DateController extends AbstractController
             ]
         );
     }
-
-    /**
-     * @return Response
-     * @Route("/")
-     */
-    function index(): Response
-    {
-        return $this->render(
-            'date/index.html.twig'
-        );
-    }
 }

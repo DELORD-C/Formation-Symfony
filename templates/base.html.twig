@@ -15,13 +15,21 @@
     <body>
         <nav>
             <ul>
-                <li><a href="{{ path('app_date_index') }}">Home</a></li>
-                <li><a href="{{ path('app_date_day') }}">Weekday</a></li>
-                <li><a href="{{ path('app_lucky_welcome') }}">Welcome</a></li>
-                <li><a href="{{ path('app_lucky_number') }}">Number</a></li>
-                <li><a href="{{ path('app_lucky_eightrandom') }}">Eight</a></li>
-                <li><a href="{{ path('app_post_list') }}">Posts</a></li>
-                <li><a href="{{ path('app_user_list') }}">Users</a></li>
+
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li><a href="{{ path('app_user_list') }}">Users</a></li>
+                {% endif %}
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <li><a href="{{ path('app_date_day') }}">Weekday</a></li>
+                    <li><a href="{{ path('app_lucky_welcome') }}">Welcome</a></li>
+                    <li><a href="{{ path('app_lucky_number') }}">Number</a></li>
+                    <li><a href="{{ path('app_lucky_eightrandom') }}">Eight</a></li>
+                    <li><a href="{{ path('app_post_list') }}">Posts</a></li>
+                    <li><a href="{{ path('app_logout') }}">Logout</a></li>
+                {% else %}
+                    <li><a href="{{ path('app_login') }}">Login</a></li>
+                    <li><a href="{{ path('app_register') }}">Register</a></li>
+                {% endif %}
             </ul>
         </nav>
         {% block body %}{% endblock %}

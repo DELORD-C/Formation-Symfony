@@ -37,9 +37,11 @@ class PostController extends AbstractController
         ]);
     }
 
-    #[Route('/post/list')]
+    #[Route('/')]
     function list (PostRepository $postRepository): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $posts = $postRepository->findAll();
 
         return $this->render('post/list.html.twig', [

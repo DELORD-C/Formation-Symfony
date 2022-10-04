@@ -22,7 +22,8 @@ class Post
     private ?string $body = null;
 
     #[ORM\ManyToOne(inversedBy: 'posts')]
-    private User $user;
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
 
     public function getId(): ?int
     {
@@ -53,15 +54,16 @@ class Post
         return $this;
     }
 
-    public function getUser(): User
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUser(User $user): self
+    public function setUser(?User $user): self
     {
         $this->user = $user;
 
         return $this;
     }
+
 }
