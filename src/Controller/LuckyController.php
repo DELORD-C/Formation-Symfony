@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -93,6 +94,31 @@ class LuckyController extends AbstractController
             [
                 'title' => 'Eight',
                 'data' => $str
+            ]
+        );
+    }
+    /**
+     * @return Response
+     * @throws \Exception
+     * @Route("/lucky/ip")
+     */
+    public function ip (Request $request): Response
+    {
+
+        $ip = intval(substr($request->getClientIp(), -1));
+
+        if ($ip % 2 == 0) {
+            $isPair = true;
+        }
+        else {
+            $isPair = false;
+        }
+
+        return $this->render(
+            'lucky/ip.html.twig',
+            [
+                'title' => 'IP',
+                'isPair' => $isPair
             ]
         );
     }

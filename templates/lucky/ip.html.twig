@@ -1,0 +1,11 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ parent() }}{{ title }}{% endblock %}
+
+{% block body %}
+    {% if (isPair) %}
+        <h1>Votre adresse IP est pair</h1>
+    {% else %}
+        <img src="https://i.ytimg.com/vi/PXw-f9ZXjIo/maxresdefault.jpg" alt="Pair Impair">
+    {% endif %}
+{% endblock %}
