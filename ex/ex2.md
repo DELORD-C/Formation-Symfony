@@ -18,5 +18,7 @@ Les ADMINS ont accès à tout
 
 
 
-Metter en place des `Voters` pour gére le contrôle d'accès à la place des solutions utilisées précédemment
+Mettre en place des `Voters` pour gérer le contrôle d'accès à la place / en plus des solutions utilisées précédemment
 https://symfony.com/doc/current/security/voters.html#the-voter-interface
+
+Un post ne peut être modifié que par son créateur ou un admin

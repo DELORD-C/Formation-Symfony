@@ -24,8 +24,7 @@ class PostController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $post = $form->getData();
-            $user = $userRepository->find(1);
-            $post->setUser($user);
+            $post->setUser($this->getUser());
             $em->persist($post);
             $em->flush();
             return $this->redirectToRoute('app_post_list');
