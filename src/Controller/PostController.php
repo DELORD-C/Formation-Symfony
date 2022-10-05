@@ -42,6 +42,7 @@ class PostController extends AbstractController
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         $posts = $postRepository->findAll();
+        dump($posts);
 
         return $this->render('post/list.html.twig', [
             'title' => 'Post list',
@@ -52,6 +53,7 @@ class PostController extends AbstractController
     #[Route('/post/edit/{post}')]
     function edit (Post $post, Request $request, EntityManagerInterface $em): Response
     {
+        $this->denyAccessUnlessGranted('edit', $post);
         $form = $this->createForm(PostType::class, $post);
 
         $form->remove('password');
