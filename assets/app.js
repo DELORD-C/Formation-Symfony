@@ -17,3 +17,6 @@ const $ = require('jquery');
 require('bootstrap');
 require('bootstrap/scss/bootstrap.scss');
 require('bootstrap-icons/font/bootstrap-icons.scss');
+
+import './media/logo.svg';
+import './media/logo.png';
