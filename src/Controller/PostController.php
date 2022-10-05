@@ -42,7 +42,6 @@ class PostController extends AbstractController
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         $posts = $postRepository->findAll();
-        dump($posts);
 
         return $this->render('post/list.html.twig', [
             'title' => 'Post list',

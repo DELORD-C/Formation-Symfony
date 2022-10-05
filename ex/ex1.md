@@ -1,5 +1,7 @@
 # Exercice 1
 
+Controllers, Routes et Webpack
+
 1. Créer un nouveau controller `Date` qui contient une méthode qui permet d'afficher le jour actuel de la semaine.
 2. Associer cette méthode à la route `/date/day`
 3. Créer une méthode qui affiche un message de bienvenue `h1` et la relier à la route `/`

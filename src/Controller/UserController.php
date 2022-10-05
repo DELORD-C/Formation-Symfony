@@ -13,30 +13,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
 {
-    #[Route('/user/create')]
-    function create (Request $request, EntityManagerInterface $em): Response
-    {
-        $user = new User();
-        $form = $this->createForm(UserType::class, $user);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $user = $form->getData();
-            $em->persist($user);
-            $em->flush();
-            return $this->redirectToRoute('app_user_list');
-        }
-
-        return $this->renderForm('user/create.html.twig', [
-           'title' => 'User creation',
-           'form' => $form
-        ]);
-    }
-
     #[Route('/user/list')]
     function list (UserRepository $userRepository): Response
     {
+        $this->denyAccessUnlessGranted('view', $this->getUser());
         $users = $userRepository->findAll();
 
         return $this->render('user/list.html.twig', [
@@ -48,6 +28,8 @@ class UserController extends AbstractController
     #[Route('/user/edit/{user}')]
     function edit (User $user, Request $request, EntityManagerInterface $em): Response
     {
+        $this->denyAccessUnlessGranted('edit', $user);
+
         $form = $this->createForm(UserType::class, $user);
 
         $form->remove('password');
@@ -60,7 +42,7 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_user_list');
         }
 
-        return $this->renderForm('user/create.html.twig', [
+        return $this->renderForm('user/edit.html.twig', [
             'title' => 'User edition',
             'form' => $form
         ]);

@@ -1,24 +1,16 @@
 # Exercice 2
 
-Créer un CRUD pour les objets Post
+Contrôle d'accès
+
+1. Créer un CRUD pour les objets Post
 (Fournir automatiquement un User en guise d'autheur lors de la création)
-
-Supprimer l'entité User & son Répertoire
-Créer l'entité user via make (doc) 
-Formulaire d'inscription (Droits par défaut)
-
-Créer un formulaire de Connexion
-
-Créer un bouton déconnexion
-Avoir un utilisateur ADMIN
-
-Lorsque qu'on est déconnecté, on a accès qu'aux formulaires d'inscription et connexion
-Lorsqu'un utilisateur par défaut est connecté, il a accès à tous sauf les routes /user
-Les ADMINS ont accès à tout
-
-
-
-Mettre en place des `Voters` pour gérer le contrôle d'accès à la place / en plus des solutions utilisées précédemment
-https://symfony.com/doc/current/security/voters.html#the-voter-interface
-
-Un post ne peut être modifié que par son créateur ou un admin
+2. Supprimer l'entité User & son Répertoire
+3. Créer l'entité user via make (doc) 
+4. Créer un Formulaire d'inscription (Droits par défaut)
+5. Créer un formulaire de Connexion
+6. Créer un bouton déconnexion
+7. Créer un utilisateur avec le rôle ROLE_ADMIN
+8. Arriver aux résultats suivants :
+   - Lorsque qu'on est déconnecté, on a accès qu'aux formulaires d'inscription et connexion
+   - Lorsqu'un utilisateur par défaut est connecté, il a accès à tous sauf les routes /user
+   - Les ROLE_ADMIN ont accès à tout
