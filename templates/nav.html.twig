@@ -12,17 +12,17 @@
                         <ul class="navbar-nav">
                                 {% if is_granted('ROLE_ADMIN') %}
                                         <li class="nav-item">
-                                                <a class="nav-link" href="{{ path('app_user_list') }}"><i class="bi bi-link"></i>Users</a>
+                                                <a class="nav-link" href="{{ path('app_user_list') }}"><i class="bi bi-people"></i>Users</a>
                                         </li>
                                 {% endif %}
                                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                                         <li class="nav-item">
-                                                <a class="nav-link" href="{{ path('app_date_day') }}"><i class="bi bi-link"></i>Weekday</a>
+                                                <a class="nav-link" href="{{ path('app_date_day') }}"><i class="bi bi-calendar"></i>Weekday</a>
                                         </li>
                                         <li class="nav-item dropdown">
                                                 <a class="nav-link dropdown-toggle" href="{{ path('app_lucky_welcome') }}" role="button"
                                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <i class="bi bi-link"></i>Lucky
+                                                    <i class="bi bi-dice-1"></i>Lucky
                                                 </a>
                                                 <ul class="dropdown-menu">
                                                         <li><a class="dropdown-item" href="{{ path('app_lucky_number') }}">Number</a></li>
@@ -30,13 +30,13 @@
                                                 </ul>
                                         </li>
                                         <li class="nav-item">
-                                                <a class="nav-link" href="{{ path('app_post_list') }}"><i class="bi bi-link"></i>Posts</a>
+                                                <a class="nav-link" href="{{ path('app_post_list') }}"><i class="bi bi-newspaper"></i>Posts</a>
                                         </li>
                                         <li class="nav-item">
-                                                <a class="nav-link" href="{{ path('app_user_edit', {'user': app.user.id}) }}"><i class="bi bi-link"></i>Profil</a>
+                                                <a class="nav-link" href="{{ path('app_user_edit', {'user': app.user.id}) }}"><i class="bi bi-person"></i>Profil</a>
                                         </li>
                                         <li class="nav-item">
-                                                <a class="nav-link" href="{{ path('app_logout') }}"><i class="bi bi-link"></i>Logout</a>
+                                                <a class="nav-link" href="{{ path('app_logout') }}"><i class="bi bi-door-closed"></i>Logout</a>
                                         </li>
                                 {% else %}
                                         <li class="nav-item">
