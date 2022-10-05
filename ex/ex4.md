@@ -8,5 +8,4 @@ Webpack Encore
 4. Appliquer automatiquement le theme bootstrap sur vos formulaires
 5. Refaire la navbar avec un template bootstrap (il doit y avoir des dropdowns)
 6. Ajouter un icon bootstrap avant chaque élément de niveau 0 dans la navigation (pas dans les dropdowns)
-7. Télécharger un favicon, le placer dans le dossier assets de votre projet et faire en sorte
-que celui-ci soit appliqué sur toutes les pages
+7. Changer le titre dans la navbar par un logo que vous importerez avec webpack
