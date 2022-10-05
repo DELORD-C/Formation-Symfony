@@ -51,6 +51,7 @@ class UserController extends AbstractController
     #[Route('/user/delete/{user}')]
     function delete (User $user, EntityManagerInterface $em): Response
     {
+        $this->denyAccessUnlessGranted('edit', $user);
         $em->remove($user);
         $em->flush();
         return $this->redirectToRoute('app_user_list');

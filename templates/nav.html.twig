@@ -1,19 +1,50 @@
-<nav>
-    <ul>
-        {% if is_granted('ROLE_ADMIN') %}
-            <li><a href="{{ path('app_user_list') }}">Users</a></li>
-        {% endif %}
-        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <li><a href="{{ path('app_date_day') }}">Weekday</a></li>
-            <li><a href="{{ path('app_lucky_welcome') }}">Welcome</a></li>
-            <li><a href="{{ path('app_lucky_number') }}">Number</a></li>
-            <li><a href="{{ path('app_lucky_eightrandom') }}">Eight</a></li>
-            <li><a href="{{ path('app_post_list') }}">Posts</a></li>
-            <li><a href="{{ path('app_user_edit', {'user': app.user.id}) }}">Profil</a></li>
-            <li><a href="{{ path('app_logout') }}">Logout</a></li>
-        {% else %}
-            <li><a href="{{ path('app_login') }}">Login</a></li>
-            <li><a href="{{ path('app_register') }}">Register</a></li>
-        {% endif %}
-    </ul>
+<nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+                <a class="navbar-brand" href="{{ path('app_post_list') }}"><i class="bi bi-link"></i>Symfony</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                        <ul class="navbar-nav">
+                                {% if is_granted('ROLE_ADMIN') %}
+                                        <li class="nav-item">
+                                                <a class="nav-link" href="{{ path('app_user_list') }}"><i class="bi bi-link"></i>Users</a>
+                                        </li>
+                                {% endif %}
+                                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                        <li class="nav-item">
+                                                <a class="nav-link" href="{{ path('app_date_day') }}"><i class="bi bi-link"></i>Weekday</a>
+                                        </li>
+                                        <li class="nav-item dropdown">
+                                                <a class="nav-link dropdown-toggle" href="{{ path('app_lucky_welcome') }}" role="button"
+                                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="bi bi-link"></i>Lucky
+                                                </a>
+                                                <ul class="dropdown-menu">
+                                                        <li><a class="dropdown-item" href="{{ path('app_lucky_number') }}">Number</a></li>
+                                                        <li><a class="dropdown-item" href="{{ path('app_lucky_eightrandom') }}">Eight</a></li>
+                                                </ul>
+                                        </li>
+                                        <li class="nav-item">
+                                                <a class="nav-link" href="{{ path('app_post_list') }}"><i class="bi bi-link"></i>Posts</a>
+                                        </li>
+                                        <li class="nav-item">
+                                                <a class="nav-link" href="{{ path('app_user_edit', {'user': app.user.id}) }}"><i class="bi bi-link"></i>Profil</a>
+                                        </li>
+                                        <li class="nav-item">
+                                                <a class="nav-link" href="{{ path('app_logout') }}"><i class="bi bi-link"></i>Logout</a>
+                                        </li>
+                                {% else %}
+                                        <li class="nav-item">
+                                                <a class="nav-link" href="{{ path('app_login') }}"><i class="bi bi-link"></i>Login</a>
+                                        </li>
+                                        <li class="nav-item">
+                                                <a class="nav-link" href="{{ path('app_register') }}"><i class="bi bi-link"></i>Register</a>
+                                        </li>
+                                {% endif %}
+                        </ul>
+                </div>
+        </div>
 </nav>

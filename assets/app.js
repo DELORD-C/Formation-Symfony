@@ -11,3 +11,9 @@ import './styles/style.css';
 
 // start the Stimulus application
 import './bootstrap';
+
+// Import bootstrap and bootstrap icons
+const $ = require('jquery');
+require('bootstrap');
+require('bootstrap/scss/bootstrap.scss');
+require('bootstrap-icons/font/bootstrap-icons.scss');

@@ -16,10 +16,12 @@
             <tr>
                 <td>{{ post.name }}</td>
                 <td>{{ post.user.email }}</td>
-                <td>
-                    <a href="{{ path('app_post_edit', {'post': post.id}) }}">Edit</a>
-                    <a href="{{ path('app_post_delete', {'post': post.id}) }}">Delete</a>
-                </td>
+                {% if is_granted('ROLE_ADMIN') or post.user == app.user %}
+                    <td>
+                        <a href="{{ path('app_post_edit', {'post': post.id}) }}">Edit</a>
+                        <a href="{{ path('app_post_delete', {'post': post.id}) }}">Delete</a>
+                    </td>
+                {% endif %}
             </tr>
         {% endfor %}
         </tbody>

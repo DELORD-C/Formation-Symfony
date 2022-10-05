@@ -74,6 +74,7 @@ class PostController extends AbstractController
     #[Route('/post/delete/{post}')]
     function delete (Post $post, EntityManagerInterface $em): Response
     {
+        $this->denyAccessUnlessGranted('edit', $post);
         $em->remove($post);
         $em->flush();
         return $this->redirectToRoute('app_post_list');
