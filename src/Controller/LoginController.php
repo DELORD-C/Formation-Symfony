@@ -20,6 +20,7 @@ class LoginController extends AbstractController
         if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
             return $this->redirectToRoute('app_post_list');
         }
+
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
 

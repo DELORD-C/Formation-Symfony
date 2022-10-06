@@ -15,6 +15,11 @@
             <tr>
                 <td>{{ user.email }}</td>
                 <td>
+                    {% if 'ROLE_ADMIN' in user.roles %}
+                        <a href="{{ path('app_user_updaterole', {'bool': 'false', 'user': user.id}) }}">Downgrade</a>
+                    {% else %}
+                        <a href="{{ path('app_user_updaterole', {'bool': 'true', 'user': user.id}) }}">Upgrade</a>
+                    {% endif %}
                     <a href="{{ path('app_user_edit', {'user': user.id}) }}">Edit</a>
                     <a href="{{ path('app_user_delete', {'user': user.id}) }}">Delete</a>
                 </td>
