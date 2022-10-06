@@ -18,3 +18,9 @@ Traductions
 3. La navbar doit être disponible en anglais et en français
 4. Les messages d'erreur de contrôle d'accès doivent être, eux aussi, traduits.
 5. La langue affichée doit dépendre de celle du navigateur.
+
+## 3ème partie
+
+1. Créer un controller ou une méthode pour prendre en charge le changement de langage
+2. Créer des boutons de sélection de langage dans la navbar
+3. Seul la langue inactive doit apparaître dans le menu
