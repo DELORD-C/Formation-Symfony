@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Custom\Tree;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -82,12 +83,9 @@ class LuckyController extends AbstractController
      * @throws \Exception
      * @Route("/lucky/eight/{number}")
      */
-    public function eight(Int $number = 1): Response
+    public function eight(Tree $tree, Int $number = 1): Response
     {
-        $str = "";
-        for ($i = 0; $i < $number; $i++) {
-            $str .= '8';
-        }
+        $str = $tree->generate($number);
 
         return $this->render(
             'display.html.twig',

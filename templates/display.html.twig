@@ -3,5 +3,5 @@
 {% block title %}{{ parent() }}{{ title }}{% endblock %}
 
 {% block body %}
-    {{ data }}
+    {{ data|raw }}
 {% endblock %}
