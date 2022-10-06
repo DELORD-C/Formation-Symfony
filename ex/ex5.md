@@ -6,6 +6,7 @@
 4. Sur la page `post/list`, ajouter un champ recherche qui filtre les objets `Post`
 5. Mettre à jour la sécurité pour les nouvelles routes.
 6. Ajouter la fonctionnalité des commentaires
+   - Les commentaires doivent apparaitre sous le post concerné lors de son affichage
    - N'importe quel utilisateur connecté doit pouvoir laisser un commentaire sur un `Post`
    - Un commentaire peut être supprimé/modifié par son propriétaire et/ou un `ROLE_ADMIN`
    - Lorsqu'un `Post` est supprimé, tous ses commentaires doivent l'être aussi

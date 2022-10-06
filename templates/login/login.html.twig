@@ -5,7 +5,7 @@
 {% block body %}
     <h1>{{ title }}</h1>
     {% if error %}
-        {{ error.messageKey }}
+        {{ error.message }}
     {% endif %}
     <form method="post">
         <label for="username">Email:</label>

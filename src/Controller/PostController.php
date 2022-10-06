@@ -49,6 +49,20 @@ class PostController extends AbstractController
         ]);
     }
 
+    #[Route('/post/search')]
+    function search (PostRepository $postRepository, Request $request): Response
+    {
+        $query = $request->query->get('query');
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $posts = $postRepository->searchByName($query);
+
+        return $this->render('post/list.html.twig', [
+            'title' => 'Post list',
+            'posts' => $posts
+        ]);
+    }
+
     #[Route('/post/edit/{post}')]
     function edit (Post $post, Request $request, EntityManagerInterface $em): Response
     {
