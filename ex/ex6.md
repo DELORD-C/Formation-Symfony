@@ -17,3 +17,4 @@ Traductions
 2. Créer des traductions françaises pour chaque phrase liée à la sécurité.
 3. La navbar doit être disponible en anglais et en français
 4. Les messages d'erreur de contrôle d'accès doivent être, eux aussi, traduits.
+5. La langue affichée doit dépendre de celle du navigateur.

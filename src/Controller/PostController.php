@@ -37,7 +37,7 @@ class PostController extends AbstractController
     }
 
     #[Route('/')]
-    function list (PostRepository $postRepository): Response
+    function list (PostRepository $postRepository, Request $request): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
