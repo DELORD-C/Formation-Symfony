@@ -1,0 +1,2 @@
+lucky:
+  number: "{0}There is nothing|{1}There is only one thing|]1,Inf[There is %count% things"

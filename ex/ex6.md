@@ -15,3 +15,5 @@ Traductions
 
 1. Récupérer toutes les chaînes de caractères à traduire en français via la commande prévue à cet effet.
 2. Créer des traductions françaises pour chaque phrase liée à la sécurité.
+3. La navbar doit être disponible en anglais et en français
+4. Les messages d'erreur de contrôle d'accès doivent être, eux aussi, traduits.
