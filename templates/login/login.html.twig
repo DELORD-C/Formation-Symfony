@@ -8,6 +8,7 @@
         {{ error.message }}
     {% endif %}
     <form method="post">
+        <input type="hidden" name="login[_token]" value="{{ csrf_token('login') }}">
         <label for="username">Email:</label>
         <input type="text" id="username" name="_username" value="{{ last_username }}"/>
 
