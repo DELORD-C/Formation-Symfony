@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Custom\Mailer;
 use App\Entity\Post;
+use App\Form\MailType;
 use App\Form\PostType;
 use App\Repository\PostRepository;
 use App\Repository\UserRepository;
@@ -10,6 +12,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class PostController extends AbstractController
@@ -98,5 +101,31 @@ class PostController extends AbstractController
         $em->remove($post);
         $em->flush();
         return $this->redirectToRoute('app_post_list');
+    }
+
+    /**
+     * @throws TransportExceptionInterface
+     */
+    #[Route('/contact')]
+    function contact (Request $request, Mailer $mailer): Response
+    {
+        $form = $this->createForm(MailType::class);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $mailer->sendMail(
+                $data['email'],
+                'admin@admin.fr',
+                'Contact',
+                $data['body']
+            );
+        }
+
+        return $this->renderForm('post/create.html.twig', [
+            'title' => 'Contact',
+            'form' => $form
+        ]);
     }
 }
