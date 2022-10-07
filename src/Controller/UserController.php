@@ -6,8 +6,10 @@ use App\Custom\Query;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use ContainerPx5IRsN\getKnpSnappy_PdfService;
 use Doctrine\DBAL\Exception;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -94,5 +96,19 @@ class UserController extends AbstractController
         $em->flush();
 
         return $this->redirectToRoute('app_user_list');
+    }
+
+    #[Route('/user/list/print')]
+    function printList (UserRepository $userRepository, Pdf $pdf): Response
+    {
+
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $users = $userRepository->findAll();
+        $html = $this->render('pdf/userList.html.twig', [
+            'title' => 'User list',
+            'users' => $users
+        ])->getContent();
+
+        return new Response($pdf->getOutputFromHtml($html), 200, ['Content-type'=>'application/pdf']);
     }
 }
