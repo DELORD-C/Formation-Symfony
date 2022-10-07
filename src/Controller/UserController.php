@@ -16,15 +16,20 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     #[Route('/user/list')]
-    function list (UserRepository $userRepository): Response
+    function list (UserRepository $userRepository, Request $request): Response
     {
         $this->denyAccessUnlessGranted('view', $this->getUser());
         $users = $userRepository->findAll();
 
-        return $this->render('user/list.html.twig', [
+        $response = $this->render('user/list.html.twig', [
             'title' => 'User list',
             'users' => $users
         ]);
+        $response->setEtag(md5($response->getContent()));
+        $response->setPublic();
+        $response->isNotModified($request);
+
+        return $response;
     }
 
     #[Route('/user/edit/{user}')]

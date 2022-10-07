@@ -100,9 +100,18 @@ class LuckyController extends AbstractController
      * @throws \Exception
      * @Route("/lucky/ip")
      */
-    public function ip (Request $request): Response
+    public function ip (): Response
     {
+        return $this->render(
+            'lucky/ip.html.twig',
+            [
+                'title' => 'IP'
+            ]
+        );
+    }
 
+    public function ipDynamic (Request $request): Response
+    {
         $ip = intval(substr($request->getClientIp(), -1));
 
         if ($ip % 2 == 0) {
@@ -113,9 +122,8 @@ class LuckyController extends AbstractController
         }
 
         return $this->render(
-            'lucky/ip.html.twig',
+            'lucky/ipDynamic.html.twig',
             [
-                'title' => 'IP',
                 'isPair' => $isPair
             ]
         );

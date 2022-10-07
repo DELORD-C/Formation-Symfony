@@ -34,10 +34,25 @@ class LoginController extends AbstractController
             return $this->redirectToRoute('app_post_list');
         }
 
+
+//        $response->setEtag(md5($response->getContent()));
+
+//        $response->setLastModified(new \DateTime());
+        $response = new Response();
+        $response->setPublic();
+
+
+//        $response->isNotModified($request);
+
+        if ($response->isNotModified($request)) {
+            return $response;
+        }
+
         return $this->renderForm('login/register.html.twig', [
             'title' => 'Register',
             'form' => $form
         ]);
+
     }
 
     #[Route('/login', name: 'app_login')]

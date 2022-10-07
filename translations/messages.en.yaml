@@ -13,3 +13,4 @@ nav:
   logout: Logout
   login: Login
   register: Register
+  ip: IP

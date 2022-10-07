@@ -43,10 +43,16 @@ class PostController extends AbstractController
 
         $posts = $postRepository->findAll();
 
-        return $this->render('post/list.html.twig', [
+        $response = $this->render('post/list.html.twig', [
             'title' => 'Post list',
             'posts' => $posts
         ]);
+
+        $response->setPublic();
+        $response->setMaxAge(3600);
+        $response->headers->addCacheControlDirective('must-revalidate', true);
+
+        return $response;
     }
 
     #[Route('/post/search')]

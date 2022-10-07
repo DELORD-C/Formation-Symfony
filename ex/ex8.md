@@ -7,3 +7,5 @@
 
 4. Si vous deviez utiliser le Edge Side Include à un maximum d'endroits, faites une liste de ceux-ci
 5. Bonus: Appliquer le Edge Side Include sur un maximum de modèles
+
+6. Activer la protection CSRF sur tous les formulaires de l'application
