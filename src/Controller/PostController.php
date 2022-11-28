@@ -21,7 +21,7 @@ class PostController extends AbstractController
     <form method='post'>
         <input type='text' name='subject'>
         <textarea name='body'></textarea>
-        <input type='submit' content='Create'>
+        <input type='submit' value='Create'>
     </form>        
 </body></html>
         ");
@@ -64,7 +64,7 @@ class PostController extends AbstractController
                 <td>
                     <a href="/post/' . $post->getId() . '">Show</a>
                     <form method="DELETE" action="/post/' . $post->getId() . '">
-                       <input type="submit" content="Delete">
+                       <input type="submit" value="Delete">
                     </form>
                 </td>
             </tr>
