@@ -1,8 +1,0 @@
-{% extends "base.html.twig" %}
-
-{% block title %}{{ parent() }}{{ title }}{% endblock %}
-
-{% block body %}
-{#    {{ render_esi(url('app_lucky_ipdynamic')) }}#}
-    {{ render_esi(controller('App\\Controller\\LuckyController::ipDynamic')) }}
-{% endblock %}
