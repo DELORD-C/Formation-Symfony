@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1386db36-ac82-4172-8df5-961fd657cca1" name="Changes" comment="Post create">
+    <list default="true" id="1386db36-ac82-4172-8df5-961fd657cca1" name="Changes" comment="Post list">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/PostController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PostController.php" afterDir="false" />
     </list>
@@ -48,7 +48,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1669624417330</updated>
-      <workItem from="1669624420460" duration="15553000" />
+      <workItem from="1669624420460" duration="16794000" />
     </task>
     <task id="LOCAL-00001" summary="Empty">
       <created>1669627246032</created>
@@ -106,7 +106,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669650679315</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Post list">
+      <created>1669651456855</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1669651456855</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -130,6 +137,7 @@
     <MESSAGE value="First Entity" />
     <MESSAGE value="Post display" />
     <MESSAGE value="Post create" />
-    <option name="LAST_COMMIT_MESSAGE" value="Post create" />
+    <MESSAGE value="Post list" />
+    <option name="LAST_COMMIT_MESSAGE" value="Post list" />
   </component>
 </project>

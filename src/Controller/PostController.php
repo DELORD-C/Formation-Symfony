@@ -52,6 +52,7 @@ class PostController extends AbstractController
         <th>Subject</th>
         <th>Body</th>
         <th>Date</th>
+        <th>Action</th>
     </tr>';
 
         foreach ($posts as $post) {
@@ -60,6 +61,12 @@ class PostController extends AbstractController
                 <td>' . $post->getSubject() . '</td>
                 <td>' . $post->getBody() . '</td>
                 <td>' . $post->getCreatedAt()->format('F d y') . '</td>
+                <td>
+                    <a href="/post/' . $post->getId() . '">Show</a>
+                    <form method="DELETE" action="/post/' . $post->getId() . '">
+                       <input type="submit" content="Delete">
+                    </form>
+                </td>
             </tr>
             ';
         }
@@ -68,6 +75,15 @@ class PostController extends AbstractController
         ';
 
         return new Response($response);
+    }
+
+    #[Route('/post/{post}', methods: ['DELETE'])]
+    public function delete (Post $post, ManagerRegistry $doctrine): Response
+    {
+        $em = $doctrine->getManager();
+        $em->remove($post);
+        $em->flush();
+        return new RedirectResponse('/post/list');
     }
 
     #[Route('/post/{post}')]
