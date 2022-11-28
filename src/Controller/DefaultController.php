@@ -4,14 +4,17 @@ namespace App\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Requirement\Requirement;
 
 class DefaultController
 {
-    #[Route('/default/random')]
-    public function random(): Response
+    #[Route('/default/{min}/{max<\d+>}', priority: 1)]
+    public function randomMinMax($min, int $max = 100): Response
     {
-        $number = random_int(0, 100);
+        if (!is_int($min))
+            $min = 0;
 
+        $number = random_int($min, $max);
         return new Response(
             '<html><body>Random number: ' . $number . '</body></html>'
         );
