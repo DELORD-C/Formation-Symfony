@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Post;
+use App\Repository\PostRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -41,7 +42,33 @@ class PostController extends AbstractController
         return new RedirectResponse("/post/create");
     }
 
+    #[Route('/post/list')]
+    public function list (PostRepository $postRepository): Response
+    {
+        $posts = $postRepository->findAll();
+        $response = '
+<html><body><table>
+    <tr>
+        <th>Subject</th>
+        <th>Body</th>
+        <th>Date</th>
+    </tr>';
 
+        foreach ($posts as $post) {
+            $response .= '
+            <tr>
+                <td>' . $post->getSubject() . '</td>
+                <td>' . $post->getBody() . '</td>
+                <td>' . $post->getCreatedAt()->format('F d y') . '</td>
+            </tr>
+            ';
+        }
+        $response .= '
+</table></body></html>
+        ';
+
+        return new Response($response);
+    }
 
     #[Route('/post/{post}')]
     public function show (Post $post): Response
