@@ -2,11 +2,12 @@
 
 namespace App\Controller;
 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 
-class DefaultController
+class DefaultController extends AbstractController
 {
     #[Route('/default/{min}/{max<\d+>}', priority: 1)]
     public function randomMinMax($min, int $max = 100): Response
@@ -15,8 +16,6 @@ class DefaultController
             $min = 0;
 
         $number = random_int($min, $max);
-        return new Response(
-            '<html><body>Random number: ' . $number . '</body></html>'
-        );
+        return $this->render('default/random.html.twig', ['random' => $number]);
     }
 }
