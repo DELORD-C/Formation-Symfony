@@ -104,4 +104,35 @@ class PostController extends AbstractController
     </tr>
 </table></body></html>');
     }
+
+    #[Route('/post/edit/{post}', methods: ['GET'])]
+    public function edit (Post $post): Response
+    {
+        return new Response("
+<html><body>
+    <form method='post'>
+        <input type='text' name='subject' value='" . $post->getSubject() . "'>
+        <textarea name='body' value='" . $post->getBody() . "'></textarea>
+        <input type='submit' value='Create'>
+    </form>        
+</body></html>
+        ");
+    }
+
+    #[Route('/post/edit/{post}', methods: ['POST'])]
+    public function update (
+        Post $post,
+        Request $request,
+        ManagerRegistry $doctrine
+    ): Response
+    {
+        $post->setBody($request->get('body'));
+        $post->setSubject($request->get('subject'));
+
+        $em = $doctrine->getManager();
+
+        $em->flush();
+
+        return new RedirectResponse("/post/list");
+    }
 }
