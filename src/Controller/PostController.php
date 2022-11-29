@@ -63,8 +63,8 @@ class PostController extends AbstractController
                 <td>' . $post->getCreatedAt()->format('F d y') . '</td>
                 <td>
                     <a href="/post/' . $post->getId() . '">Show</a>
-                    <form method="DELETE" action="/post/' . $post->getId() . '">
-                       <input type="submit" value="Delete">
+                    <form method="POST" action="/post/' . $post->getId() . '">
+                        <input type="submit" value="Delete">
                     </form>
                 </td>
             </tr>
@@ -77,7 +77,7 @@ class PostController extends AbstractController
         return new Response($response);
     }
 
-    #[Route('/post/{post}', methods: ['DELETE'])]
+    #[Route('/post/{post}', methods: ['POST'])]
     public function delete (Post $post, ManagerRegistry $doctrine): Response
     {
         $em = $doctrine->getManager();
@@ -86,7 +86,7 @@ class PostController extends AbstractController
         return new RedirectResponse('/post/list');
     }
 
-    #[Route('/post/{post}')]
+    #[Route('/post/{post}', methods: ['GET', 'HEAD'])]
     public function show (Post $post): Response
     {
         $date = $post->getCreatedAt()->format('F d y');
