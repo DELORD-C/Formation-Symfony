@@ -63,6 +63,7 @@ class PostController extends AbstractController
                 <td>' . $post->getCreatedAt()->format('F d y') . '</td>
                 <td>
                     <a href="/post/' . $post->getId() . '">Show</a>
+                    <a href="/post/edit/' . $post->getId() . '">Edit</a>
                     <form method="POST" action="/post/' . $post->getId() . '">
                         <input type="submit" value="Delete">
                     </form>

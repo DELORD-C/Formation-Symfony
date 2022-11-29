@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1386db36-ac82-4172-8df5-961fd657cca1" name="Changes" comment="Post delete &amp; actions">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="1386db36-ac82-4172-8df5-961fd657cca1" name="Changes" comment="Post edit &amp; update">
       <change beforePath="$PROJECT_DIR$/src/Controller/PostController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PostController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -191,7 +190,7 @@
       <updated>1669624417330</updated>
       <workItem from="1669624420460" duration="16845000" />
       <workItem from="1669653166825" duration="266000" />
-      <workItem from="1669709294212" duration="822000" />
+      <workItem from="1669709294212" duration="1099000" />
     </task>
     <task id="LOCAL-00001" summary="Empty">
       <created>1669627246032</created>
@@ -277,7 +276,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669709910794</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Post edit &amp; update">
+      <created>1669710353238</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1669710353238</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -304,6 +310,7 @@
     <MESSAGE value="Post create" />
     <MESSAGE value="Post list" />
     <MESSAGE value="Post delete &amp; actions" />
-    <option name="LAST_COMMIT_MESSAGE" value="Post delete &amp; actions" />
+    <MESSAGE value="Post edit &amp; update" />
+    <option name="LAST_COMMIT_MESSAGE" value="Post edit &amp; update" />
   </component>
 </project>
