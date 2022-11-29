@@ -1,0 +1,18 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Post Create{% endblock %}
+
+{%  block body %}
+    <table>
+        <tr>
+            <th>Subject</th>
+            <th>Body</th>
+            <th>Date</th>
+        </tr>
+        <tr>
+            <td>{{ post.subject }}</td>
+            <td>{{ post.body }}</td>
+            <td>{{ post.createdAt.format('F d Y') }}</td>
+        </tr>
+    </table>
+{% endblock %}

@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1386db36-ac82-4172-8df5-961fd657cca1" name="Changes" comment="Twig create &amp; list">
-      <change afterPath="$PROJECT_DIR$/templates/layout.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/post/edit.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/post/show.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/post/create.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/post/create.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/PostController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PostController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/post/list.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/post/list.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -167,13 +168,14 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates/post" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="project.scopes" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\admin stagiaire\Desktop\symfony\templates\post" />
       <recent name="C:\Users\admin stagiaire\Desktop\symfony" />
     </key>
   </component>
@@ -193,7 +195,7 @@
       <updated>1669624417330</updated>
       <workItem from="1669624420460" duration="16845000" />
       <workItem from="1669653166825" duration="266000" />
-      <workItem from="1669709294212" duration="3023000" />
+      <workItem from="1669709294212" duration="4667000" />
     </task>
     <task id="LOCAL-00001" summary="Empty">
       <created>1669627246032</created>
@@ -307,7 +309,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669711556009</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Twig create &amp; list">
+      <created>1669712555370</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1669712555370</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -53,34 +53,13 @@ class PostController extends AbstractController
     #[Route('/post/{post}', methods: ['GET', 'HEAD'])]
     public function show (Post $post): Response
     {
-        $date = $post->getCreatedAt()->format('F d y');
-        return new Response('
-<html><body><table>
-    <tr>
-        <th>Subject</th>
-        <th>Body</th>
-        <th>Date</th>
-    </tr>
-    <tr>
-        <td>' . $post->getSubject() . '</td>
-        <td>' . $post->getBody() . '</td>
-        <td>' . $date . '</td>
-    </tr>
-</table></body></html>');
+        return $this->render("post/show.html.twig", ['post' => $post]);
     }
 
     #[Route('/post/edit/{post}', methods: ['GET', 'HEAD'])]
     public function edit (Post $post): Response
     {
-        return new Response("
-<html><body>
-    <form method='post'>
-        <input type='text' name='subject' value='" . $post->getSubject() . "'>
-        <textarea name='body'>" . $post->getBody() . "</textarea>
-        <input type='submit' value='Edit'>
-    </form>        
-</body></html>
-        ");
+        return $this->render("post/edit.html.twig", ['post' => $post]);
     }
 
     #[Route('/post/edit/{post}', methods: ['POST'])]
