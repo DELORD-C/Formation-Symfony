@@ -15,6 +15,6 @@ class PostType extends AbstractType
         $builder
             ->add('subject', TextType::class)
             ->add('body', TextareaType::class)
-            ->add('save', SubmitType::class, ['label' => 'Create']);
+            ->add('save', SubmitType::class);
     }
 }

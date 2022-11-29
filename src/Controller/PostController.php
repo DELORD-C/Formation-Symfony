@@ -7,9 +7,6 @@ use App\Form\PostType;
 use App\Repository\PostRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use \Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,7 +18,7 @@ class PostController extends AbstractController
     public function create (): Response
     {
         $form = $this->createForm(PostType::class, new Post());
-        return $this->renderForm("post/form.html.twig", ['form' => $form]);
+        return $this->renderForm("post/form.html.twig", ['form' => $form, 'label' => 'Create']);
     }
 
     #[Route('/post/create', methods: ['POST'])]
@@ -65,7 +62,7 @@ class PostController extends AbstractController
     public function edit (Post $post): Response
     {
         $form = $this->createForm(PostType::class, $post);
-        return $this->renderForm("post/form.html.twig", ['form' => $form]);
+        return $this->renderForm("post/form.html.twig", ['form' => $form, 'label' => 'Edit']);
     }
 
     #[Route('/post/edit/{post}', methods: ['POST'])]

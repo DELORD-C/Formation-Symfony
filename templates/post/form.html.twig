@@ -3,5 +3,9 @@
 {% block title %}Post Create{% endblock %}
 
 {%  block body %}
-    {{ form(form) }}
+    {{ form_start(form) }}
+        {{ form_row(form.subject) }}
+        {{ form_row(form.body) }}
+        {{ form_row(form.save, {'label': label}) }}
+    {{ form_end(form) }}
 {% endblock %}
