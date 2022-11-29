@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Post;
 use App\Form\PostType;
+use App\Repository\CommentRepository;
 use App\Repository\PostRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -50,9 +51,10 @@ class PostController extends AbstractController
     }
 
     #[Route('/post/{post}', methods: ['GET', 'HEAD'])]
-    public function show (Post $post): Response
+    public function show (Post $post, CommentRepository $commentRepository): Response
     {
-        return $this->render("post/show.html.twig", ['post' => $post]);
+        $comments = $commentRepository->findBy(['post' => $post]);
+        return $this->render("post/show.html.twig", ['post' => $post, 'comments' => $comments]);
     }
 
     #[Route('/post/edit/{post}')]
