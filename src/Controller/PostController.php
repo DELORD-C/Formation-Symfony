@@ -16,15 +16,7 @@ class PostController extends AbstractController
     #[Route('/post/create', methods: ['GET', 'HEAD'])]
     public function create (): Response
     {
-        return new Response("
-<html><body>
-    <form method='post'>
-        <input type='text' name='subject'>
-        <textarea name='body'></textarea>
-        <input type='submit' value='Create'>
-    </form>        
-</body></html>
-        ");
+        return $this->render("post/create.html.twig");
     }
 
     #[Route('/post/create', methods: ['POST'])]
@@ -46,36 +38,7 @@ class PostController extends AbstractController
     public function list (PostRepository $postRepository): Response
     {
         $posts = $postRepository->findAll();
-        $response = '
-<html><body><table>
-    <tr>
-        <th>Subject</th>
-        <th>Body</th>
-        <th>Date</th>
-        <th>Action</th>
-    </tr>';
-
-        foreach ($posts as $post) {
-            $response .= '
-            <tr>
-                <td>' . $post->getSubject() . '</td>
-                <td>' . $post->getBody() . '</td>
-                <td>' . $post->getCreatedAt()->format('F d y') . '</td>
-                <td>
-                    <a href="/post/' . $post->getId() . '">Show</a>
-                    <a href="/post/edit/' . $post->getId() . '">Edit</a>
-                    <form method="POST" action="/post/' . $post->getId() . '">
-                        <input type="submit" value="Delete">
-                    </form>
-                </td>
-            </tr>
-            ';
-        }
-        $response .= '
-</table></body></html>
-        ';
-
-        return new Response($response);
+        return $this->render("post/list.html.twig", ['posts' => $posts]);
     }
 
     #[Route('/post/{post}', methods: ['POST'])]
@@ -106,7 +69,7 @@ class PostController extends AbstractController
 </table></body></html>');
     }
 
-    #[Route('/post/edit/{post}', methods: ['GET'])]
+    #[Route('/post/edit/{post}', methods: ['GET', 'HEAD'])]
     public function edit (Post $post): Response
     {
         return new Response("

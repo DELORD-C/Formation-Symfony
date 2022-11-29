@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1386db36-ac82-4172-8df5-961fd657cca1" name="Changes" comment="Post edit &amp; update add link">
+    <list default="true" id="1386db36-ac82-4172-8df5-961fd657cca1" name="Changes" comment="Post edit &amp; update edit link">
+      <change afterPath="$PROJECT_DIR$/templates/post/create.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/post/list.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/PostController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PostController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -190,7 +193,7 @@
       <updated>1669624417330</updated>
       <workItem from="1669624420460" duration="16845000" />
       <workItem from="1669653166825" duration="266000" />
-      <workItem from="1669709294212" duration="1178000" />
+      <workItem from="1669709294212" duration="2225000" />
     </task>
     <task id="LOCAL-00001" summary="Empty">
       <created>1669627246032</created>
@@ -290,7 +293,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669710414613</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Post edit &amp; update edit link">
+      <created>1669710527716</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1669710527716</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -319,6 +329,7 @@
     <MESSAGE value="Post delete &amp; actions" />
     <MESSAGE value="Post edit &amp; update" />
     <MESSAGE value="Post edit &amp; update add link" />
-    <option name="LAST_COMMIT_MESSAGE" value="Post edit &amp; update add link" />
+    <MESSAGE value="Post edit &amp; update edit link" />
+    <option name="LAST_COMMIT_MESSAGE" value="Post edit &amp; update edit link" />
   </component>
 </project>
