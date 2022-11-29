@@ -1,9 +1,11 @@
-<html>
-    <body>
+{% extends 'layout.html.twig' %}
+
+{% block title %}Post Create{% endblock %}
+
+{%  block body %}
     <form method='post'>
         <input type='text' name='subject'>
         <textarea name='body'></textarea>
         <input type='submit' value='Create'>
     </form>
-    </body>
-</html>
+{% endblock %}

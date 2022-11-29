@@ -1,5 +1,8 @@
-<html>
-<body>
+{% extends 'layout.html.twig' %}
+
+{% block title %}Post List{% endblock %}
+
+{% block body %}
     <table>
         <tr>
             <th>Subject</th>
@@ -13,14 +16,14 @@
             <td>{{ post.body }}</td>
             <td>{{ post.createdAt.format('F d y') }}</td>
             <td>
-                <a href="/post/{{ post.id }}">Show</a>
-                <a href="/post/edit/{{ post.id }}">Edit</a>
-                <form method="POST" action="/post/{{ post.id }}">
+                <a href="{{ path('app_post_show', {'post': post.id}) }}">Show</a>
+                <a href="{{ path('app_post_edit', {'post': post.id}) }}">Edit</a>
+                <form method="POST" action="{{ path('app_post_delete', {'post': post.id}) }}">
                     <input type="submit" value="Delete">
                 </form>
             </td>
         </tr>
         {% endfor %}
     </table>
-</body>
-</html>
+    <a href="{{ path('app_post_create') }}"></a>
+{% endblock %}
