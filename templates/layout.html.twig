@@ -6,7 +6,10 @@
         {{ encore_entry_link_tags('app') }}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        {% include 'parts/navbar.html.twig' %}
+        <div class="container-fluid p-1">
+            {% block body %}{% endblock %}
+        </div>
         {{ encore_entry_script_tags('app') }}
     </body>
 </html>

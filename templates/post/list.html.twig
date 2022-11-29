@@ -3,7 +3,7 @@
 {% block title %}Post List{% endblock %}
 
 {% block body %}
-    <table>
+    <table class="table">
         <tr>
             <th>Subject</th>
             <th>Body</th>
@@ -16,23 +16,14 @@
             <td>{{ post.body }}</td>
             <td>{{ post.createdAt.format('F d y') }}</td>
             <td>
-                <a href="{{ path('app_post_show', {'post': post.id}) }}">Show</a>
-                <a href="{{ path('app_post_edit', {'post': post.id}) }}">Edit</a>
                 <form method="POST" action="{{ path('app_post_delete', {'post': post.id}) }}">
-                    <input type="submit" value="Delete">
+                    <a class="btn btn-primary" href="{{ path('app_post_show', {'post': post.id}) }}">Show</a>
+                    <a class="btn btn-primary" href="{{ path('app_post_edit', {'post': post.id}) }}">Edit</a>
+                    <input class="btn btn-danger" type="submit" value="Delete">
                 </form>
             </td>
         </tr>
         {% endfor %}
     </table>
-    <a href="{{ path('app_post_create') }}">Create</a>
-    <div class="form-floating mb-3">
-        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-        <label for="floatingInput">Email address</label>
-    </div>
-    <div class="form-floating">
-        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-        <label for="floatingPassword">Password</label>
-    </div>
-    <i class="bi bi-0-circle-fill"></i>
+    <a class="btn btn-primary" href="{{ path('app_post_create') }}">Create</a>
 {% endblock %}

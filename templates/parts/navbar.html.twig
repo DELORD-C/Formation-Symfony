@@ -1,0 +1,24 @@
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Symfony</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link {% if(app.request.attributes.get('_route') == 'app_default_randomminmax') %} active{% endif %}" aria-current="page" href="{{ path('app_default_randomminmax', {'min':'random'}) }}">Random</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Post
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item{% if(app.request.attributes.get('_route') == 'app_post_create') %} active{% endif %}" href="{{ path('app_post_create') }}">Create</a></li>
+                        <li><a class="dropdown-item{% if(app.request.attributes.get('_route') == 'app_post_list') %} active{% endif %}" href="{{ path('app_post_list') }}">List</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
