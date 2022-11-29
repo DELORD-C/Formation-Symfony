@@ -27,7 +27,7 @@ class PostController extends AbstractController
             $em = $doctrine->getManager();
             $em->persist($post);
             $em->flush();
-            return new RedirectResponse("/post/create");
+            return new RedirectResponse("/post/list");
         }
 
         return $this->renderForm("post/form.html.twig", ['form' => $form, 'label' => 'Create']);

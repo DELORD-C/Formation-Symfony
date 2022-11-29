@@ -3,8 +3,10 @@
     <head>
         <meta charset="UTF-8">
         <title>Symfony - {% block title %}Default{% endblock %}</title>
+        {{ encore_entry_link_tags('app') }}
     </head>
     <body>
         {% block body %}{% endblock %}
+        {{ encore_entry_script_tags('app') }}
     </body>
 </html>
