@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1386db36-ac82-4172-8df5-961fd657cca1" name="Changes" comment="FormType">
+    <list default="true" id="1386db36-ac82-4172-8df5-961fd657cca1" name="Changes" comment="Custom label">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/PostController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PostController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/PostType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/PostType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/post/form.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/post/form.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -194,7 +192,7 @@
       <updated>1669624417330</updated>
       <workItem from="1669624420460" duration="16845000" />
       <workItem from="1669653166825" duration="266000" />
-      <workItem from="1669709294212" duration="7450000" />
+      <workItem from="1669709294212" duration="8051000" />
     </task>
     <task id="LOCAL-00001" summary="Empty">
       <created>1669627246032</created>
@@ -329,7 +327,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669715474305</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Custom label">
+      <created>1669717099710</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1669717099710</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -362,6 +367,7 @@
     <MESSAGE value="Twig create &amp; list" />
     <MESSAGE value="Twig show &amp; edit" />
     <MESSAGE value="FormType" />
-    <option name="LAST_COMMIT_MESSAGE" value="FormType" />
+    <MESSAGE value="Custom label" />
+    <option name="LAST_COMMIT_MESSAGE" value="Custom label" />
   </component>
 </project>

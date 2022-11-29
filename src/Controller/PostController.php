@@ -14,26 +14,23 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PostController extends AbstractController
 {
-    #[Route('/post/create', methods: ['GET', 'HEAD'])]
-    public function create (): Response
-    {
-        $form = $this->createForm(PostType::class, new Post());
-        return $this->renderForm("post/form.html.twig", ['form' => $form, 'label' => 'Create']);
-    }
-
-    #[Route('/post/create', methods: ['POST'])]
-    public function store (Request $request, ManagerRegistry $doctrine): Response
+    #[Route('/post/create')]
+    public function create (Request $request, ManagerRegistry $doctrine): Response
     {
         $post = new Post();
-        $post->setBody($request->get('body'));
-        $post->setSubject($request->get('subject'));
+        $form = $this->createForm(PostType::class, $post);
 
-        $em = $doctrine->getManager();
+        $form->handleRequest($request);
 
-        $em->persist($post);
-        $em->flush();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $post = $form->getData();
+            $em = $doctrine->getManager();
+            $em->persist($post);
+            $em->flush();
+            return new RedirectResponse("/post/create");
+        }
 
-        return new RedirectResponse("/post/create");
+        return $this->renderForm("post/form.html.twig", ['form' => $form, 'label' => 'Create']);
     }
 
     #[Route('/post/list')]
