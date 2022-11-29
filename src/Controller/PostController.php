@@ -113,8 +113,8 @@ class PostController extends AbstractController
 <html><body>
     <form method='post'>
         <input type='text' name='subject' value='" . $post->getSubject() . "'>
-        <textarea name='body' value='" . $post->getBody() . "'></textarea>
-        <input type='submit' value='Create'>
+        <textarea name='body'>" . $post->getBody() . "</textarea>
+        <input type='submit' value='Edit'>
     </form>        
 </body></html>
         ");
