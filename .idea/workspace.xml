@@ -1,26 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1386db36-ac82-4172-8df5-961fd657cca1" name="Changes" comment="clean">
-      <change afterPath="$PROJECT_DIR$/migrations/Version20221130145925.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/migrations/Version20221130150037.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/migrations/Version20221130150122.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/migrations/Version20221130150318.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/UserController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Form/UserType.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/UserRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/user/form.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/user/list.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/user/show.html.twig" afterDir="false" />
+    <list default="true" id="1386db36-ac82-4172-8df5-961fd657cca1" name="Changes" comment="User crud with relations">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/framework.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/framework.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/PostController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PostController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Comment.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Comment.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Post.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Post.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/parts/navbar.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/parts/navbar.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/post/form.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/post/form.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/post/list.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/post/list.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/UserController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -216,7 +199,7 @@
       <workItem from="1669653166825" duration="266000" />
       <workItem from="1669709294212" duration="21531000" />
       <workItem from="1669737458046" duration="72000" />
-      <workItem from="1669795428435" duration="11676000" />
+      <workItem from="1669795428435" duration="11849000" />
     </task>
     <task id="LOCAL-00001" summary="Empty">
       <created>1669627246032</created>
@@ -442,7 +425,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669804002396</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="User crud with relations">
+      <created>1669822250423</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1669822250423</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -485,6 +475,7 @@
     <MESSAGE value="flash" />
     <MESSAGE value="flashs" />
     <MESSAGE value="clean" />
-    <option name="LAST_COMMIT_MESSAGE" value="clean" />
+    <MESSAGE value="User crud with relations" />
+    <option name="LAST_COMMIT_MESSAGE" value="User crud with relations" />
   </component>
 </project>

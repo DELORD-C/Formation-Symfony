@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
-use App\Repository\CommentRepository;
 use App\Repository\UserRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     #[Route('/user/create')]
-    public function create (Request $request, ManagerRegistry $doctrine, UserRepository $userRepository): Response
+    public function create (Request $request, ManagerRegistry $doctrine): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
