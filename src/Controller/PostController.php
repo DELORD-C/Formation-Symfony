@@ -31,7 +31,7 @@ class PostController extends AbstractController
             $em->persist($post);
             $em->flush();
 
-            $this->addFlash('error', 'Post successfully created !');
+            $this->addFlash('notice', 'Post successfully created !');
 
             return new RedirectResponse("/post/list");
         }
@@ -52,11 +52,17 @@ class PostController extends AbstractController
         $em = $doctrine->getManager();
         $em->remove($post);
         $em->flush();
+        $this->addFlash('notice', 'Post successfully deleted !');
         return new RedirectResponse('/post/list');
     }
 
     #[Route('/post/{post}')]
-    public function show (Post $post, CommentRepository $commentRepository, Request $request, ManagerRegistry $doctrine): Response
+    public function show (
+        Post $post,
+        CommentRepository $commentRepository,
+        Request $request,
+        ManagerRegistry $doctrine
+    ): Response
     {
         $comment = new Comment();
 
@@ -70,6 +76,7 @@ class PostController extends AbstractController
             $em = $doctrine->getManager();
             $em->persist($comment);
             $em->flush();
+            $this->addFlash('notice', 'Comment successfully created !');
             return $this->redirectToRoute('app_post_show', ['post' => $post->getId()]);
         }
 
@@ -96,6 +103,7 @@ class PostController extends AbstractController
             $post = $form->getData();
             $em = $doctrine->getManager();
             $em->flush();
+            $this->addFlash('notice', 'Post successfully updated !');
             return new RedirectResponse("/post/list");
         }
 
