@@ -39,6 +39,16 @@ class CommentRepository extends ServiceEntityRepository
         }
     }
 
+    function countPostComments(int $postId): int
+    {
+        return $this->createQueryBuilder('c')
+            ->select('count(c.id)')
+            ->where('c.post = :postId')
+            ->setParameter('postId', $postId)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
 //    /**
 //     * @return Comment[] Returns an array of Comment objects
 //     */

@@ -43,7 +43,7 @@ class PostRepository extends ServiceEntityRepository
     public function findAllWithCommentsCount (CommentRepository $commentRepository) {
         $posts = $this->findAll();
         foreach ($posts as $post) {
-            $post->nbComments = count($commentRepository->findBy(['post' => $post]));
+            $post->nbComments = $commentRepository->countPostComments($post->getId());
         }
         return $posts;
     }
