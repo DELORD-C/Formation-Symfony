@@ -8,6 +8,7 @@
     <body>
         {% include 'parts/navbar.html.twig' %}
         <div class="container-fluid p-1">
+            {% include 'parts/flash.html.twig' %}
             {% block body %}{% endblock %}
         </div>
         {{ encore_entry_script_tags('app') }}

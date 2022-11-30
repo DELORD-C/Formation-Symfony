@@ -30,6 +30,9 @@ class PostController extends AbstractController
             $em = $doctrine->getManager();
             $em->persist($post);
             $em->flush();
+
+            $this->addFlash('error', 'Post successfully created !');
+
             return new RedirectResponse("/post/list");
         }
 
