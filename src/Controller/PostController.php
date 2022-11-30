@@ -8,6 +8,7 @@ use App\Form\CommentType;
 use App\Form\PostType;
 use App\Repository\CommentRepository;
 use App\Repository\PostRepository;
+use App\Repository\UserRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -18,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class PostController extends AbstractController
 {
     #[Route('/post/create')]
-    public function create (Request $request, ManagerRegistry $doctrine): Response
+    public function create (Request $request, ManagerRegistry $doctrine, UserRepository $userRepository): Response
     {
         $post = new Post();
         $form = $this->createForm(PostType::class, $post);
@@ -27,6 +28,7 @@ class PostController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $post = $form->getData();
+            $post->setUser($userRepository->find(1));
             $em = $doctrine->getManager();
             $em->persist($post);
             $em->flush();
@@ -60,6 +62,7 @@ class PostController extends AbstractController
     public function show (
         Post $post,
         CommentRepository $commentRepository,
+        UserRepository $userRepository,
         Request $request,
         ManagerRegistry $doctrine
     ): Response
@@ -73,6 +76,7 @@ class PostController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $comment = $form->getData();
             $comment->setPost($post);
+            $comment->setUser($userRepository->find(1));
             $em = $doctrine->getManager();
             $em->persist($comment);
             $em->flush();

@@ -4,6 +4,7 @@
 
 {%  block body %}
     {{ form_start(form) }}
+        {{ form_errors(form) }}
         {{ form_row(form.subject) }}
         {{ form_row(form.body) }}
         {{ form_row(form.save, {'label': label}) }}

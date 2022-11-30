@@ -1,9 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1386db36-ac82-4172-8df5-961fd657cca1" name="Changes" comment="flashs">
+    <list default="true" id="1386db36-ac82-4172-8df5-961fd657cca1" name="Changes" comment="clean">
+      <change afterPath="$PROJECT_DIR$/migrations/Version20221130145925.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/migrations/Version20221130150037.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/migrations/Version20221130150122.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/migrations/Version20221130150318.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/UserController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Form/UserType.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Repository/UserRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/user/form.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/user/list.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/user/show.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/framework.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/framework.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/PostController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PostController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Comment.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Comment.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Post.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Post.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/parts/navbar.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/parts/navbar.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/post/form.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/post/form.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/post/list.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/post/list.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -167,14 +184,16 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="add_unversioned_files" value="$PROJECT_DIR$/.env.local" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/Form" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/Controller" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="project.scopes" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\admin stagiaire\Desktop\symfony\src\Controller" />
       <recent name="C:\Users\admin stagiaire\Desktop\symfony\src\Form" />
+      <recent name="C:\Users\admin stagiaire\Desktop\symfony\templates" />
       <recent name="C:\Users\admin stagiaire\Desktop\symfony\templates\post" />
       <recent name="C:\Users\admin stagiaire\Desktop\symfony" />
     </key>
@@ -197,7 +216,7 @@
       <workItem from="1669653166825" duration="266000" />
       <workItem from="1669709294212" duration="21531000" />
       <workItem from="1669737458046" duration="72000" />
-      <workItem from="1669795428435" duration="7101000" />
+      <workItem from="1669795428435" duration="11676000" />
     </task>
     <task id="LOCAL-00001" summary="Empty">
       <created>1669627246032</created>
@@ -416,7 +435,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669803109309</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="clean">
+      <created>1669804002396</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1669804002396</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -458,6 +484,7 @@
     <MESSAGE value="comment count" />
     <MESSAGE value="flash" />
     <MESSAGE value="flashs" />
-    <option name="LAST_COMMIT_MESSAGE" value="flashs" />
+    <MESSAGE value="clean" />
+    <option name="LAST_COMMIT_MESSAGE" value="clean" />
   </component>
 </project>
