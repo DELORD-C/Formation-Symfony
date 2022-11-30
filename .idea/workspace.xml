@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1386db36-ac82-4172-8df5-961fd657cca1" name="Changes" comment="flash">
+    <list default="true" id="1386db36-ac82-4172-8df5-961fd657cca1" name="Changes" comment="flashs">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/PostController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PostController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Post.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Post.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -197,7 +197,7 @@
       <workItem from="1669653166825" duration="266000" />
       <workItem from="1669709294212" duration="21531000" />
       <workItem from="1669737458046" duration="72000" />
-      <workItem from="1669795428435" duration="6307000" />
+      <workItem from="1669795428435" duration="7101000" />
     </task>
     <task id="LOCAL-00001" summary="Empty">
       <created>1669627246032</created>
@@ -409,7 +409,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669802445657</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="flashs">
+      <created>1669803109309</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1669803109309</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -450,6 +457,7 @@
     <MESSAGE value="relations + comments on show" />
     <MESSAGE value="comment count" />
     <MESSAGE value="flash" />
-    <option name="LAST_COMMIT_MESSAGE" value="flash" />
+    <MESSAGE value="flashs" />
+    <option name="LAST_COMMIT_MESSAGE" value="flashs" />
   </component>
 </project>
