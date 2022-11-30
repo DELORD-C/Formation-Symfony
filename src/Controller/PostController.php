@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Post;
+use App\Form\CommentType;
 use App\Form\PostType;
 use App\Repository\CommentRepository;
 use App\Repository\PostRepository;
@@ -35,13 +37,13 @@ class PostController extends AbstractController
     }
 
     #[Route('/post/list')]
-    public function list (PostRepository $postRepository): Response
+    public function list (PostRepository $postRepository, CommentRepository $commentRepository): Response
     {
-        $posts = $postRepository->findAll();
+        $posts = $postRepository->findAllWithCommentsCount($commentRepository);
         return $this->render("post/list.html.twig", ['posts' => $posts]);
     }
 
-    #[Route('/post/{post}', methods: ['POST'])]
+    #[Route('/post/delete/{post}', methods: ['POST'])]
     public function delete (Post $post, ManagerRegistry $doctrine): Response
     {
         $em = $doctrine->getManager();
@@ -50,11 +52,30 @@ class PostController extends AbstractController
         return new RedirectResponse('/post/list');
     }
 
-    #[Route('/post/{post}', methods: ['GET', 'HEAD'])]
-    public function show (Post $post, CommentRepository $commentRepository): Response
+    #[Route('/post/{post}')]
+    public function show (Post $post, CommentRepository $commentRepository, Request $request, ManagerRegistry $doctrine): Response
     {
+        $comment = new Comment();
+
+        $form = $this->createForm(CommentType::class, $comment);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment = $form->getData();
+            $comment->setPost($post);
+            $em = $doctrine->getManager();
+            $em->persist($comment);
+            $em->flush();
+            return $this->redirectToRoute('app_post_show', ['post' => $post->getId()]);
+        }
+
         $comments = $commentRepository->findBy(['post' => $post]);
-        return $this->render("post/show.html.twig", ['post' => $post, 'comments' => $comments]);
+        return $this->renderForm("post/show.html.twig", [
+            'post' => $post,
+            'comments' => $comments,
+            'form' => $form
+        ]);
     }
 
     #[Route('/post/edit/{post}')]

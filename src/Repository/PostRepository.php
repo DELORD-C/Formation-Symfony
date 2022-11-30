@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Comment;
 use App\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -37,6 +38,14 @@ class PostRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function findAllWithCommentsCount (CommentRepository $commentRepository) {
+        $posts = $this->findAll();
+        foreach ($posts as $post) {
+            $post->nbComments = count($commentRepository->findBy(['post' => $post]));
+        }
+        return $posts;
     }
 
 //    /**

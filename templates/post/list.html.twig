@@ -8,6 +8,7 @@
             <th>Subject</th>
             <th>Body</th>
             <th>Date</th>
+            <th>Comments count</th>
             <th>Action</th>
         </tr>
         {% for post in posts %}
@@ -15,6 +16,7 @@
             <td>{{ post.subject }}</td>
             <td>{{ post.body }}</td>
             <td>{{ post.createdAt.format('F d y') }}</td>
+            <td>{{ post.nbComments }}</td>
             <td>
                 <form method="POST" action="{{ path('app_post_delete', {'post': post.id}) }}">
                     <a class="btn btn-primary" href="{{ path('app_post_show', {'post': post.id}) }}">Show</a>
