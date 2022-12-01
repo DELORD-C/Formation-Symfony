@@ -40,8 +40,10 @@
                         </ul>
                     </li>
                 {% endif %}
-
                 {% if(is_granted('ROLE_USER')) %}
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{{ path('app_user_edit', {'user' : app.user.id}) }}">Profil</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="{{ path('app_logout') }}">Logout</a>
                     </li>

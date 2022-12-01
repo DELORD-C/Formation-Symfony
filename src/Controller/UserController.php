@@ -19,6 +19,7 @@ class UserController extends AbstractController
     #[Route('/user/create')]
     public function create (Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $passwordHasher): Response
     {
+        $this->denyAccessUnlessGranted('admin', new User());
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
 
@@ -44,6 +45,7 @@ class UserController extends AbstractController
     #[Route('/user/list')]
     public function list (UserRepository $userRepository): Response
     {
+        $this->denyAccessUnlessGranted('admin', new User());
         $users = $userRepository->findAll();
         return $this->render("user/list.html.twig", ['users' => $users]);
     }
@@ -51,6 +53,7 @@ class UserController extends AbstractController
     #[Route('/user/delete/{user}', methods: ['POST'])]
     public function delete (User $user, ManagerRegistry $doctrine): Response
     {
+        $this->denyAccessUnlessGranted('admin', $user);
         $em = $doctrine->getManager();
         $em->remove($user);
         $em->flush();
@@ -61,6 +64,7 @@ class UserController extends AbstractController
     #[Route('/user/{user}')]
     public function show (User $user): Response
     {
+        $this->denyAccessUnlessGranted('admin', $user);
         return $this->render("user/show.html.twig", [
             'user' => $user,
         ]);
@@ -73,8 +77,8 @@ class UserController extends AbstractController
         ManagerRegistry $doctrine
     ): Response
     {
-        $form = $this->createForm(UserType::class, $user);
-
+        $this->denyAccessUnlessGranted('edit', $user);
+        $form = $this->createForm(UserType::class, $user, ['admin' => ($this->isGranted('ROLE_ADMIN') && $this->getUser() !== $user)]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
