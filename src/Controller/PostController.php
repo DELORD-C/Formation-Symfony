@@ -21,6 +21,7 @@ class PostController extends AbstractController
     #[Route('/post/create')]
     public function create (Request $request, ManagerRegistry $doctrine, UserRepository $userRepository): Response
     {
+        $this->denyAccessUnlessGranted('create', new Post());
         $post = new Post();
         $form = $this->createForm(PostType::class, $post);
 
@@ -28,7 +29,7 @@ class PostController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $post = $form->getData();
-            $post->setUser($userRepository->find(1));
+            $post->setUser($this->getUser());
             $em = $doctrine->getManager();
             $em->persist($post);
             $em->flush();
@@ -44,6 +45,8 @@ class PostController extends AbstractController
     #[Route('/post/list')]
     public function list (PostRepository $postRepository, CommentRepository $commentRepository): Response
     {
+//        dump($this->isGranted('show', new Post()));
+        $this->denyAccessUnlessGranted('show', new Post());
         $posts = $postRepository->findAllWithCommentsCount($commentRepository);
         return $this->render("post/list.html.twig", ['posts' => $posts]);
     }
@@ -51,6 +54,7 @@ class PostController extends AbstractController
     #[Route('/post/delete/{post}', methods: ['POST'])]
     public function delete (Post $post, ManagerRegistry $doctrine): Response
     {
+        $this->denyAccessUnlessGranted('edit', $post);
         $em = $doctrine->getManager();
         $em->remove($post);
         $em->flush();
@@ -67,6 +71,7 @@ class PostController extends AbstractController
         ManagerRegistry $doctrine
     ): Response
     {
+        $this->denyAccessUnlessGranted('create', new Post());
         $comment = new Comment();
 
         $form = $this->createForm(CommentType::class, $comment);
@@ -76,7 +81,7 @@ class PostController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $comment = $form->getData();
             $comment->setPost($post);
-            $comment->setUser($userRepository->find(1));
+            $comment->setUser($this->getUser());
             $em = $doctrine->getManager();
             $em->persist($comment);
             $em->flush();
@@ -99,6 +104,7 @@ class PostController extends AbstractController
         ManagerRegistry $doctrine
     ): Response
     {
+        $this->denyAccessUnlessGranted('edit', $post);
         $form = $this->createForm(PostType::class, $post);
 
         $form->handleRequest($request);
