@@ -18,4 +18,10 @@ class DefaultController extends AbstractController
         $number = random_int($min, $max);
         return $this->render('default/random.html.twig', ['random' => $number]);
     }
+
+    #[Route('/')]
+    public function index(): Response
+    {
+        return $this->render('index.html.twig');
+    }
 }

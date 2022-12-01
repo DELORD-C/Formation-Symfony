@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1386db36-ac82-4172-8df5-961fd657cca1" name="Changes" comment="Login form">
+    <list default="true" id="1386db36-ac82-4172-8df5-961fd657cca1" name="Changes" comment="Logout">
+      <change afterPath="$PROJECT_DIR$/templates/index.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/layout.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/layout.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/parts/flash.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/parts/_flash.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/parts/navbar.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/parts/_navbar.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/DefaultController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/DefaultController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -171,7 +168,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="add_unversioned_files" value="$PROJECT_DIR$/.env.local" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/Controller" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
     <property name="settings.editor.selected.configurable" value="project.scopes" />
@@ -179,9 +176,9 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\admin stagiaire\Desktop\symfony\templates" />
       <recent name="C:\Users\admin stagiaire\Desktop\symfony\src\Controller" />
       <recent name="C:\Users\admin stagiaire\Desktop\symfony\src\Form" />
-      <recent name="C:\Users\admin stagiaire\Desktop\symfony\templates" />
       <recent name="C:\Users\admin stagiaire\Desktop\symfony\templates\post" />
       <recent name="C:\Users\admin stagiaire\Desktop\symfony" />
     </key>
@@ -206,7 +203,7 @@
       <workItem from="1669737458046" duration="72000" />
       <workItem from="1669795428435" duration="11897000" />
       <workItem from="1669822438722" duration="1212000" />
-      <workItem from="1669881787105" duration="5309000" />
+      <workItem from="1669881787105" duration="6144000" />
     </task>
     <task id="LOCAL-00001" summary="Empty">
       <created>1669627246032</created>
@@ -467,7 +464,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669887376166</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="Logout">
+      <created>1669888722164</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1669888722164</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -487,7 +491,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="First Entity" />
     <MESSAGE value="Post display" />
     <MESSAGE value="Post create" />
     <MESSAGE value="Post list" />
@@ -512,6 +515,7 @@
     <MESSAGE value="entity test + make crud" />
     <MESSAGE value="entity user update" />
     <MESSAGE value="Login form" />
-    <option name="LAST_COMMIT_MESSAGE" value="Login form" />
+    <MESSAGE value="Logout" />
+    <option name="LAST_COMMIT_MESSAGE" value="Logout" />
   </component>
 </project>
