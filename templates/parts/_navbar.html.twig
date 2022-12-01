@@ -9,33 +9,38 @@
                 <li class="nav-item">
                     <a class="nav-link {% if(app.request.attributes.get('_route') == 'app_default_randomminmax') %} active{% endif %}" aria-current="page" href="{{ path('app_default_randomminmax', {'min':'random'}) }}">Random</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Post
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item{% if(app.request.attributes.get('_route') == 'app_post_create') %} active{% endif %}" href="{{ path('app_post_create') }}">Create</a></li>
-                        <li><a class="dropdown-item{% if(app.request.attributes.get('_route') == 'app_post_list') %} active{% endif %}" href="{{ path('app_post_list') }}">List</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        User
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item{% if(app.request.attributes.get('_route') == 'app_user_create') %} active{% endif %}" href="{{ path('app_user_create') }}">Create</a></li>
-                        <li><a class="dropdown-item{% if(app.request.attributes.get('_route') == 'app_user_list') %} active{% endif %}" href="{{ path('app_user_list') }}">List</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Test
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item{% if(app.request.attributes.get('_route') == 'app_test_create') %} active{% endif %}" href="{{ path('app_test_create') }}">Create</a></li>
-                        <li><a class="dropdown-item{% if(app.request.attributes.get('_route') == 'app_test_list') %} active{% endif %}" href="{{ path('app_test_list') }}">List</a></li>
-                    </ul>
-                </li>
+                {% if (is_granted('ROLE_USER')) %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Post
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item{% if(app.request.attributes.get('_route') == 'app_post_create') %} active{% endif %}" href="{{ path('app_post_create') }}">Create</a></li>
+                            <li><a class="dropdown-item{% if(app.request.attributes.get('_route') == 'app_post_list') %} active{% endif %}" href="{{ path('app_post_list') }}">List</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Test
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item{% if(app.request.attributes.get('_route') == 'app_test_create') %} active{% endif %}" href="{{ path('app_test_create') }}">Create</a></li>
+                            <li><a class="dropdown-item{% if(app.request.attributes.get('_route') == 'app_test_list') %} active{% endif %}" href="{{ path('app_test_list') }}">List</a></li>
+                        </ul>
+                    </li>
+                {% endif %}
+                {% if (is_granted('ROLE_ADMIN')) %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            User
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item{% if(app.request.attributes.get('_route') == 'app_user_create') %} active{% endif %}" href="{{ path('app_user_create') }}">Create</a></li>
+                            <li><a class="dropdown-item{% if(app.request.attributes.get('_route') == 'app_user_list') %} active{% endif %}" href="{{ path('app_user_list') }}">List</a></li>
+                        </ul>
+                    </li>
+                {% endif %}
+
                 {% if(is_granted('ROLE_USER')) %}
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="{{ path('app_logout') }}">Logout</a>
