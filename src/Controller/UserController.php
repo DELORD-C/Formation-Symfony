@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -104,5 +105,25 @@ class UserController extends AbstractController
     public function logout()
     {
         throw new \Exception('THIS SHALL NOT BE.');
+    }
+
+    #[Route('/user/toggle/{user}')]
+    public function toggleAdmin(User $user, ManagerRegistry $doctrine): Response
+    {
+        if ($user === $this->getUser()) {
+            $this->addFlash('error', 'You can\' change your own rights');
+            return $this->redirectToRoute('app_user_list');
+        }
+
+        if (in_array('ROLE_ADMIN', $user->getRoles())) {
+            $user->setRoles([]);
+        }
+        else {
+            $user->setRoles(["ROLE_ADMIN"]);
+        }
+        $em = $doctrine->getManager();
+        $em->flush();
+
+        return $this->redirectToRoute('app_user_list');
     }
 }
