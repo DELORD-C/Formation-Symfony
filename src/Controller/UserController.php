@@ -90,7 +90,14 @@ class UserController extends AbstractController
     #[Route('/login', name: 'app_login')]
     public function login(): Response
     {
-        return $this->render('auth/login.html.twig');
+//        if (in_array('ROLE_USER', $this->getUser()->getRoles())) {
+        if ($this->isGranted('ROLE_USER')) {
+            $this->addFlash('error', 'You are already logged in');
+            return $this->redirectToRoute('app_post_list');
+        }
+        else {
+            return $this->render('auth/login.html.twig');
+        }
     }
 
     #[Route('/logout', name: 'app_logout')]
