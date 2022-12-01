@@ -8,6 +8,11 @@
     <body>
         {% include 'parts/_navbar.html.twig' %}
         <div class="container-fluid p-1">
+            {% if(is_granted('ROLE_USER')) %}
+                Connected
+            {% else %}
+                Not connected
+            {% endif %}
             {% include 'parts/_flash.html.twig' %}
             {% block body %}{% endblock %}
         </div>

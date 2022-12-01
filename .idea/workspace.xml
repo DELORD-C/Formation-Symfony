@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1386db36-ac82-4172-8df5-961fd657cca1" name="Changes" comment="Logout">
-      <change afterPath="$PROJECT_DIR$/templates/index.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/DefaultController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/DefaultController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/layout.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/layout.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -203,7 +203,7 @@
       <workItem from="1669737458046" duration="72000" />
       <workItem from="1669795428435" duration="11897000" />
       <workItem from="1669822438722" duration="1212000" />
-      <workItem from="1669881787105" duration="6144000" />
+      <workItem from="1669881787105" duration="6607000" />
     </task>
     <task id="LOCAL-00001" summary="Empty">
       <created>1669627246032</created>
@@ -471,7 +471,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669888722164</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="Logout">
+      <created>1669890423498</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1669890423498</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
