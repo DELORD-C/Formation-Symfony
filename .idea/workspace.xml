@@ -1,20 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1386db36-ac82-4172-8df5-961fd657cca1" name="Changes" comment="clean">
-      <change afterPath="$PROJECT_DIR$/migrations/Version20221130153540.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/TestController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/Test.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Form/TestType.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/TestRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/test/_delete_form.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/test/_form.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/test/edit.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/test/index.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/test/new.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/test/show.html.twig" afterDir="false" />
+    <list default="true" id="1386db36-ac82-4172-8df5-961fd657cca1" name="Changes" comment="entity user update">
+      <change afterPath="$PROJECT_DIR$/migrations/Version20221201090349.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/auth/login.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/parts/navbar.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/parts/navbar.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/UserController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -180,6 +172,7 @@
     <property name="add_unversioned_files" value="$PROJECT_DIR$/.env.local" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/Controller" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
     <property name="settings.editor.selected.configurable" value="project.scopes" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -211,7 +204,8 @@
       <workItem from="1669709294212" duration="21531000" />
       <workItem from="1669737458046" duration="72000" />
       <workItem from="1669795428435" duration="11897000" />
-      <workItem from="1669822438722" duration="551000" />
+      <workItem from="1669822438722" duration="1212000" />
+      <workItem from="1669881787105" duration="4000000" />
     </task>
     <task id="LOCAL-00001" summary="Empty">
       <created>1669627246032</created>
@@ -451,7 +445,21 @@
       <option name="project" value="LOCAL" />
       <updated>1669822307284</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="entity test + make crud">
+      <created>1669823048369</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1669823048369</updated>
+    </task>
+    <task id="LOCAL-00036" summary="entity user update">
+      <created>1669885506203</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1669885506203</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -471,7 +479,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Empty" />
     <MESSAGE value="First commit" />
     <MESSAGE value="First Entity" />
     <MESSAGE value="Post display" />
@@ -495,6 +502,8 @@
     <MESSAGE value="flashs" />
     <MESSAGE value="User crud with relations" />
     <MESSAGE value="clean" />
-    <option name="LAST_COMMIT_MESSAGE" value="clean" />
+    <MESSAGE value="entity test + make crud" />
+    <MESSAGE value="entity user update" />
+    <option name="LAST_COMMIT_MESSAGE" value="entity user update" />
   </component>
 </project>

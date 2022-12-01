@@ -10,12 +10,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use \Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
 {
     #[Route('/user/create')]
-    public function create (Request $request, ManagerRegistry $doctrine): Response
+    public function create (Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $passwordHasher): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -24,6 +25,9 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
+            $user->setPassword(
+                $passwordHasher->hashPassword($user, $user->getPassword())
+            );
             $em = $doctrine->getManager();
             $em->persist($user);
             $em->flush();
@@ -81,5 +85,11 @@ class UserController extends AbstractController
         }
 
         return $this->renderForm("user/form.html.twig", ['form' => $form, 'label' => 'Edit']);
+    }
+
+    #[Route('/login', name: 'app_login')]
+    public function login(): Response
+    {
+        return $this->render('auth/login.html.twig');
     }
 }
