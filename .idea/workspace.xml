@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1386db36-ac82-4172-8df5-961fd657cca1" name="Changes" comment="entity user update">
-      <change afterPath="$PROJECT_DIR$/migrations/Version20221201090349.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/auth/login.html.twig" afterDir="false" />
+    <list default="true" id="1386db36-ac82-4172-8df5-961fd657cca1" name="Changes" comment="Login form">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/layout.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/layout.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/parts/flash.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/parts/_flash.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/parts/navbar.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/parts/_navbar.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -205,7 +206,7 @@
       <workItem from="1669737458046" duration="72000" />
       <workItem from="1669795428435" duration="11897000" />
       <workItem from="1669822438722" duration="1212000" />
-      <workItem from="1669881787105" duration="4000000" />
+      <workItem from="1669881787105" duration="5309000" />
     </task>
     <task id="LOCAL-00001" summary="Empty">
       <created>1669627246032</created>
@@ -459,7 +460,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669885506203</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="Login form">
+      <created>1669887376166</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1669887376166</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -479,7 +487,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="First commit" />
     <MESSAGE value="First Entity" />
     <MESSAGE value="Post display" />
     <MESSAGE value="Post create" />
@@ -504,6 +511,7 @@
     <MESSAGE value="clean" />
     <MESSAGE value="entity test + make crud" />
     <MESSAGE value="entity user update" />
-    <option name="LAST_COMMIT_MESSAGE" value="entity user update" />
+    <MESSAGE value="Login form" />
+    <option name="LAST_COMMIT_MESSAGE" value="Login form" />
   </component>
 </project>

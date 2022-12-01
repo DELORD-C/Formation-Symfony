@@ -92,4 +92,10 @@ class UserController extends AbstractController
     {
         return $this->render('auth/login.html.twig');
     }
+
+    #[Route('/logout', name: 'app_logout')]
+    public function logout()
+    {
+        throw new \Exception('THIS SHALL NOT BE.');
+    }
 }
