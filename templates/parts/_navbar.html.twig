@@ -52,6 +52,12 @@
                         <a class="nav-link" aria-current="page" href="{{ path('app_login') }}">Login</a>
                     </li>
                 {% endif %}
+                <li class="nav-item">
+                    <form method="post">
+                        <input type="hidden" name="localeSwitch" value="{% if (app.request.locale == 'fr') %}en{% else %}fr{% endif %}">
+                        <button type="submit"><span class="fi fi-{% if (app.request.locale == 'fr') %}gb{% else %}fr{% endif %}"></span></button>
+                    </form>
+                </li>
             </ul>
         </div>
     </div>

@@ -2,13 +2,14 @@
 
 namespace App\EventSubscriber;
 
+use JetBrains\PhpStorm\ArrayShape;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 class LocaleSubscriber implements EventSubscriberInterface {
-    private $defaultLocale;
-    private $supportedLanguages;
+    private string $defaultLocale;
+    private array $supportedLanguages;
 
     public function __construct(string $defaultLocale = 'en')
     {
@@ -18,7 +19,8 @@ class LocaleSubscriber implements EventSubscriberInterface {
         ];
     }
 
-    public static function getSubscribedEvents()
+    #[ArrayShape([KernelEvents::REQUEST => "array[]"])]
+    public static function getSubscribedEvents(): array
     {
         return [
             KernelEvents::REQUEST => [['updateLocale', 20]]
@@ -27,6 +29,10 @@ class LocaleSubscriber implements EventSubscriberInterface {
 
     public function updateLocale (RequestEvent $event) {
         $request = $event->getRequest();
+
+        if ($request->get('localeSwitch')) {
+            $request->getSession()->set('_locale', $request->get('localeSwitch'));
+        }
 
         if (!$locale = $request->getSession()->get('_locale')) {
             $clientLanguage = substr($request->headers->get('Accept-Language'), 0, 2);
