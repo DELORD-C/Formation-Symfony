@@ -1,2 +1,5 @@
-form:
-  create: Créer
+form.create: Créer
+title:
+  postCreate: __title.postCreate
+post:
+  title: __post.title

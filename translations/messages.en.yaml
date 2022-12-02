@@ -1,7 +1,4 @@
-form:
-#  create: "{0}There are no apples | {1}There is one apple | ]1,Inf[ There is %count% of apples"
-Create: TEST
-title:
-  postCreate: Create a Post
-post:
-  title: "{0}There are no %type%s|{1}There is one %type%|]1,Inf[There are %count% %type%s"
+form: null
+Create: Create
+title.postCreate: 'Create a Post'
+post.title: '{0}There are no %type%s|{1}There is one %type%|]1,Inf[There are %count% %type%s'
