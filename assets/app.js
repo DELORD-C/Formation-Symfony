@@ -10,5 +10,7 @@ import './styles/app.scss';
 
 require('bootstrap/dist/js/bootstrap');
 
+//import ('./img/dawan.png');
+
 // start the Stimulus application
 import './bootstrap';

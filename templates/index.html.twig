@@ -4,5 +4,7 @@
 
 {% block body %}
     <p>Dashboard</p>
+    <img src="{{ asset('build/images/dawan.png') }}">
+    <img src="{{ asset('build/dawan.png') }}">
     {{ render_esi(controller('App\\Controller\\PostController::latest')) }}
 {% endblock %}
