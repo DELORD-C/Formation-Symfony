@@ -3,6 +3,7 @@
 {% block title %}Post List{% endblock %}
 
 {% block body %}
+    <h2>{{ "post.title"|trans({'%count%': posts|length, '%type%': 'post'}) }}</h2>
     <table class="table">
         <tr>
             <th>Subject</th>

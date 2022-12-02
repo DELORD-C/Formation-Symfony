@@ -1,12 +1,13 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Post Create{% endblock %}
+{% block title %}{{ "title.postCreate"|trans }}{% endblock %}
 
 {%  block body %}
     {{ form_start(form) }}
         {{ form_errors(form) }}
         {{ form_row(form.subject) }}
         {{ form_row(form.body) }}
-        {{ form_row(form.save, {'label': label}) }}
+{#        {{ form_row(form.save, {'label': {% trans with {'%count%': 0} %}label{% endtrans %}}) }}#}
+        {{ form_row(form.save, {'label': label|trans}) }}
     {{ form_end(form) }}
 {% endblock %}

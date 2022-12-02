@@ -10,17 +10,21 @@ use App\Repository\CommentRepository;
 use App\Repository\PostRepository;
 use App\Repository\UserRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use \Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PostController extends AbstractController
 {
     #[Route('/post/create')]
-    public function create (Request $request, ManagerRegistry $doctrine, UserRepository $userRepository): Response
+    public function create (
+        Request $request,
+        ManagerRegistry $doctrine,
+        TranslatorInterface $translator
+    ): Response
     {
         $this->denyAccessUnlessGranted('create', new Post());
         $post = new Post();
@@ -39,8 +43,10 @@ class PostController extends AbstractController
 
             return new RedirectResponse("/post/list");
         }
+        $label = 'Create';
+//        $label = $translator->trans('form.create', ['%count%' => 999]);
 
-        return $this->renderForm("post/form.html.twig", ['form' => $form, 'label' => 'Create']);
+        return $this->renderForm("post/form.html.twig", ['form' => $form, 'label' => $label]);
     }
 
     #[Route('/post/list')]
