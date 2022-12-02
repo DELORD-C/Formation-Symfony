@@ -4,4 +4,5 @@
 
 {% block body %}
     <p>Dashboard</p>
+    {{ render_esi(controller('App\\Controller\\PostController::latest')) }}
 {% endblock %}

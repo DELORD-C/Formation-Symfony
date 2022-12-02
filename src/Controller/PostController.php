@@ -50,12 +50,39 @@ class PostController extends AbstractController
     }
 
     #[Route('/post/list')]
-    public function list (PostRepository $postRepository, CommentRepository $commentRepository): Response
+    public function list (PostRepository $postRepository, CommentRepository $commentRepository, Request $request): Response
     {
 //        dump($this->isGranted('show', new Post()));
         $this->denyAccessUnlessGranted('show', new Post());
+
+
+
+
         $posts = $postRepository->findAllWithCommentsCount($commentRepository);
-        return $this->render("post/list.html.twig", ['posts' => $posts]);
+        $response = $this->render("post/list.html.twig", ['posts' => $posts]);
+
+        // Expiration
+//        $response->setPublic();
+//        $response->setMaxAge(3600);
+//        $response->headers->addCacheControlDirective('must-revalidate', true);
+
+        // Validation
+
+//         etag
+        $response->setEtag(md5($response->getContent()));
+        $response->setPublic();
+        $response->isNotModified($request);
+
+        // last Modified
+//        $response = new Response();
+//        $response->setLastModified(new \DateTimeImmutable());
+//        $response->setPublic();
+//
+//        if ($response->isNotModified($request)) {
+//            return $response;
+//        }
+
+        return $response;
     }
 
     #[Route('/post/delete/{post}', methods: ['POST'])]
@@ -125,5 +152,17 @@ class PostController extends AbstractController
         }
 
         return $this->renderForm("post/form.html.twig", ['form' => $form, 'label' => 'Edit']);
+    }
+
+    public function latest (PostRepository $postRepository, Request $request): Response
+    {
+        $posts = $postRepository->findAll();
+        $response = $this->render('esi/postList.html.twig', ['posts' => $posts]);
+
+        $response->setEtag(md5($response->getContent()));
+        $response->setPublic();
+        $response->isNotModified($request);
+
+        return $response;
     }
 }

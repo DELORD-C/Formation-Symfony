@@ -21,6 +21,10 @@ class DefaultController extends AbstractController
     #[Route('/')]
     public function index(): Response
     {
-        return $this->render('index.html.twig');
+        $response = $this->render('index.html.twig');
+        $response->setPublic();
+        $response->setMaxAge(600);
+
+        return $response;
     }
 }
