@@ -11,9 +11,9 @@ class DefaultController extends AbstractController
     #[Route('/')]
     public function home(): Response
     {
-        return new Response(
-            'Hello World !'
-        );
+        return $this->render('default.html.twig', [
+            'content' => 'Hello World !'
+        ]);
     }
 
     #[Route(
@@ -30,7 +30,7 @@ class DefaultController extends AbstractController
             $max = 999999999999999;
 
         return $this->render('default.html.twig', [
-            'rand' => random_int($min, $max)
+            'content' => random_int($min, $max)
         ]);
     }
 }
