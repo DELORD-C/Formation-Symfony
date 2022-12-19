@@ -21,16 +21,16 @@ class DefaultController extends AbstractController
         requirements: ['min' => '\d+|default', 'max' => '\d+|inf'],
         methods: ['GET', 'HEAD']
     )]
-    public function random(int $min = 0, int $max = 1000): Response
+    public function random($min = 0, $max = 1000): Response
     {
-        if ($min = "default")
+        if ($min == "default")
             $min = 0;
 
-        if ($max = "inf")
+        if ($max == "inf")
             $max = 999999999999999;
 
-        return new Response(
-            random_int($min, $max)
-        );
+        return $this->render('default.html.twig', [
+            'rand' => random_int($min, $max)
+        ]);
     }
 }
