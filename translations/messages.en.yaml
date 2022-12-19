@@ -1,4 +1,0 @@
-form: null
-Create: Create
-title.postCreate: 'Create a Post'
-post.title: '{0}There are no %type%s|{1}There is one %type%|]1,Inf[There are %count% %type%s'

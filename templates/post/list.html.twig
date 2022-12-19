@@ -1,9 +1,0 @@
-{% extends 'layout.html.twig' %}
-
-{% block title %}Post List{% endblock %}
-
-{% block body %}
-    <h2>{{ "post.title"|trans({'%count%': posts|length, '%type%': 'post'}) }}</h2>
-    {{ render_esi(controller('App\\Controller\\PostController::latest')) }}
-    <a class="btn btn-primary" href="{{ path('app_post_create') }}">Create</a>
-{% endblock %}
