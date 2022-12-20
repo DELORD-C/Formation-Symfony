@@ -31,6 +31,7 @@ class PostController extends AbstractController
             $entityManager = $doctrine->getManager();
             $entityManager->persist($post);
             $entityManager->flush();
+            $this->addFlash('notice', 'Post successfully created.');
             return $this->redirectToRoute("app_post_create");
         }
 
