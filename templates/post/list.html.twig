@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Post List{% endblock %}
+
+{% block body %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Subject</th>
+                <th>Body</th>
+                <th>Date</th>
+                <th><a class="btn btn-primary" href="{{ path('app_post_create') }}">Create</a></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for post in posts %}
+                <tr>
+                    <td>{{ post.subject }}</td>
+                    <td>{{ post.body }}</td>
+                    <td>{{ post.createdAt|date('m/d/Y') }}</td>
+                    <td>
+                        <a class="btn btn-primary">Read</a>
+                        <a class="btn btn-primary">Edit</a>
+                        <a class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+
+
