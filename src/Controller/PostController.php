@@ -3,11 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Post;
+use App\Form\PostType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,11 +16,8 @@ class PostController extends AbstractController
     public function create (Request $request, ManagerRegistry $doctrine): Response
     {
         $post = new Post();
-        $form = $this->createFormBuilder($post)
-            ->add('subject', TextType::class)
-            ->add('body', TextareaType::class)
-            ->add('save', SubmitType::class)
-            ->getForm();
+
+        $form = $this->createForm(PostType::class, $post);
 
         $form->handleRequest($request);
 
