@@ -41,7 +41,25 @@ class PostController extends AbstractController
     {
         $posts = $postRepository->findAll();
         return $this->render('post/list.html.twig', [
-           'posts' => $posts
+            'posts' => $posts
+        ]);
+    }
+
+    #[Route('/post/delete/{post}')]
+    public function delete (Post $post, ManagerRegistry $doctrine): Response
+    {
+        $em = $doctrine->getManager();
+        $this->addFlash('notice', 'Post n°' . $post->getId() . ' successfully deleted.');
+        $em->remove($post);
+        $em->flush();
+        return $this->redirectToRoute('app_post_list');
+    }
+
+    #[Route('/post/{post}')]
+    public function read (Post $post): Response
+    {
+        return $this->render('post/read.html.twig', [
+            'post' => $post
         ]);
     }
 }
