@@ -62,4 +62,24 @@ class PostController extends AbstractController
             'post' => $post
         ]);
     }
+
+    #[Route('/post/edit/{post}')]
+    public function edit (Post $post, Request $request, ManagerRegistry $doctrine): Response
+    {
+        $form = $this->createForm(PostType::class, $post);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $post = $form->getData();
+            $entityManager = $doctrine->getManager();
+            $entityManager->flush();
+            $this->addFlash('notice', 'Post successfully updated.');
+            return $this->redirectToRoute("app_post_list");
+        }
+
+        return $this->render('post/create.html.twig', [
+            'form' => $form
+        ]);
+    }
 }
