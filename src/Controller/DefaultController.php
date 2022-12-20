@@ -12,7 +12,8 @@ class DefaultController extends AbstractController
     public function home(): Response
     {
         return $this->render('default.html.twig', [
-            'content' => 'Hello World !'
+            'content' => 'Hello World !',
+            'title' => 'Home'
         ]);
     }
 
@@ -30,7 +31,8 @@ class DefaultController extends AbstractController
             $max = 999999999999999;
 
         return $this->render('default.html.twig', [
-            'content' => random_int($min, $max)
+            'content' => random_int($min, $max),
+            'title' => 'Random Number'
         ]);
     }
 }
