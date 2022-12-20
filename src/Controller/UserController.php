@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
-use App\Repository\UserRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,6 +36,12 @@ class UserController extends AbstractController
         return $this->render('user/register.html.twig', [
             'form' => $form
         ]);
+    }
+
+    #[Route('/login')]
+    public function login(): Response
+    {
+        return $this->render('user/login.html.twig');
     }
 
     #[Route('/user/delete/{user}')]

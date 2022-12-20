@@ -16,6 +16,17 @@ security:
         main:
             lazy: true
             provider: app_user_provider
+            form_login:
+                login_path: app_user_login
+                # Route pour se connecter
+
+                check_path: app_user_login
+                # Route pour vérifier le formulaire de connexion
+
+                default_target_path: app_default_home
+                # Redirection par défaut apres login
+
+#                always_use_default_target_path: true
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
