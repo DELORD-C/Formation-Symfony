@@ -1,2 +1,12 @@
 @import "~bootstrap/scss/bootstrap";
 @import "~bootstrap-icons/font/bootstrap-icons";
+
+.form-div {
+  margin: auto;
+  max-width: 600px;
+}
+
+.captcha_image {
+  border-radius: 10px;
+  margin: 5px;
+}

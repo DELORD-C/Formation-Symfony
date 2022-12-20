@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use Gregwar\CaptchaBundle\Type\CaptchaType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -15,6 +16,7 @@ class PostType extends AbstractType
         $builder
             ->add('subject', TextType::class)
             ->add('body', TextareaType::class)
+            ->add('captcha', CaptchaType::class)
             ->add('save', SubmitType::class);
     }
 }

@@ -3,5 +3,10 @@
 {% block title %}New Post{% endblock %}
 
 {% block body %}
-    {{ form(form) }}
+    <div class="form-div">
+        {{ form_start(form) }}
+            {{ form_row(form.subject) }}
+            <p>Ceci est un paragraphe</p>
+        {{ form_end(form) }}
+    </div>
 {% endblock %}
