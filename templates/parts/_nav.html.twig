@@ -15,17 +15,6 @@
                         <li><a class="nav-link" href="{{ path('app_default_random', {'min': '10', 'max': "inf"}) }}">Random Inf</a></li>
                     </ul>
                 </li>
-                {% if is_granted('ROLE_ADMIN') %}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            User
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="nav-link" href="{{ path('app_user_register') }}">Create</a></li>
-                            <li><a class="nav-link" href="{{ path('app_user_list') }}">List</a></li>
-                        </ul>
-                    </li>
-                {% endif %}
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -36,6 +25,21 @@
                             <li><a class="nav-link" href="{{ path('app_post_list') }}">List</a></li>
                         </ul>
                     </li>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                User
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="nav-link" href="{{ path('app_user_register') }}">Create</a></li>
+                                <li><a class="nav-link" href="{{ path('app_user_list') }}">List</a></li>
+                            </ul>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_user_edit', {'user': app.user.id}) }}">Account</a>
+                        </li>
+                    {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_user_logout') }}">Logout</a>
                     </li>

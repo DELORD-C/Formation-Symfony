@@ -17,6 +17,7 @@ class PostController extends AbstractController
     public function create (Request $request, ManagerRegistry $doctrine): Response
     {
         $post = new Post();
+        $this->denyAccessUnlessGranted('CREATE', $post);
 
         $form = $this->createForm(PostType::class, $post);
 
@@ -40,6 +41,7 @@ class PostController extends AbstractController
     #[Route('/post/list')]
     public function list (PostRepository $postRepository): Response
     {
+        $this->denyAccessUnlessGranted('SHOW', new Post);
         $posts = $postRepository->findAll();
         return $this->render('post/list.html.twig', [
             'posts' => $posts
@@ -49,6 +51,7 @@ class PostController extends AbstractController
     #[Route('/post/delete/{post}')]
     public function delete (Post $post, ManagerRegistry $doctrine): Response
     {
+        $this->denyAccessUnlessGranted('DELETE', $post);
         $em = $doctrine->getManager();
         $this->addFlash('notice', 'Post n°' . $post->getId() . ' successfully deleted.');
         $em->remove($post);
@@ -59,6 +62,7 @@ class PostController extends AbstractController
     #[Route('/post/{post}')]
     public function read (Post $post): Response
     {
+        $this->denyAccessUnlessGranted('SHOW', $post);
         return $this->render('post/read.html.twig', [
             'post' => $post
         ]);
@@ -67,6 +71,7 @@ class PostController extends AbstractController
     #[Route('/post/edit/{post}')]
     public function edit (Post $post, Request $request, ManagerRegistry $doctrine): Response
     {
+        $this->denyAccessUnlessGranted('EDIT', $post);
         $form = $this->createForm(PostType::class, $post);
 
         $form->handleRequest($request);

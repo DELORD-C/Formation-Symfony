@@ -121,5 +121,4 @@ class UserController extends AbstractController
         }
         return $this->redirect($request->headers->get('referer'));;
     }
-    
 }
