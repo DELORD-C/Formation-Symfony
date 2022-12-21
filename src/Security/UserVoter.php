@@ -2,20 +2,19 @@
 
 namespace App\Security;
 
-use App\Entity\Post;
 use App\Entity\User;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
-class PostVoter extends Voter {
-    const CASES = ['CREATE', 'EDIT', 'SHOW', 'DELETE'];
+class UserVoter extends Voter {
+    const CASES = ['CREATE', 'EDIT', 'SHOW', 'DELETE', 'GRANT'];
 
     protected function supports(string $attribute, mixed $subject): bool
     {
         if (!in_array($attribute, self::CASES)) {
             return false;
         }
-        if (!$subject instanceof Post) {
+        if (!$subject instanceof User) {
             return false;
         }
 
@@ -30,19 +29,28 @@ class PostVoter extends Voter {
             return false;
         }
 
-        $post = $subject;
+        $subject;
 
         return match($attribute) {
             'CREATE', 'SHOW' => true,
-            'EDIT', 'DELETE' => $this->canEdit($post, $user)
+            'EDIT', 'DELETE' => $this->canEdit($subject, $user),
+            'GRANT' => $this->canGrant($subject, $user)
         };
     }
 
-    private function canEdit(Post $post, User $user): bool
+    private function canEdit(User $subject, User $user): bool
     {
         return (
             in_array('ROLE_ADMIN', $user->getRoles()) ||
-            $user === $post->getUser()
+            $user === $subject
+        );
+    }
+
+    private function canGrant(User $subject, User $user): bool
+    {
+        return (
+            in_array('ROLE_ADMIN', $user->getRoles()) &&
+            $user !== $subject
         );
     }
 }
