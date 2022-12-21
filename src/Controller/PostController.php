@@ -42,10 +42,13 @@ class PostController extends AbstractController
     }
 
     #[Route('/post/list')]
-    public function list (PostRepository $postRepository): Response
+    public function list (PostRepository $postRepository, CommentRepository $commentRepository): Response
     {
         $this->denyAccessUnlessGranted('SHOW', new Post);
         $posts = $postRepository->findAll();
+        foreach ($posts as $post) {
+            $post->nbComment = count($commentRepository->findBy(['post' => $post]));
+        }
         return $this->render('post/list.html.twig', [
             'posts' => $posts
         ]);
@@ -119,5 +122,27 @@ class PostController extends AbstractController
         return $this->render('post/create.html.twig', [
             'form' => $form
         ]);
+    }
+
+    #[Route('/like/{comment}')]
+    public function like (Comment $comment, Request $request, ManagerRegistry $doctrine): Response
+    {
+        $this->denyAccessUnlessGranted('SHOW', new Post());
+
+        $likes = $comment->getLikes();
+        $userId = $this->getUser()->getId();
+
+        // Si le commentaire à déjà été like par l'utilisateur connecté, on enleve son id du tableau
+        if (in_array($userId, $likes)) {
+            $key = array_search($userId, $likes);
+            unset($likes[$key]);
+        }
+        else {
+            array_push($likes, $userId);
+        }
+        $comment->setLikes($likes);
+        $doctrine->getManager()->flush();
+
+        return $this->redirect($request->headers->get('referer'));;
     }
 }

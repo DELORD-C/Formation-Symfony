@@ -1,21 +1,24 @@
+<h2>Comments</h2>
+<table class="table">
+    <thead>
+    <tr>
+        <td class="fw-bold">Username</td>
+        <td class="fw-bold">Content</td>
+        <td class="fw-bold">Date</td>
+        <td class="fw-bold">Likes</td>
+    </tr>
+    </thead>
+    <tbody>
 {% for comment in comments %}
-    <table class="table">
-        <thead>
-            <tr>
-                <td>Username</td>
-                <td>Content</td>
-                <td>Date</td>
-                <td>Likes</td>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>{{ comment.user.username }}</td>
-                <td>{{ comment.content }}</td>
-                <td>{{ comment.createdAt|date() }}</td>
-                <td>{{ comment.likes|length() }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <tr>
+        <td>{{ comment.user.username }}</td>
+        <td>{{ comment.content }}</td>
+        <td>{{ comment.createdAt|date() }}</td>
+        <td>{{ comment.likes|length() }}</td>
+        <td><a href="{{ path('app_post_like', {'comment': comment.id}) }}"><i class="bi bi-heart{% if app.user.id in comment.likes %}-fill{% endif %}"></i></a></td>
+    </tr>
 {% endfor %}
+    </tbody>
+</table>
+<h2>Leave a comment</h2>
 {{ form(commentForm) }}
