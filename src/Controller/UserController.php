@@ -103,19 +103,23 @@ class UserController extends AbstractController
     }
 
     #[Route('/user/admin/{user}')]
-    public function grantRevoke (User $user, ManagerRegistry $doctrine): Response
+    public function grantRevoke (User $user, ManagerRegistry $doctrine, Request $request): Response
     {
-        $roles = $user->getRoles();
-        if (in_array('ROLE_ADMIN', $roles)) {
-            $key = array_search('ROLE_ADMIN', $roles);
-            unset($roles[$key]);
+        if ($user != $this->getUser()) {
+            $roles = $user->getRoles();
+            if (in_array('ROLE_ADMIN', $roles)) {
+                $key = array_search('ROLE_ADMIN', $roles);
+                unset($roles[$key]);
+            }
+            else {
+                array_push($roles, 'ROLE_ADMIN');
+            }
+            $user->setRoles($roles);
+            $em = $doctrine->getManager();
+            $em->flush();
+            $this->addFlash('notice', 'User successfully altered.');
         }
-        else {
-            array_push($roles, 'ROLE_ADMIN');
-        }
-        $user->setRoles($roles);
-        $em = $doctrine->getManager();
-        $em->flush();
+        return $this->redirect($request->headers->get('referer'));;
     }
     
 }
