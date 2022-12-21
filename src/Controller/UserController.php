@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\UserRepository;
+use Symfony\Bridge\Doctrine\ManagerRegistry as DoctrineManagerRegistry;
 
 class UserController extends AbstractController
 {
@@ -46,6 +47,9 @@ class UserController extends AbstractController
         return $this->render('user/login.html.twig');
     }
 
+    #[Route('/logout')]
+    public function logout(){}
+
     #[Route('/user/delete/{user}')]
     public function delete (User $user, ManagerRegistry $doctrine): Response
     {
@@ -77,7 +81,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/user/edit/{user}')]
-    public function edit (User $user, Request $request, ManagerRegistry $doctrine): Response
+    public function edit (User $user, Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $passwordHasher): Response
     {
         $form = $this->createForm(UserType::class, $user);
 
@@ -85,6 +89,8 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
+            $hashedPassword = $passwordHasher->hashPassword($user, $user->getPassword());
+            $user->setPassword($hashedPassword);
             $entityManager = $doctrine->getManager();
             $entityManager->flush();
             $this->addFlash('notice', 'User successfully updated.');
@@ -96,5 +102,20 @@ class UserController extends AbstractController
         ]);
     }
 
+    #[Route('/user/admin/{user}')]
+    public function grantRevoke (User $user, ManagerRegistry $doctrine): Response
+    {
+        $roles = $user->getRoles();
+        if (in_array('ROLE_ADMIN', $roles)) {
+            $key = array_search('ROLE_ADMIN', $roles);
+            unset($roles[$key]);
+        }
+        else {
+            array_push($roles, 'ROLE_ADMIN');
+        }
+        $user->setRoles($roles);
+        $em = $doctrine->getManager();
+        $em->flush();
+    }
     
 }
