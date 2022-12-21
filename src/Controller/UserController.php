@@ -4,12 +4,14 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Repository\PostRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\UserRepository;
 
 class UserController extends AbstractController
 {
@@ -54,6 +56,18 @@ class UserController extends AbstractController
         return $this->redirectToRoute('app_user_list');
     }
 
+    #[Route('/user/list')]
+    public function list (UserRepository $userRepository, PostRepository $postRepository): Response
+    {
+        $users = $userRepository->findAll();
+        foreach ($users as $user) {
+            $user->nbPost = count($postRepository->findBy(['user' => $user]));
+        }
+        return $this->render('user/list.html.twig', [
+            'users' => $users
+        ]);
+    }
+
     #[Route('/user/{user}')]
     public function read (User $user): Response
     {
@@ -77,8 +91,10 @@ class UserController extends AbstractController
             return $this->redirectToRoute("app_user_list");
         }
 
-        return $this->render('user/create.html.twig', [
+        return $this->render('user/register.html.twig', [
             'form' => $form
         ]);
     }
+
+    
 }
