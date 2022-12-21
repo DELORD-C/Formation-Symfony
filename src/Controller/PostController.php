@@ -63,7 +63,12 @@ class PostController extends AbstractController
     }
 
     #[Route('/post/{post}')]
-    public function read (Post $post, CommentRepository $commentRepository): Response
+    public function read (
+        Post $post,
+        CommentRepository $commentRepository,
+        Request $request,
+        ManagerRegistry $doctrine
+    ): Response
     {
         $this->denyAccessUnlessGranted('SHOW', $post);
 
@@ -72,6 +77,21 @@ class PostController extends AbstractController
         $comment = new Comment();
 
         $form = $this->createForm(CommentType::class, $comment);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment = $form->getData();
+            $comment->setUser($this->getUser());
+            $comment->setPost($post);
+            $entityManager = $doctrine->getManager();
+            $entityManager->persist($comment);
+            $entityManager->flush();
+            $this->addFlash('notice', 'Comment successfully created.');
+
+//          Rafraichir la page
+            return $this->redirect($request->getRequestUri());
+        }
 
         return $this->render('post/read.html.twig', [
             'post' => $post,
