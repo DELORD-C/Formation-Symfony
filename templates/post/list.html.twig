@@ -9,6 +9,7 @@
                 <th>Subject</th>
                 <th>Body</th>
                 <th>Date</th>
+                <th>Author</th>
                 <th><a class="btn btn-primary" href="{{ path('app_post_create') }}">Create</a></th>
             </tr>
         </thead>
@@ -18,6 +19,7 @@
                     <td>{{ post.subject }}</td>
                     <td>{{ post.body }}</td>
                     <td>{{ post.createdAt|date('m/d/Y') }}</td>
+                    <td>{{ post.user.email }}</td>
                     <td>
                         <a class="btn btn-primary" href="{{ path('app_post_read', {'post': post.id}) }}">Read</a>
                         <a class="btn btn-primary" href="{{ path('app_post_edit', {'post': post.id}) }}">Edit</a>
