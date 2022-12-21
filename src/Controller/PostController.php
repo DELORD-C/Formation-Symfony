@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Post;
+use App\Form\CommentType;
 use App\Form\PostType;
+use App\Repository\CommentRepository;
 use App\Repository\PostRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -60,11 +63,20 @@ class PostController extends AbstractController
     }
 
     #[Route('/post/{post}')]
-    public function read (Post $post): Response
+    public function read (Post $post, CommentRepository $commentRepository): Response
     {
         $this->denyAccessUnlessGranted('SHOW', $post);
+
+        $comments = $commentRepository->findBy(['post' => $post]);
+
+        $comment = new Comment();
+
+        $form = $this->createForm(CommentType::class, $comment);
+
         return $this->render('post/read.html.twig', [
-            'post' => $post
+            'post' => $post,
+            'comments' => $comments,
+            'commentForm' => $form
         ]);
     }
 

@@ -1,0 +1,21 @@
+{% for comment in comments %}
+    <table class="table">
+        <thead>
+            <tr>
+                <td>Username</td>
+                <td>Content</td>
+                <td>Date</td>
+                <td>Likes</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ comment.user.username }}</td>
+                <td>{{ comment.content }}</td>
+                <td>{{ comment.createdAt|date() }}</td>
+                <td>{{ comment.likes|length() }}</td>
+            </tr>
+        </tbody>
+    </table>
+{% endfor %}
+{{ form(commentForm) }}
