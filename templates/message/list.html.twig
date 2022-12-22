@@ -24,7 +24,7 @@
                 <td>{% for user in message.target %}{{ user.username }}{% if user != message.target|last %}, {% endif %}{% endfor %}</td>
                 <td>
                     <form method="post" action="{{ path('app_message_delete', {'id': message.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
-                        <a class="btn btn-primary" href="{{ path('app_message_index') }}">Back</a>
+                        <a class="btn btn-primary" href="{{ path('app_message_show', {'id': message.id}) }}">Read</a>
                         <a class="btn btn-primary" href="{{ path('app_message_edit', {'id': message.id}) }}">Edit</a>
                         <button class="btn btn-danger" class="btn">Delete</button>
                     </form>
