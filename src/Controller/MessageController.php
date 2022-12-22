@@ -17,6 +17,7 @@ class MessageController extends AbstractController
     #[Route('/', name: 'app_message_index', methods: ['GET'])]
     public function index(MessageRepository $messageRepository): Response
     {
+        $this->denyAccessUnlessGranted('SHOW', new Message());
         return $this->render('message/list.html.twig', [
             'messages' => $messageRepository->findByTarget($this->getUser()),
             'messagesSent' => $messageRepository->findBy(['sender' => $this->getUser()])
@@ -29,10 +30,12 @@ class MessageController extends AbstractController
     {
         $message = new Message();
         // Generation d'un message vide
+        $this->denyAccessUnlessGranted('SHOW', $message);
 
 
         //si on a un ancien message (reply)
         if ($oldMessage) {
+            $this->denyAccessUnlessGranted('REPLY', $oldMessage);
             // ajout de RE: dans le sujet
             if (!str_starts_with($oldMessage->getSubject(), 'RE: ')) {
                 $message->setSubject('RE: ' . $oldMessage->getSubject());
@@ -81,6 +84,8 @@ class MessageController extends AbstractController
     #[Route('/{id}', name: 'app_message_show', methods: ['GET'])]
     public function show(Message $message, ManagerRegistry $doctrine): Response
     {
+        $this->denyAccessUnlessGranted('SHOW', $message);
+
         //On change l'état en 'lu'
         $message->setState(true);
         $doctrine->getManager()->flush();
@@ -92,6 +97,8 @@ class MessageController extends AbstractController
     #[Route('/edit/{id}', name: 'app_message_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Message $message, MessageRepository $messageRepository): Response
     {
+        $this->denyAccessUnlessGranted('EDIT', $message);
+
         $form = $this->createForm(MessageType::class, $message);
         $form->handleRequest($request);
 
@@ -113,6 +120,7 @@ class MessageController extends AbstractController
     #[Route('/{id}', name: 'app_message_delete', methods: ['POST'])]
     public function delete(Request $request, Message $message, MessageRepository $messageRepository): Response
     {
+        $this->denyAccessUnlessGranted('DELETE', $message);
         $messageRepository->remove($message, true);
         return $this->redirectToRoute('app_message_index', [], Response::HTTP_SEE_OTHER);
     }
