@@ -34,6 +34,8 @@
     <form method="post" action="{{ path('app_message_delete', {'id': message.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
         <a class="btn btn-primary" href="{{ path('app_message_index') }}">Back</a>
         <a class="btn btn-primary" href="{{ path('app_message_edit', {'id': message.id}) }}">Edit</a>
+        <a class="btn btn-primary" href="{{ path('app_message_new', {'id': message.id}) }}">Reply</a>
+        <a class="btn btn-primary" href="{{ path('app_message_new', {'id': message.id, 'reply': 'all'}) }}">Reply to All</a>
         <button class="btn btn-danger" class="btn">Delete</button>
     </form>
 {% endblock %}

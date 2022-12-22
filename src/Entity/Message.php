@@ -74,11 +74,21 @@ class Message
         return $this;
     }
 
+    public function setTargets(Collection $targets): void
+    {
+        $this->target = $targets;
+    }
+
     public function removeTarget(User $target): self
     {
         $this->target->removeElement($target);
 
         return $this;
+    }
+
+    public function emptyTargets(): void
+    {
+        $this->target = new ArrayCollection();
     }
 
     public function getSubject(): ?string
