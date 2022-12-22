@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Message{% endblock %}
+
+{% block body %}
+    <h1>Message</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>From</th>
+                <td>{{ message.sender.username }}</td>
+            </tr>
+            <tr>
+                <th>To</th>
+                <td>{% for user in message.target %}{{ user.username }}{% if user != message.target|last %}, {% endif %}{% endfor %}</td>
+            </tr>
+            <tr>
+                <th>Subject</th>
+                <td>{{ message.subject }}</td>
+            </tr>
+            <tr>
+                <th>Body</th>
+                <td>{{ message.body }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ message.createdAt ? message.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <form method="post" action="{{ path('app_message_delete', {'id': message.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+        <a class="btn btn-primary" href="{{ path('app_message_index') }}">Back</a>
+        <a class="btn btn-primary" href="{{ path('app_message_edit', {'id': message.id}) }}">Edit</a>
+        <button class="btn btn-danger" class="btn">Delete</button>
+    </form>
+{% endblock %}
