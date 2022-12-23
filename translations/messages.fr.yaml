@@ -1,6 +1,5 @@
-nav:
-  random: Aléatoire
-  randominf: Aléatoire Inf
-  randomdef: Aléatoire
-  register: Inscription
-  login: Connexion
+nav.random: Aléatoire
+nav.randominf: 'Aléatoire Inf'
+nav.randomdef: Aléatoire
+nav.register: Inscription
+nav.login: Connexion

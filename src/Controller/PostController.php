@@ -13,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PostController extends AbstractController
 {
@@ -70,7 +71,8 @@ class PostController extends AbstractController
         Post $post,
         CommentRepository $commentRepository,
         Request $request,
-        ManagerRegistry $doctrine
+        ManagerRegistry $doctrine,
+        TranslatorInterface $translator
     ): Response
     {
         $this->denyAccessUnlessGranted('SHOW', $post);
@@ -90,7 +92,7 @@ class PostController extends AbstractController
             $entityManager = $doctrine->getManager();
             $entityManager->persist($comment);
             $entityManager->flush();
-            $this->addFlash('notice', 'Comment successfully created.');
+            $this->addFlash('notice', $translator->trans('Comment successfully created.'));
 
 //          Rafraichir la page
             return $this->redirect($request->getRequestUri());
