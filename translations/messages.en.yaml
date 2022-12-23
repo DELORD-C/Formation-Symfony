@@ -4,4 +4,4 @@ nav:
   randomdef: Random Default
   register: Register
   login: Login
-plural: "{0}There is no apple|{1}There is one apple|]1,Inf[There is %count% apples"
+messages: "{0}No message|{1}One message|]1,Inf[%count% messages"

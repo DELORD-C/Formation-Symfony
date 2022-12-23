@@ -41,7 +41,7 @@ class DefaultController extends AbstractController
     public function locale (string $locale, Request $request)
     {
         //si la locale est prise en charge
-        if (in_array($locale, ['fr', 'en'])) {
+        if (in_array($locale, ['fr', 'en', 'es'])) {
             //on la stocke dans la session
             $request->getSession()->set('_locale', $locale);
         }

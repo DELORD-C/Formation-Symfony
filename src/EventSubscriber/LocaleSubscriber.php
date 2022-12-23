@@ -14,7 +14,7 @@ class LocaleSubscriber implements EventSubscriberInterface {
     {
         $this->defaultLocale = $defaultLocale;
         $this->supportedLanguages = [
-            'en', 'fr'
+            'en', 'fr', 'es'
         ];
     }
 

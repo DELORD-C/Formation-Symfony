@@ -4,7 +4,7 @@
 
 {% block body %}
     <h2>Received Message</h2>
-
+    <span>{{ 'messages'|trans({'%count%': messages|length}) }}</span>
     <table class="table">
         <thead>
             <tr>
