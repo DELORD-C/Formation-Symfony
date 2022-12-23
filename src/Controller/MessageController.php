@@ -9,19 +9,39 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\Cache;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/message')]
 class MessageController extends AbstractController
 {
+//    Méthode 1 :
+//    Cache d'expiration
+//    #[Cache(maxage: 600, public: true, mustRevalidate: true)]
+//    Méthode à privilégier sur les pages ou les fragments statiques
+
     #[Route('/', name: 'app_message_index', methods: ['GET'])]
-    public function index(MessageRepository $messageRepository): Response
+    public function index(MessageRepository $messageRepository, Request $request): Response
     {
         $this->denyAccessUnlessGranted('SHOW', new Message());
-        return $this->render('message/list.html.twig', [
+        $response = $this->render('message/list.html.twig', [
             'messages' => $messageRepository->findByTarget($this->getUser()),
             'messagesSent' => $messageRepository->findBy(['sender' => $this->getUser()])
         ]);
+
+
+        // Methode 2
+        // Cache de validation (etag)
+        //On ajoute en Etag (variable des headers) la reponse convertie en md5 (unique)
+        $response->setEtag(md5($response->getContent()));
+
+        //On active le cache
+        $response->setPublic();
+
+        //On vérifie que le etag envoyé par le client est le même que le notre
+        $response->isNotModified($request); //Si vrai, la réponse n'est pas envoyé mais on dit à la place au client d'utiliser son cache.
+
+        return $response;
     }
 
     // Pour rendre un paramètre utilisant le paramconverter optionnel, il faut ajouter une valeur par défaut dans la route :
@@ -82,13 +102,24 @@ class MessageController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_message_show', methods: ['GET'])]
-    public function show(Message $message, ManagerRegistry $doctrine): Response
+    public function show(Message $message, ManagerRegistry $doctrine, Request $request): Response
     {
         $this->denyAccessUnlessGranted('SHOW', $message);
 
         //On change l'état en 'lu'
         $message->setState(true);
         $doctrine->getManager()->flush();
+
+        // Méthode 2
+        // Validation (lastModified)
+        $response = new Response();
+        $response->setLastModified($message->getCreatedAt());
+        $response->setPublic();
+
+        if ($response->isNotModified($request)) {
+            return $response;
+        }
+
         return $this->render('message/read.html.twig', [
             'message' => $message,
         ]);
@@ -125,10 +156,15 @@ class MessageController extends AbstractController
         return $this->redirectToRoute('app_message_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    public function notif (MessageRepository $rep): Response
+    public function notif (MessageRepository $rep, Request $request): Response
     {
-        return $this->render('parts/_nbMessages.html.twig', [
+        $response =  $this->render('parts/_nbMessages.html.twig', [
             'nb' => count($rep->findByTarget($this->getUser(), true))
         ]);
+        $response->setEtag(md5($response->getContent()));
+        $response->setPublic();
+        $response->isNotModified($request);
+        return $response;
+
     }
 }

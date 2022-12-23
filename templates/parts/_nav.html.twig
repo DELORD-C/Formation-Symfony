@@ -27,7 +27,7 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            {{ render(controller('App\\Controller\\MessageController::notif')) }}
+                            {{ render_esi(controller('App\\Controller\\MessageController::notif')) }}
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="nav-link" href="{{ path('app_message_new') }}">{{ 'Create'|trans }}</a></li>
