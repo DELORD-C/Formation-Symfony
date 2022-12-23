@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -34,5 +35,17 @@ class DefaultController extends AbstractController
             'content' => random_int($min, $max),
             'title' => 'Random Number'
         ]);
+    }
+
+    #[Route('/locale/{locale}')]
+    public function locale (string $locale, Request $request)
+    {
+        //si la locale est prise en charge
+        if (in_array($locale, ['fr', 'en'])) {
+            //on la stocke dans la session
+            $request->getSession()->set('_locale', $locale);
+        }
+        // puis on redirige vers la page précédente
+        return $this->redirect($request->headers->get('referer'));;
     }
 }

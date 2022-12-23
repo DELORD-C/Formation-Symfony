@@ -8,21 +8,21 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Random
+                        {{ 'nav.random'|trans({'%name%': app.user.username}) }}
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="nav-link" href="{{ path('app_default_random') }}">Random default</a></li>
-                        <li><a class="nav-link" href="{{ path('app_default_random', {'min': '10', 'max': "inf"}) }}">Random Inf</a></li>
+                        <li><a class="nav-link" href="{{ path('app_default_random') }}">{{ 'nav.randomdef'|trans }}</a></li>
+                        <li><a class="nav-link" href="{{ path('app_default_random', {'min': '10', 'max': "inf"}) }}">{{ 'nav.randominf'|trans }}</a></li>
                     </ul>
                 </li>
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Post
+                            {{ 'List'|trans }}
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="nav-link" href="{{ path('app_post_create') }}">Create</a></li>
-                            <li><a class="nav-link" href="{{ path('app_post_list') }}">List</a></li>
+                            <li><a class="nav-link" href="{{ path('app_post_create') }}">{{ 'Create'|trans }}</a></li>
+                            <li><a class="nav-link" href="{{ path('app_post_list') }}">{{ 'List'|trans }}</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -30,36 +30,45 @@
                             {{ render(controller('App\\Controller\\MessageController::notif')) }}
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="nav-link" href="{{ path('app_message_new') }}">Create</a></li>
-                            <li><a class="nav-link" href="{{ path('app_message_index') }}">List</a></li>
+                            <li><a class="nav-link" href="{{ path('app_message_new') }}">{{ 'Create'|trans }}</a></li>
+                            <li><a class="nav-link" href="{{ path('app_message_index') }}">{{ 'List'|trans }}</a></li>
                         </ul>
                     </li>
                     {% if is_granted('ROLE_ADMIN') %}
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                User
+                                {{ 'User'|trans }}
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="nav-link" href="{{ path('app_user_register') }}">Create</a></li>
-                                <li><a class="nav-link" href="{{ path('app_user_list') }}">List</a></li>
+                                <li><a class="nav-link" href="{{ path('app_user_register') }}">{{ 'Create'|trans }}</a></li>
+                                <li><a class="nav-link" href="{{ path('app_user_list') }}">{{ 'List'|trans }}</a></li>
                             </ul>
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app_user_edit', {'user': app.user.id}) }}">Account</a>
+                            <a class="nav-link" href="{{ path('app_user_edit', {'user': app.user.id}) }}">{{ 'Account'|trans }}</a>
                         </li>
                     {% endif %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_user_logout') }}">Logout</a>
+                        <a class="nav-link" href="{{ path('app_user_logout') }}">{{ 'Logout'|trans }}</a>
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_user_register') }}">Register</a>
+                        <a class="nav-link" href="{{ path('app_user_register') }}">{{ 'Register'|trans }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_user_login') }}">Login</a>
+                        <a class="nav-link" href="{{ path('app_user_login') }}">{{ 'Login'|trans }}</a>
                     </li>
                 {% endif %}
+                <li class="nav-item">
+
+                    {% if app.session.get('_locale') != 'fr' %}
+                        <a class="nav-link" href="{{ path('app_default_locale', {'locale': 'fr'}) }}"><span class="fi fi-fr"></span></a>
+                    {% else %}
+                        <a class="nav-link" href="{{ path('app_default_locale', {'locale': 'en'}) }}"><span class="fi fi-gb"></span></a>
+                    {% endif %}
+                </li>
+
             </ul>
         </div>
     </div>
