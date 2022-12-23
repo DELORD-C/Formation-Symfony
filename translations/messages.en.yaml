@@ -1,5 +1,5 @@
 nav:
-  random: Random %name%
+  random: Random
   randominf: Random Inf
   randomdef: Random Default
   register: Register
