@@ -48,6 +48,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToOne(targetEntity: self::class)]
     private ?self $refere = null;
 
+    #[ORM\Column(length: 20, nullable: false)]
+    private ?string $token = null;
+
+    public function __construct () {
+        $this->token = bin2hex(random_bytes(20));
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -198,6 +205,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setRefere(?self $refere): self
     {
         $this->refere = $refere;
+
+        return $this;
+    }
+
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function setToken(?string $token): self
+    {
+        $this->token = $token;
 
         return $this;
     }
