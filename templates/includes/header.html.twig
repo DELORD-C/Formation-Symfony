@@ -1,0 +1,34 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{{ path('app_default_home') }}">Symfony</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Default
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item {% if app.request.get('_route') == 'number' %}active{% endif %}" href="{{ path('number') }}">Number</a></li>
+            <li><a class="dropdown-item {% if app.request.get('_route') == 'app_default_numberfake' %}active{% endif %}" href="{{ path('app_default_numberfake') }}">Number Fake</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Date
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item {% if app.request.get('_route') == 'app_date_now' %}active{% endif %}" href="{{ path('app_date_now') }}">Now</a></li>
+            <li><a class="dropdown-item {% if app.request.get('_route') == 'app_date_jour' %}active{% endif %}" href="{{ path('app_date_jour') }}">Jour</a></li>
+          </ul>
+        </li>
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>

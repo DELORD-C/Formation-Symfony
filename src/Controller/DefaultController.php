@@ -34,6 +34,8 @@ class DefaultController extends AbstractController
     #[Route('/number/fake')]
     function numberFake (): Response
     {
-        return new Response(10000);
+        return $this->render('default/variable.html.twig', [
+            'variable' => 10000
+        ]);
     }
 }
