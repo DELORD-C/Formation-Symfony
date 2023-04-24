@@ -8,6 +8,12 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController
 {
+    #[Route('/')]
+    function home (): Response
+    {
+        return $this->render('default/home.html.twig');
+    }
+
     #[Route(
         '/number/{min}/{max}',
         requirements: [
@@ -18,7 +24,9 @@ class DefaultController extends AbstractController
     function number (int $min = 0, int $max = 100): Response
     {
         $number = random_int($min, $max);
-        return new Response($number);
+        return $this->render('default/variable.html.twig', [
+            'variable' => $number
+        ]);
     }
 
     #[Route('/number/fake')]
