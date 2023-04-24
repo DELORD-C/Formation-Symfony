@@ -3,7 +3,3 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
-
-number:
-    path: /number
-    controller: App\Controller\DefaultController::number
