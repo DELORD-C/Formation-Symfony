@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DateController extends AbstractController
 {
-    #[Route('/dates/now')]
+    #[Route('/date/now')]
     function now (): Response
     {
         return $this->render('default/variable.html.twig', [
