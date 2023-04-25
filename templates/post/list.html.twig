@@ -20,7 +20,7 @@
                     <td>{{ post.createdAt|date('d/m/Y') }}</td>
                     <td>
                         <a href='{{ path('app_post_edit', {'post': post.id}) }}' class='btn btn-primary'>Edit</a>
-                        <a href='' class='btn btn-danger'>Delete</a>
+                        <a href='{{ path('app_post_delete', {'post': post.id}) }}' class='btn btn-danger'>Delete</a>
                     </td>
                 </tr>
             {% endfor %}
