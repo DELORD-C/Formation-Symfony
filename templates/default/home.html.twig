@@ -3,7 +3,8 @@
 {% block body %}
     <h1>Bienvenue !</h1>
     <a href="{{ path('app_date_now') }}">Date</a>
-    {{ html|raw }}
     <i class="bi bi-0-circle"></i>
-    <img src="{{ asset('build/images/image (1).jpg') }}">
+    {% for image in images %}
+        <img style="width: 400px;" src="{{ asset('build/images/' ~ image ~ '.jpg') }}">
+    {% endfor %}
 {% endblock %}

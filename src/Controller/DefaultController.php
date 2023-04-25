@@ -12,7 +12,7 @@ class DefaultController extends AbstractController
     function home (): Response
     {
         return $this->render('default/home.html.twig', [
-            'html' => '<p>YOLO</p>'
+            'images' => ['image (1)', 'image (2)']
         ]);
     }
 
