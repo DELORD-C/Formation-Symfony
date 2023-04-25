@@ -8,6 +8,7 @@
             <tr>
                 <th>Title</th>
                 <th>Body</th>
+                <th>Author</th>
                 <th>Created At</th>
                 <th>Actions</th>
             </tr>
@@ -17,6 +18,7 @@
                 <tr>
                     <td>{{ post.title }}</td>
                     <td>{{ post.body }}</td>
+                    <td>{{ post.author.email }}</td>
                     <td>{{ post.createdAt|date('d/m/Y') }}</td>
                     <td>
                         <a href='{{ path('app_post_edit', {'post': post.id}) }}' class='btn btn-primary'>Edit</a>

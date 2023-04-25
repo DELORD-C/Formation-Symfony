@@ -24,6 +24,7 @@ class PostController extends AbstractController {
 
         if ($form->isSubmitted() && $form->isValid()) {
             $post = $form->getData();
+            $post->setAuthor($this->getUser());
             $em->persist($post);
             $em->flush();
             $this->addFlash('notice', 'Post successfully created!');
