@@ -16,7 +16,9 @@
     <body>
         {% include 'includes/header.html.twig' %}
         {% include 'includes/flash.html.twig' %}
-        {% block body %}{% endblock %}
+        <div class='container-fluid p-2'>
+            {% block body %}{% endblock %}
+        </div>
         {% include 'includes/footer.html.twig' %}
     </body>
 </html>

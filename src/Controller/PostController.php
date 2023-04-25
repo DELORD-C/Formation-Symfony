@@ -31,7 +31,8 @@ class PostController extends AbstractController {
         }
 
         return $this->render('post/create.html.twig', [
-            'form' => $form
+            'form' => $form,
+            'title' => 'Create new Post'
         ]);
     }
 
@@ -40,7 +41,8 @@ class PostController extends AbstractController {
     {
         $posts = $postRepository->findAll();
         return $this->render('post/list.html.twig', [
-            'posts' => $posts
+            'posts' => $posts,
+            'title' => 'All Posts'
         ]);
     }
 
@@ -60,7 +62,8 @@ class PostController extends AbstractController {
         }
 
         return $this->render('post/create.html.twig', [
-            'form' => $form
+            'form' => $form,
+            'title' => 'Edit Post'
         ]);
     }
 
@@ -71,5 +74,17 @@ class PostController extends AbstractController {
         $em->flush();
         $this->addFlash('notice', 'Post successfully deleted!');
         return $this->redirectToRoute('app_post_list');
+    }
+
+    #[Route('/search')]
+    function search (Request $request, PostRepository $rep)
+    {
+        $posts = $rep->search($request->get('query'));
+        dump($posts);
+
+        return $this->render('post/list.html.twig', [
+            'posts' => $posts,
+            'title' => 'Search results'
+        ]);
     }
 }

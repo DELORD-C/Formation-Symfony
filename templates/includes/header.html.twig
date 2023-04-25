@@ -24,9 +24,18 @@
             <li><a class="dropdown-item {% if app.request.get('_route') == 'app_date_jour' %}active{% endif %}" href="{{ path('app_date_jour') }}">Jour</a></li>
           </ul>
         </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Post
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item {% if app.request.get('_route') == 'app_post_list' %}active{% endif %}" href="{{ path('app_post_list') }}">List</a></li>
+            <li><a class="dropdown-item {% if app.request.get('_route') == 'app_post_create' %}active{% endif %}" href="{{ path('app_post_create') }}">Create</a></li>
+          </ul>
+        </li>
       </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <form class="d-flex" role="search" action="{{ path('app_post_search') }}">
+        <input name="query" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
     </div>
