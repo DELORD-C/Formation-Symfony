@@ -2,6 +2,9 @@
 
 {% block body %}
     <h1>Bienvenue !</h1>
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <p>{{ app.user.email }}</p>
+    {% endif %}
     <a href="{{ path('app_date_now') }}">Date</a>
     <i class="bi bi-0-circle"></i>
     {% for image in images %}

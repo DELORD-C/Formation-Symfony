@@ -19,6 +19,11 @@ security:
             form_login:
                 login_path: app_user_login
                 check_path: app_user_login
+                # username_parameter: _username
+                # password_parameter: _password
+                # default_target_path: app_post_list
+            logout:
+                path: app_user_logout
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
