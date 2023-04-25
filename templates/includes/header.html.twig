@@ -33,6 +33,24 @@
             <li><a class="dropdown-item {% if app.request.get('_route') == 'app_post_create' %}active{% endif %}" href="{{ path('app_post_create') }}">Create</a></li>
           </ul>
         </li>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ path('app_user_logout') }}">
+              Logout
+            </a>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ path('app_user_login') }}">
+              Login
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ path('app_user_register') }}">
+              Register
+            </a>
+          </li>
+        {% endif %}
       </ul>
       <form class="d-flex" role="search" action="{{ path('app_post_search') }}">
         <input name="query" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
