@@ -13,18 +13,8 @@ use Doctrine\ORM\EntityManagerInterface;
 #[Route('/post')]
 class PostController extends AbstractController {
 
-    #[Route('/create', methods: ['GET', 'HEAD'])]
-    function create ()
-    {
-        $post = new Post();
-        $form = $this->createForm(PostType::class, $post);
-        return $this->render('post/create.html.twig', [
-            'form' => $form
-        ]);
-    }
-
-    #[Route('/create', methods: ['POST'])]
-    function store (Request $request, EntityManagerInterface $em)
+    #[Route('/create')]
+    function create (Request $request, EntityManagerInterface $em)
     {
         $post = new Post();
         $form = $this->createForm(PostType::class, $post);
@@ -35,8 +25,12 @@ class PostController extends AbstractController {
             $post = $form->getData();
             $em->persist($post);
             $em->flush();
+            $this->addFlash('notice', 'Post successfully created!');
+            return $this->redirect('/post/create');
         }
 
-        return $this->redirect('/post/create');
+        return $this->render('post/create.html.twig', [
+            'form' => $form
+        ]);
     }
 }
