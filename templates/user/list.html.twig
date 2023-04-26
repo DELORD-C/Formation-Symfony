@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User List{% endblock %}
+
+{% block body %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>NbPost</th>
+                <th><a class="btn btn-primary" href="{{ path('app_user_register') }}">Create</a></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.nbPost }}</td>
+                    <td>
+                        <a class="btn btn-primary" href="{{ path('app_user_read', {'user': user.id}) }}">Read</a>
+                        <a class="btn btn-primary" href="{{ path('app_user_edit', {'user': user.id}) }}">Edit</a>
+                        <a class="btn btn-danger" href="{{ path('app_user_delete', {'user': user.id}) }}">Delete</a>
+                        {% if app.user != user %}
+                            <a class="btn btn-warning" href="{{ path('app_user_grantrevoke', {'user': user.id}) }}">
+                                {% if 'ROLE_ADMIN' in user.roles %}
+                                    Revoke
+                                {% else %}
+                                    Grant
+                                {% endif %}
+                            </a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+
+

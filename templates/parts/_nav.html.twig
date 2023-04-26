@@ -1,0 +1,82 @@
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ path('app_default_home') }}"><img style="width: 50px" src="{{ asset('build/dawan.png') }}" alt="logo dawan"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ 'nav.random'|trans }}
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="nav-link" href="{{ path('app_default_random') }}">{{ 'nav.randomdef'|trans }}</a></li>
+                        <li><a class="nav-link" href="{{ path('app_default_random', {'min': '10', 'max': "inf"}) }}">{{ 'nav.randominf'|trans }}</a></li>
+                    </ul>
+                </li>
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ 'List'|trans }}
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="nav-link" href="{{ path('app_post_create') }}">{{ 'Create'|trans }}</a></li>
+                            <li><a class="nav-link" href="{{ path('app_post_list') }}">{{ 'List'|trans }}</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ render_esi(controller('App\\Controller\\MessageController::notif')) }}
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="nav-link" href="{{ path('app_message_new') }}">{{ 'Create'|trans }}</a></li>
+                            <li><a class="nav-link" href="{{ path('app_message_index') }}">{{ 'List'|trans }}</a></li>
+                        </ul>
+                    </li>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ 'User'|trans }}
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="nav-link" href="{{ path('app_user_register') }}">{{ 'Create'|trans }}</a></li>
+                                <li><a class="nav-link" href="{{ path('app_user_list') }}">{{ 'List'|trans }}</a></li>
+                            </ul>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_user_edit', {'user': app.user.id}) }}">{{ 'Account'|trans }}</a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_user_logout') }}">{{ 'Logout'|trans }}</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_user_register') }}">{{ 'Register'|trans }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_user_login') }}">{{ 'Login'|trans }}</a>
+                    </li>
+                {% endif %}
+
+                    {% if app.session.get('_locale') != 'fr' %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_default_locale', {'locale': 'fr'}) }}"><span class="fi fi-fr"></span></a>
+                    </li>
+                    {% endif %}
+                    {% if app.session.get('_locale') != 'en' %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_default_locale', {'locale': 'en'}) }}"><span class="fi fi-gb"></span></a>
+                    </li>
+                    {% endif %}
+                    {% if app.session.get('_locale') != 'es' %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_default_locale', {'locale': 'es'}) }}"><span class="fi fi-es"></span></a>
+                    </li>
+                    {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

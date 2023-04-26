@@ -1,0 +1,6 @@
+nav.random: Aléatoire
+nav.randominf: 'Aléatoire Inf'
+nav.randomdef: Aléatoire
+nav.register: Inscription
+nav.login: Connexion
+messages: "{0}Pas de message|{1}Un message|]1,Inf[%count% messages"

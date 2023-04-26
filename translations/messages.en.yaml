@@ -1,0 +1,7 @@
+nav:
+  random: Random
+  randominf: Random Inf
+  randomdef: Random Default
+  register: Register
+  login: Login
+messages: "{0}No message|{1}One message|]1,Inf[%count% messages"

@@ -3,56 +3,127 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\RegistrationFormType;
-use App\Form\LoginType;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Form\UserType;
+use App\Repository\PostRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use App\Repository\UserRepository;
+use Symfony\Bridge\Doctrine\ManagerRegistry as DoctrineManagerRegistry;
 
 class UserController extends AbstractController
 {
     #[Route('/register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    public function register (Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $passwordHasher): Response
     {
         $user = new User();
-        $form = $this->createForm(RegistrationFormType::class, $user);
+
+        $form = $this->createForm(UserType::class, $user);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
-            $user->setPassword(
-                $userPasswordHasher->hashPassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                )
-            );
-
+            $user = $form->getData();
+            $hashedPassword = $passwordHasher->hashPassword($user, $user->getPassword());
+            $user->setPassword($hashedPassword);
+            $entityManager = $doctrine->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
-            // do anything else you need here, like send an email
-
-            return $this->redirectToRoute('app_default_home');
+            $this->addFlash('notice', 'Account created.');
+            return $this->redirectToRoute("app_default_home");
         }
 
         return $this->render('user/register.html.twig', [
-            'registrationForm' => $form->createView(),
+            'form' => $form
         ]);
     }
 
     #[Route('/login')]
-    public function login(AuthenticationUtils $authenticationUtils)
+    public function login(): Response
     {
-        $error = $authenticationUtils->getLastAuthenticationError();
-        return $this->render('user/login.html.twig', [
-            'error' => $error
-        ]);
+        return $this->render('user/login.html.twig');
     }
 
     #[Route('/logout')]
-    public function logout() {}
+    public function logout(){}
+
+    #[Route('/user/delete/{user}')]
+    public function delete (User $user, ManagerRegistry $doctrine): Response
+    {
+        $this->denyAccessUnlessGranted('DELETE', $user);
+        $em = $doctrine->getManager();
+        $this->addFlash('notice', 'User n°' . $user->getId() . ' successfully deleted.');
+        $em->remove($user);
+        $em->flush();
+        return $this->redirectToRoute('app_user_list');
+    }
+
+    #[Route('/user/list')]
+    public function list (UserRepository $userRepository, PostRepository $postRepository): Response
+    {
+        $this->denyAccessUnlessGranted('GRANT', new User);
+        $users = $userRepository->findAll();
+        foreach ($users as $user) {
+            $user->nbPost = count($postRepository->findBy(['user' => $user]));
+        }
+        return $this->render('user/list.html.twig', [
+            'users' => $users
+        ]);
+    }
+
+    #[Route('/user/{user}')]
+    public function read (User $user): Response
+    {
+        $this->denyAccessUnlessGranted('SHOW', $user);
+        return $this->render('user/read.html.twig', [
+            'user' => $user
+        ]);
+    }
+
+    #[Route('/user/edit/{user}')]
+    public function edit (User $user, Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $passwordHasher): Response
+    {
+        $this->denyAccessUnlessGranted('EDIT', $user);
+        $form = $this->createForm(UserType::class, $user);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = $form->getData();
+            $hashedPassword = $passwordHasher->hashPassword($user, $user->getPassword());
+            $user->setPassword($hashedPassword);
+            $entityManager = $doctrine->getManager();
+            $entityManager->flush();
+            $this->addFlash('notice', 'User successfully updated.');
+            return $this->redirectToRoute("app_user_list");
+        }
+
+        return $this->render('user/register.html.twig', [
+            'form' => $form
+        ]);
+    }
+
+    #[Route('/user/admin/{user}')]
+    public function grantRevoke (User $user, ManagerRegistry $doctrine, Request $request): Response
+    {
+        $this->denyAccessUnlessGranted('GRANT', $user);
+        if ($user != $this->getUser()) {
+            $roles = $user->getRoles();
+            if (in_array('ROLE_ADMIN', $roles)) {
+                $key = array_search('ROLE_ADMIN', $roles);
+                unset($roles[$key]);
+            }
+            else {
+                array_push($roles, 'ROLE_ADMIN');
+            }
+            $user->setRoles($roles);
+            $em = $doctrine->getManager();
+            $em->flush();
+            $this->addFlash('notice', 'User successfully altered.');
+        }
+        return $this->redirect($request->headers->get('referer'));;
+    }
 }

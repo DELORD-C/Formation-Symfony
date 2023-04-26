@@ -3,39 +3,51 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\Cache;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController
 {
+    #[Cache(maxage: 600, public: true, mustRevalidate: true)]
     #[Route('/')]
-    function home (): Response
+    public function home(): Response
     {
-        return $this->render('default/home.html.twig', [
-            'images' => ['image (1)', 'image (2)']
+        return $this->render('default.html.twig', [
+            'content' => 'Hello World !',
+            'title' => 'Home'
         ]);
     }
 
     #[Route(
-        '/number/{min}/{max}',
-        requirements: [
-            'min' => '\d+', 'max' => '\d+'
-        ],
-        name: "number"
+        '/random/{min}/{max}',
+        requirements: ['min' => '\d+|default', 'max' => '\d+|inf'],
+        methods: ['GET', 'HEAD']
     )]
-    function number (int $min = 0, int $max = 100): Response
+    public function random($min = 0, $max = 1000): Response
     {
-        $number = random_int($min, $max);
-        return $this->render('default/variable.html.twig', [
-            'variable' => $number
+        if ($min == "default")
+            $min = 0;
+
+        if ($max == "inf")
+            $max = 999999999999999;
+
+        return $this->render('default.html.twig', [
+            'content' => random_int($min, $max),
+            'title' => 'Random Number'
         ]);
     }
 
-    #[Route('/number/fake')]
-    function numberFake (): Response
+    #[Route('/locale/{locale}')]
+    public function locale (string $locale, Request $request)
     {
-        return $this->render('default/variable.html.twig', [
-            'variable' => 10000
-        ]);
+        //si la locale est prise en charge
+        if (in_array($locale, ['fr', 'en', 'es'])) {
+            //on la stocke dans la session
+            $request->getSession()->set('_locale', $locale);
+        }
+        // puis on redirige vers la page précédente
+        return $this->redirect($request->headers->get('referer'));;
     }
 }

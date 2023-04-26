@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\PostRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 class Post
@@ -14,9 +15,11 @@ class Post
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $title = null;
+    #[Assert\NotBlank]
+    private ?string $subject = null;
 
     #[ORM\Column(length: 1000)]
+    #[Assert\NotBlank]
     private ?string $body = null;
 
     #[ORM\Column]
@@ -24,10 +27,9 @@ class Post
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $author = null;
+    private ?User $user = null;
 
-    public function __construct()
-    {
+    public function __construct () {
         $this->createdAt = new \DateTimeImmutable();
     }
 
@@ -36,14 +38,14 @@ class Post
         return $this->id;
     }
 
-    public function getTitle(): ?string
+    public function getSubject(): ?string
     {
-        return $this->title;
+        return $this->subject;
     }
 
-    public function setTitle(string $title): self
+    public function setSubject(string $subject): self
     {
-        $this->title = $title;
+        $this->subject = $subject;
 
         return $this;
     }
@@ -72,14 +74,14 @@ class Post
         return $this;
     }
 
-    public function getAuthor(): ?User
+    public function getUser(): ?User
     {
-        return $this->author;
+        return $this->user;
     }
 
-    public function setAuthor(?User $author): self
+    public function setUser(?User $user): self
     {
-        $this->author = $author;
+        $this->user = $user;
 
         return $this;
     }
