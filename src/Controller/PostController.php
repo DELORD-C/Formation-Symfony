@@ -25,6 +25,8 @@ class PostController extends AbstractController
             $post = $form->getData();
             $em->persist($post);
             $em->flush();
+            $this->addFlash('notice', 'Post successfully created.');
+            return $this->redirectToRoute('app_post_list');
         }
 
         return $this->render('Post/create.html.twig', [
