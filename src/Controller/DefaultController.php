@@ -30,4 +30,9 @@ class DefaultController extends AbstractController
     {
         return new Response('HELLO WORLD !');
     }
+
+    public function navbar(): Response
+    {
+        return $this->render('Fragments/_navbar.html.twig');
+    }
 }

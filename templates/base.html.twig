@@ -11,7 +11,8 @@
         {% endblock %}
     </head>
     <body>
-        {% include 'Fragments/_flash.html.twig' %}
+        {{ render_esi(controller('App\\Controller\\DefaultController::navbar')) }}
+        {% include 'Fragments/_flash.html.twig' with { 'index' : 'valeur' } %}
         {% block body %}{% endblock %}
     </body>
 </html>

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Post;
+use App\Form\CommentType;
 use App\Form\PostType;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -66,5 +67,25 @@ class PostController extends AbstractController
         $em->remove($post);
         $em->flush();
         return $this->redirectToRoute("app_post_list");
+    }
+
+    #[Route('/post/{post}')]
+    public function read(Post $post, Request $request, EntityManagerInterface $em): Response
+    {
+        $form = $this->createForm(CommentType::class);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment = $form->getData();
+            $comment->setPost($post);
+            $em->persist($comment);
+            $em->flush();
+        }
+
+        return $this->render('Post/read.html.twig', [
+            'post' => $post,
+            'form' => $form
+        ]);
     }
 }

@@ -18,6 +18,7 @@
                 <td>{{ post.body }}</td>
                 <td>{{ post.createdAt|date }}</td>
                 <td>
+                    <a href="{{ path('app_post_read', {'post' : post.id}) }}">Read</a>
                     <a href="{{ path('app_post_update', {'post' : post.id}) }}">Update</a>
                     <a href="{{ path('app_post_delete', {'post' : post.id}) }}">Delete</a>
                 </td>

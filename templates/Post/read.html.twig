@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2>{{ post.subject }}</h2>
+    <p>{{ post.body }}</p>
+
+    <h3>Leave a comment below</h3>
+    {{ form(form) }}
+{% endblock %}
+
