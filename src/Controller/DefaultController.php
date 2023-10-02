@@ -13,18 +13,16 @@ class DefaultController extends AbstractController
     #[Route('/')]
     public function index(): Response
     {
-        return new Response("Hello World !");
+        return $this->render('index.html.twig');
     }
 
     #[Route('/hello/{it}', requirements: ['it' => '\d+'])]
 //    #[Route('/hello/{it<\d+>}')]
     public function hello(int $it): Response
     {
-        $str = '';
-        for ($i = 0; $i < $it; $i++) {
-            $str .= '<p>Hello World !</p>';
-        }
-        return new Response($str);
+        return $this->render('default.html.twig', [
+            'it' => $it
+        ]);
     }
 
     #[Route('/hello/1', priority: 1)]
