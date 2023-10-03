@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Comment;
 use App\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -45,4 +46,14 @@ class PostRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+    public function findRecent(): ?array
+    {
+        $datelim = (new \DateTime())->modify('-10 minutes');
+        return $this->createQueryBuilder('p')
+            ->join(Comment::class, 'c', 'WITH', 'p.id = c.post')
+            ->where('c.createdAt > :datelim')
+            ->setParameter('datelim', $datelim)
+            ->getQuery()
+            ->getResult();
+    }
 }

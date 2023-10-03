@@ -1,5 +1,9 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    {{ encore_entry_link_tags('red') }}
+{% endblock %}
+
 {% block body %}
     <a href="{{ path('app_post_create') }}">Create</a>
     <table>

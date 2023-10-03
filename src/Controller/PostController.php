@@ -47,6 +47,16 @@ class PostController extends AbstractController
         ]);
     }
 
+    #[Route('/recent')]
+    public function recent(PostRepository $rep): Response
+    {
+        $posts = $rep->findRecent();
+
+        return $this->render('Post/list.html.twig', [
+            'posts' => $posts
+        ]);
+    }
+
     #[Route('/update/{post}')]
     public function update(Post $post, Request $request, EntityManagerInterface $em): Response
     {
