@@ -55,7 +55,7 @@ Encore
     })
 
     // enables Sass/SCSS support
-    //.enableSassLoader()
+    .enableSassLoader()
 
     // uncomment if you use TypeScript
     //.enableTypeScriptLoader()
@@ -69,6 +69,13 @@ Encore
 
     // uncomment if you're having problems with a jQuery plugin
     //.autoProvidejQuery()
+
+    .copyFiles({
+            from: './assets/medias',
+            to: 'medias/[path][name].[hash:8].[ext]',
+            // pattern: /\.(png|jpg|jpeg)$/
+        }
+    )
 ;
 
 module.exports = Encore.getWebpackConfig();
