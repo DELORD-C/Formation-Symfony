@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Post;
 use App\Form\CommentType;
 use App\Form\PostType;
+use App\Repository\CommentRepository;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,9 +13,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/post')]
 class PostController extends AbstractController
 {
-    #[Route('/post/create')]
+    #[Route('/create')]
     public function create(Request $request, EntityManagerInterface $em): Response
     {
 
@@ -35,7 +37,7 @@ class PostController extends AbstractController
         ]);
     }
 
-    #[Route('/post/list')]
+    #[Route('/list')]
     public function list(PostRepository $rep): Response
     {
         $posts = $rep->findAll();
@@ -45,7 +47,7 @@ class PostController extends AbstractController
         ]);
     }
 
-    #[Route('/post/update/{post}')]
+    #[Route('/update/{post}')]
     public function update(Post $post, Request $request, EntityManagerInterface $em): Response
     {
         $form = $this->createForm(PostType::class, $post);
@@ -61,7 +63,7 @@ class PostController extends AbstractController
         ]);
     }
 
-    #[Route('/post/delete/{post}')]
+    #[Route('/delete/{post}')]
     public function delete(Post $post, EntityManagerInterface $em): Response
     {
         $em->remove($post);
@@ -69,21 +71,15 @@ class PostController extends AbstractController
         return $this->redirectToRoute("app_post_list");
     }
 
-    #[Route('/post/{post}')]
-    public function read(Post $post, Request $request, EntityManagerInterface $em): Response
+    #[Route('/{post}')]
+    public function read(Post $post, CommentRepository $rep): Response
     {
         $form = $this->createForm(CommentType::class);
 
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $comment = $form->getData();
-            $comment->setPost($post);
-            $em->persist($comment);
-            $em->flush();
-        }
+        $comments = $rep->findBy(['post' => $post]);
 
         return $this->render('Post/read.html.twig', [
+            'comments' => $comments,
             'post' => $post,
             'form' => $form
         ]);

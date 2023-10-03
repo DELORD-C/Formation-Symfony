@@ -4,7 +4,29 @@
     <h2>{{ post.subject }}</h2>
     <p>{{ post.body }}</p>
 
+    <h3>Comments</h3>
+    <table>
+        <thead>
+            <tr>
+                <td>Body</td>
+                <td>Created</td>
+                <td>Actions</td>
+            </tr>
+        </thead>
+        <tbody>
+        {% for comment in comments %}
+            <tr>
+                <td>{{ comment.body }}</td>
+                <td>{{ comment.createdAt|date }}</td>
+                <td>
+                    <a href="{{ path('app_comment_update', {'comment' : comment.id}) }}">Update</a>
+                    <a href="{{ path('app_comment_delete', {'comment' : comment.id}) }}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
     <h3>Leave a comment below</h3>
-    {{ form(form) }}
-{% endblock %}
+    {{ form(form, {'action': path('app_comment_create', {'post': post.id})}) }}
+    {% endblock %}
 
