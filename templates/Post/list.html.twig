@@ -7,11 +7,12 @@
 
 {% block body %}
     <a href="{{ path('app_post_create') }}">Create</a>
-    <table>
+    <table class="table">
         <thead>
             <tr>
                 <th>Subject</th>
                 <th>Body</th>
+                <th>User</th>
                 <th>Created</th>
                 <th>Actions</th>
             </tr>
@@ -21,11 +22,14 @@
             <tr>
                 <td>{{ post.subject }}</td>
                 <td>{{ post.body }}</td>
+                <td>{{ post.user.email }}</td>
                 <td>{{ post.createdAt|date }}</td>
                 <td>
                     <a href="{{ path('app_post_read', {'post' : post.id}) }}">Read</a>
-                    <a href="{{ path('app_post_update', {'post' : post.id}) }}">Update</a>
-                    <a href="{{ path('app_post_delete', {'post' : post.id}) }}">Delete</a>
+                    {% if is_granted('UPDATE', post) %}
+                        <a href="{{ path('app_post_update', {'post' : post.id}) }}">Update</a>
+                        <a href="{{ path('app_post_delete', {'post' : post.id}) }}">Delete</a>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}

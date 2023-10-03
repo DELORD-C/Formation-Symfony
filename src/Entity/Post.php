@@ -22,6 +22,9 @@ class Post
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
+    #[ORM\ManyToOne]
+    private ?User $user = null;
+
     function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
@@ -64,6 +67,18 @@ class Post
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

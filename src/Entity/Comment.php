@@ -23,6 +23,9 @@ class Comment
     #[ORM\JoinColumn(nullable: false)]
     private ?Post $post = null;
 
+    #[ORM\ManyToOne]
+    private ?User $user = null;
+
     function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
@@ -65,6 +68,18 @@ class Comment
     public function setPost(?Post $post): static
     {
         $this->post = $post;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

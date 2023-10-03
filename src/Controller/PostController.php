@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/post')]
 class PostController extends AbstractController
@@ -26,6 +27,7 @@ class PostController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $post = $form->getData();
+            $post->setUser($this->getUser());
             $em->persist($post);
             $em->flush();
             $this->addFlash('notice', 'Post successfully created.');
@@ -58,8 +60,16 @@ class PostController extends AbstractController
     }
 
     #[Route('/update/{post}')]
+//    #[IsGranted('UPDATE')]
     public function update(Post $post, Request $request, EntityManagerInterface $em): Response
     {
+
+        $this->denyAccessUnlessGranted('UPDATE', $post);
+//        if ($post->getUser() !== $this->getUser()) {
+//            $this->addFlash('error', 'You only can update your own posts !');
+//            return $this->redirectToRoute('app_post_list');
+//        }
+
         $form = $this->createForm(PostType::class, $post);
 
         $form->handleRequest($request);
