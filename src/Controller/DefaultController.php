@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DefaultController extends AbstractController
 {
@@ -26,9 +27,9 @@ class DefaultController extends AbstractController
     }
 
     #[Route('/hello/1', priority: 1)]
-    public function helloSingle(): Response
+    public function helloSingle(TranslatorInterface $translator): Response
     {
-        return new Response('HELLO WORLD !');
+        return new Response($translator->trans('home.H1'));
     }
 
     public function navbar(): Response

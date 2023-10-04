@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<h1>Hello World !</h1>
+<h1>{{'home.H1'|trans}}</h1>
     <script>
         fetch('/api/test')
             .then(response => {
