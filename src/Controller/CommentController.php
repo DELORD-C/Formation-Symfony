@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Comment;
+use App\Entity\Like;
 use App\Entity\Post;
 use App\Form\CommentType;
+use App\Repository\LikeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,6 +39,7 @@ class CommentController extends AbstractController
     #[Route('/update/{comment}')]
     public function update(Comment $comment, Request $request, EntityManagerInterface $em): Response
     {
+        $this->denyAccessUnlessGranted('UPDATE', $comment);
         $form = $this->createForm(CommentType::class, $comment);
 
         $form->handleRequest($request);
@@ -54,8 +57,28 @@ class CommentController extends AbstractController
     #[Route('/delete/{comment}')]
     public function delete(Comment $comment, EntityManagerInterface $em): Response
     {
+        $this->denyAccessUnlessGranted('DELETE', $comment);
         $em->remove($comment);
         $em->flush();
         return $this->redirectToRoute("app_post_read", ['post' => $comment->getPost()->getId()]);
+    }
+
+    #[Route('/like/{comment}')]
+    public function like(Comment $comment, EntityManagerInterface $em, LikeRepository $rep): Response
+    {
+        $like = $rep->findOneBy(['comment' => $comment, 'user' => $this->getUser()]);
+
+        if ($like != null) {
+            $em->remove($like);
+        }
+        else {
+            $like = new Like();
+            $like->setComment($comment);
+            $like->setUser($this->getUser());
+            $em->persist($like);
+        }
+        $em->flush();
+
+        return $this->redirectToRoute('app_post_read', ['post' => $comment->getPost()->getId()]);
     }
 }

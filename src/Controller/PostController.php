@@ -6,6 +6,7 @@ use App\Entity\Post;
 use App\Form\CommentType;
 use App\Form\PostType;
 use App\Repository\CommentRepository;
+use App\Repository\LikeRepository;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -40,9 +41,13 @@ class PostController extends AbstractController
     }
 
     #[Route('/list')]
-    public function list(PostRepository $rep): Response
+    public function list(PostRepository $rep, CommentRepository $commentRep): Response
     {
         $posts = $rep->findAll();
+
+        foreach ($posts as &$post) {
+            $post->comments = $commentRep->countByPost($post);
+        }
 
         return $this->render('Post/list.html.twig', [
             'posts' => $posts
@@ -92,11 +97,15 @@ class PostController extends AbstractController
     }
 
     #[Route('/{post}')]
-    public function read(Post $post, CommentRepository $rep): Response
+    public function read(Post $post, CommentRepository $rep, LikeRepository $likeRep): Response
     {
         $form = $this->createForm(CommentType::class);
 
         $comments = $rep->findBy(['post' => $post]);
+
+        foreach ($comments as &$comment) {
+            $comment->likes = $likeRep->findUsersWhoLiked($comment);
+        }
 
         return $this->render('Post/read.html.twig', [
             'comments' => $comments,

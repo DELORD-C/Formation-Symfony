@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Comment;
+use App\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -16,6 +17,8 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class CommentRepository extends ServiceEntityRepository
 {
+    const ount = 'COUNT *';
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Comment::class);
@@ -45,4 +48,14 @@ class CommentRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+    public function countByPost(Post $post): int
+    {
+        return $this->createQueryBuilder('c')
+            ->select('count(c.id)')
+            ->andWhere('c.post = :post')
+            ->setParameter('post', $post)
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
+    }
 }

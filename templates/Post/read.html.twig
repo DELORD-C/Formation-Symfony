@@ -3,6 +3,7 @@
 {% block body %}
     <h2>{{ post.subject }}</h2>
     <p>{{ post.body }}</p>
+    <p>{{ post.user.email }}</p>
 
     <h3>Comments</h3>
     <table>
@@ -19,8 +20,18 @@
                 <td>{{ comment.body }}</td>
                 <td>{{ comment.createdAt|date }}</td>
                 <td>
-                    <a href="{{ path('app_comment_update', {'comment' : comment.id}) }}">Update</a>
-                    <a href="{{ path('app_comment_delete', {'comment' : comment.id}) }}">Delete</a>
+                    {% if is_granted('UPDATE', comment) %}
+                        <a href="{{ path('app_comment_update', {'comment' : comment.id}) }}">Update</a>
+                    {% endif %}
+                    {% if is_granted('DELETE', comment) %}
+                        <a href="{{ path('app_comment_delete', {'comment' : comment.id}) }}">Delete</a>
+                    {% endif %}
+                    <span>{{ comment.likes|length }}</span>
+                    {% if {"user_id": app.user.id} in comment.likes %}
+                        <a href="{{ path('app_comment_like', {'comment': comment.id}) }}"><i class="bi bi-heart-fill"></i></a>
+                    {% else %}
+                        <a href="{{ path('app_comment_like', {'comment': comment.id}) }}"><i class="bi bi-heart"></i></a>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}

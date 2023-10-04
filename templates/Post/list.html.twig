@@ -13,6 +13,7 @@
                 <th>Subject</th>
                 <th>Body</th>
                 <th>User</th>
+                <th>Comments</th>
                 <th>Created</th>
                 <th>Actions</th>
             </tr>
@@ -23,6 +24,7 @@
                 <td>{{ post.subject }}</td>
                 <td>{{ post.body }}</td>
                 <td>{{ post.user.email }}</td>
+                <td>{{ post.comments }}</td>
                 <td>{{ post.createdAt|date }}</td>
                 <td>
                     <a href="{{ path('app_post_read', {'post' : post.id}) }}">Read</a>
