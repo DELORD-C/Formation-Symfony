@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <a href="{{ path('app_admin_create') }}">Create</a>
+    <table>
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.email }}</td>
+                <td>
+                    <a href="{{ path('app_admin_update', {'user' : user.id}) }}">Update</a>
+                    <a href="{{ path('app_admin_delete', {'user' : user.id}) }}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

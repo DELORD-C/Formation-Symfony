@@ -57,7 +57,7 @@ class LikeRepository extends ServiceEntityRepository
 
         $conn = $this->getEntityManager()->getConnection();
 
-        $sql = "SELECT user_id FROM like WHERE comment_id = :commentId";
+        $sql = "SELECT user_id FROM `like` WHERE comment_id = :commentId";
 
         $results = $conn->executeQuery($sql, ['commentId' => $comment->getId()]);
 
