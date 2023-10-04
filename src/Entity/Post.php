@@ -2,23 +2,39 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
 use App\Repository\PostRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
+#[ApiResource(
+    operations: [
+        new Get(normalizationContext: ['groups' => 'post:item']),
+        new GetCollection(normalizationContext: ['groups' => 'post:list'])
+    ],
+    order: ['id' => 'DESC'],
+    paginationEnabled: false
+)]
 class Post
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['post:list', 'post:item'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['post:item'])]
     private ?string $subject = null;
 
+    #[Groups(['post:list', 'post:item'])]
     #[ORM\Column(length: 1000)]
     private ?string $body = null;
 
+    #[Groups(['post:list', 'post:item'])]
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
