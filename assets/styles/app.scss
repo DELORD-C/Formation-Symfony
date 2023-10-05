@@ -1,2 +1,19 @@
 @import '~bootstrap/scss/bootstrap';
 @import '~bootstrap-icons/font/bootstrap-icons';
+@import '~flag-icons/sass/flag-icons';
+
+* {
+  font-family: Roboto, sans-serif;
+}
+
+form {
+  max-width: 600px;
+}
+
+nav img {
+  height: 50px;
+}
+
+.table > :not(caption) > * > * {
+  background-color: transparent;
+}

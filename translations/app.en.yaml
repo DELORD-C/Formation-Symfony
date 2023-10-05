@@ -1,0 +1,2 @@
+home.H1: 'Hello name !'
+apple: "{0} There is no apple.|{1} There is one apple|]1,Inf[ There are %count% apples."

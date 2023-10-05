@@ -19,7 +19,7 @@ class UserType extends AbstractType
             'ROLE_ADMIN' => 'ROLE_ADMIN'
         ];
 
-        if ($options['data'] && !in_array('ROLE_SUPERADMIN', $options['data']->getRoles())) {
+        if (!isset($options['data']) || !in_array('ROLE_SUPERADMIN', $options['data']->getRoles())) {
             $roles['ROLE_SUPERADMIN'] = 'ROLE_SUPERADMIN';
         }
 

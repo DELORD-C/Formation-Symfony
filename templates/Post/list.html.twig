@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block body %}
-    <a href="{{ path('app_post_create') }}">Create</a>
+    <a class="btn btn-primary" href="{{ path('app_post_create') }}">Create</a>
     <table class="table">
         <thead>
             <tr>
@@ -27,10 +27,10 @@
                 <td>{{ post.comments }}</td>
                 <td>{{ post.createdAt|date }}</td>
                 <td>
-                    <a href="{{ path('app_post_read', {'post' : post.id}) }}">Read</a>
+                    <a class="btn btn-primary" href="{{ path('app_post_read', {'post' : post.id}) }}">Read</a>
                     {% if is_granted('UPDATE', post) %}
-                        <a href="{{ path('app_post_update', {'post' : post.id}) }}">Update</a>
-                        <a href="{{ path('app_post_delete', {'post' : post.id}) }}">Delete</a>
+                        <a class="btn btn-primary" href="{{ path('app_post_update', {'post' : post.id}) }}">Update</a>
+                        <a class="btn btn-danger" href="{{ path('app_post_delete', {'post' : post.id}) }}">Delete</a>
                     {% endif %}
                 </td>
             </tr>

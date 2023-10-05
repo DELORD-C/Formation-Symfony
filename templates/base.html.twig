@@ -15,6 +15,9 @@
     <body>
         {{ render_esi(controller('App\\Controller\\DefaultController::navbar')) }}
         {% include 'Fragments/_flash.html.twig' with { 'index' : 'valeur' } %}
-        {% block body %}{% endblock %}
+        {% include 'Fragments/_bg.html.twig' %}
+        <div class="container-fluid p-4">
+            {% block body %}{% endblock %}
+        </div>
     </body>
 </html>

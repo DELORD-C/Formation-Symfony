@@ -1,0 +1,16 @@
+{% if app.session.get('_locale') != 'fr' %}
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('app_default_locale', {"locale": "fr"}) }}"><span class="fi fi-fr"></span></a>
+    </li>
+{% endif %}
+{% if app.session.get('_locale') != 'en' %}
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('app_default_locale', {"locale": "en"}) }}"><span class="fi fi-gb"></span></a>
+    </li>
+{% endif %}
+{% if app.session.get('_locale') != 'es' %}
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('app_default_locale', {"locale": "es"}) }}"><span class="fi fi-es"></span></a>
+    </li>
+{% endif %}
