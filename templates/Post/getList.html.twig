@@ -1,0 +1,16 @@
+{% for post in posts %}
+    <tr>
+        <td>{{ post.subject }}</td>
+        <td>{{ post.body }}</td>
+        <td>{{ post.user.email }}</td>
+        <td>{{ post.comments }}</td>
+        <td>{{ post.createdAt|date }}</td>
+        <td>
+            <a class="btn btn-primary" href="{{ path('app_post_read', {'post' : post.id}) }}">Read</a>
+            {% if is_granted('UPDATE', post) %}
+                <a class="btn btn-primary" href="{{ path('app_post_update', {'post' : post.id}) }}">Update</a>
+                <a class="btn btn-danger" href="{{ path('app_post_delete', {'post' : post.id}) }}">Delete</a>
+            {% endif %}
+        </td>
+    </tr>
+{% endfor %}

@@ -10,10 +10,13 @@ use App\Repository\LikeRepository;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\Cache;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Contracts\Cache\CacheInterface;
 
 #[Route('/post')]
 class PostController extends AbstractController
@@ -41,7 +44,13 @@ class PostController extends AbstractController
     }
 
     #[Route('/list')]
-    public function list(PostRepository $rep, CommentRepository $commentRep): Response
+    #[Cache(maxage: 3600, public: true, mustRevalidate: true)]
+    public function list(): Response
+    {
+        return $this->render('Post/list.html.twig');
+    }
+
+    public function getList(PostRepository $rep, CommentRepository $commentRep, Request $request): Response
     {
         $posts = $rep->findAll();
 
@@ -49,7 +58,12 @@ class PostController extends AbstractController
             $post->comments = $commentRep->countByPost($post);
         }
 
-        return $this->render('Post/list.html.twig', [
+        $response = new Response();
+        $response->setPublic();
+        $response->setEtag(md5(json_encode($posts)));
+        $response->isNotModified($request);
+
+        return $this->render('Post/getList.html.twig', [
             'posts' => $posts
         ]);
     }
@@ -97,20 +111,37 @@ class PostController extends AbstractController
     }
 
     #[Route('/{post}')]
-    public function read(Post $post, CommentRepository $rep, LikeRepository $likeRep): Response
+    #[Cache(maxage: 3600, public: true, mustRevalidate: true)]
+    public function read(Post $post): Response
     {
         $form = $this->createForm(CommentType::class);
 
-        $comments = $rep->findBy(['post' => $post]);
-
-        foreach ($comments as &$comment) {
-            $comment->likes = $likeRep->findUsersWhoLiked($comment);
-        }
-
         return $this->render('Post/read.html.twig', [
-            'comments' => $comments,
             'post' => $post,
             'form' => $form
+        ]);
+    }
+
+
+    public function getComments(Post $post, CommentRepository $rep, LikeRepository $likeRep): Response
+    {
+        $cache = new FilesystemAdapter();
+        $comments = $cache->get(
+            'commentsforpost' . $post->getId(),
+            function () use ($post, $rep, $likeRep) {
+
+                $tempComments = $rep->findBy(['post' => $post]);
+
+                foreach ($tempComments as &$comment) {
+                    $comment->likes = $likeRep->findUsersWhoLiked($comment);
+                }
+
+                return $tempComments;
+            }
+        );
+
+        return $this->render('Post/comments.html.twig', [
+            'comments' => $comments
         ]);
     }
 }

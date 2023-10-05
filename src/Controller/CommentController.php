@@ -9,6 +9,7 @@ use App\Form\CommentType;
 use App\Repository\LikeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,6 +32,9 @@ class CommentController extends AbstractController
             $em->persist($comment);
             $em->flush();
             $this->addFlash('notice', 'Comment successfully created.');
+
+            $cache = new FilesystemAdapter();
+            $cache->delete('commentsforpost' . $post->getId());
         }
 
         return $this->redirectToRoute('app_post_read', ['post' => $post->getId()]);
@@ -46,6 +50,8 @@ class CommentController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em->flush();
+            $cache = new FilesystemAdapter();
+            $cache->delete('commentsforpost' . $comment->getPost()->getId());
             return $this->redirectToRoute('app_post_read', ['post' => $comment->getPost()->getId()]);
         }
 
@@ -60,6 +66,8 @@ class CommentController extends AbstractController
         $this->denyAccessUnlessGranted('DELETE', $comment);
         $em->remove($comment);
         $em->flush();
+        $cache = new FilesystemAdapter();
+        $cache->delete('commentsforpost' . $comment->getPost()->getId());
         return $this->redirectToRoute("app_post_read", ['post' => $comment->getPost()->getId()]);
     }
 
