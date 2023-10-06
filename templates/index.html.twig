@@ -1,15 +1,6 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<h1>{{ 'home.H1'|trans({'name' : 'Fabien'}, 'app') }}</h1>
-<p>{{ 'apple'|trans({'%count%': 45}, 'app') }}</p>
-    <script>
-        fetch('/api/test')
-            .then(response => {
-                return response.json();
-            })
-            .then(chien => {
-                console.log(chien);
-            });
-    </script>
+    <h1>{{ 'home.H1'|trans({'name' : 'Fabien'}, 'app') }}</h1>
+    <p>{{ 'apple'|trans({'%count%': 45}, 'app') }}</p>
 {% endblock %}

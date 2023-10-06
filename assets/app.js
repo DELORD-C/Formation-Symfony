@@ -9,3 +9,7 @@
 import './styles/app.scss';
 
 require('bootstrap');
+require('./js/meteo');
+const $ = require('jquery');
+
+require('./js/conditionize');

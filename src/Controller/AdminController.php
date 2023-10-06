@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use App\Services\Conditionalize;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,14 +17,19 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminController extends AbstractController
 {
     #[Route('/create')]
-    public function create(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $userPasswordHasher): Response
+    public function create(
+        Request $request,
+        EntityManagerInterface $em,
+        UserPasswordHasherInterface $userPasswordHasher,
+        Conditionalize $conditionalize
+    ): Response
     {
 
         $form = $this->createForm(UserType::class);
+        $formBuilder = $this->createFormBuilder(UserType::class);
 
         $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid() && $conditionalize->validate($form)) {
             $user = $form->getData();
             $user->setPassword(
                 $userPasswordHasher->hashPassword(

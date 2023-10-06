@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use App\Services\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,7 +25,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, FileUploader $uploader): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -38,6 +39,12 @@ class UserController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+
+            $pic = $form->get('pic')->getData();
+
+            if ($pic) {
+                $user->setPic($uploader->uploadFile($pic, '/pics'));
+            }
 
             $entityManager->persist($user);
             $entityManager->flush();
