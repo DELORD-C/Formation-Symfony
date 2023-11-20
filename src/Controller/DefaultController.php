@@ -2,13 +2,26 @@
 
 namespace App\Controller;
 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class DefaultController {
+class DefaultController extends AbstractController {
     #[Route('/', methods: ['GET', 'POST'])]
     public function hello(): Response
     {
-        return new Response('Hello World !');
+        return $this->render('default.html.twig');
+    }
+
+    #[Route('/hello/all')]
+    function helloAll(): Response
+    {
+        return new Response('Hello Everyone !');
+    }
+
+    #[Route('/hello/{name}', requirements: ['name' => '\p{L}+'])]
+    function sayHello(string $name): Response
+    {
+        return new Response('Hello ' . $name . ' !');
     }
 }

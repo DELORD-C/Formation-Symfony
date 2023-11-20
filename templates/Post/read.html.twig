@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Post {{ post.id }}{% endblock %}
+{% block body %}
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Body</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ post.id }}</td>
+                <td>{{ post.title }}</td>
+                <td>{{ post.body }}</td>
+                <td>
+                    <a href="{{ path('app_post_update', {'post' : post.id}) }}">Update</a>
+                    <a href="{{ path('app_post_delete', {'post' : post.id}) }}">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}
