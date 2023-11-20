@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Review {{ review.id }}{% endblock %}
+{% block body %}
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Movie</th>
+                <th>Body</th>
+                <th>Rating</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ review.id }}</td>
+                <td>{{ review.movie }}</td>
+                <td>{{ review.body }}</td>
+                <td>{{ review.rating }}</td>
+                <td>
+                    <a href="{{ path('app_review_update', {'review' : review.id}) }}">Update</a>
+                    <a href="{{ path('app_review_delete', {'review' : review.id}) }}">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}
