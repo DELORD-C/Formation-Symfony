@@ -6,6 +6,7 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Author</th>
                 <th>Movie</th>
                 <th>Body</th>
                 <th>Rating</th>
@@ -16,13 +17,18 @@
             {% for review in reviews %}
                 <tr>
                     <td>{{ review.id }}</td>
+                    <td>{{ review.user.email }}</td>
                     <td>{{ review.movie }}</td>
                     <td>{{ review.body }}</td>
                     <td>{{ review.rating }}</td>
                     <td>
-                        <a href="{{ path('app_review_read', {'review' : review.id}) }}">Read</a>
-                        <a href="{{ path('app_review_update', {'review' : review.id}) }}">Update</a>
-                        <a href="{{ path('app_review_delete', {'review' : review.id}) }}">Delete</a>
+                        {% if is_granted('READ-REVIEW') %}
+                            <a href="{{ path('app_review_read', {'review' : review.id}) }}">Read</a>
+                        {% endif %}
+                        {% if is_granted('UPDATE', review) %}
+                            <a href="{{ path('app_review_update', {'review' : review.id}) }}">Update</a>
+                            <a href="{{ path('app_review_delete', {'review' : review.id}) }}">Delete</a>
+                        {% endif %}
                     </td>
                 </tr>
             {% endfor %}

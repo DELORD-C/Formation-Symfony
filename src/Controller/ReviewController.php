@@ -10,11 +10,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/review')]
 class ReviewController extends AbstractController
 {
     #[Route('/create')]
+    #[IsGranted('CREATE-REVIEW')]
     function create(Request $request, EntityManagerInterface $em): Response
     {
         $review = new Review();
@@ -25,6 +27,7 @@ class ReviewController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $review = $form->getData();
+            $review->setUser($this->getUser());
             $em->persist($review);
             $em->flush();
 //            return $this->redirect('/review/create');
@@ -38,6 +41,7 @@ class ReviewController extends AbstractController
     }
 
     #[Route('/all')]
+    #[IsGranted('READ-REVIEW')]
     function all(ReviewRepository $rep): Response
     {
         $reviews = $rep->findAll();
@@ -47,6 +51,7 @@ class ReviewController extends AbstractController
     }
 
     #[Route('/read/{review}')]
+    #[IsGranted('READ-REVIEW')]
     function read(Review $review): Response
     {
         return $this->render('Review/read.html.twig', [
@@ -55,6 +60,7 @@ class ReviewController extends AbstractController
     }
 
     #[Route('/update/{review}')]
+    #[IsGranted('UPDATE', 'review')]
     function update(Review $review, Request $request, EntityManagerInterface $em): Response
     {
         $form = $this->createForm(ReviewType::class, $review);
@@ -75,6 +81,7 @@ class ReviewController extends AbstractController
     }
 
     #[Route('/delete/{review}')]
+    #[IsGranted('DELETE', 'review', 'You can only delete your own reviews !', 403)]
     function delete(Review $review, EntityManagerInterface $em): Response
     {
         $em->remove($review);
