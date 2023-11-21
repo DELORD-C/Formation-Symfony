@@ -23,4 +23,8 @@
             </tr>
         </tbody>
     </table>
+    <h2>Comments</h2>
+    {{ render(controller('App\\Controller\\CommentController::list', {'post': post.id})) }}
+    <h2>Leave a comment</h2>
+    {{ render(controller('App\\Controller\\CommentController::create')) }}
 {% endblock %}

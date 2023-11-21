@@ -46,7 +46,7 @@ class PostController extends AbstractController
         ]);
     }
 
-    #[Route('/read/{post}')]
+    #[Route('/read/{post}', methods: ['GET'])]
     function read(Post $post): Response
     {
         return $this->render('Post/read.html.twig', [

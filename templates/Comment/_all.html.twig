@@ -1,0 +1,8 @@
+
+{% for comment in comments %}
+        <p>{{ comment.body }}</p>
+        <div>
+            <a href="{{ path('app_comment_update', {'comment' : comment.id}) }}">Update</a>
+            <a href="{{ path('app_comment_delete', {'comment' : comment.id}) }}">Delete</a>
+        </div>
+{% endfor %}
