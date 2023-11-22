@@ -13,7 +13,7 @@
         {% endblock %}
     </head>
     <body>
-        {{ render(controller('App\\Controller\\DefaultController::menu')) }}
+        {{ render_esi(controller('App\\Controller\\DefaultController::menu')) }}
         {% include 'Fragments/_flashes.html.twig' %}
         {% block body %}{% endblock %}
     </body>

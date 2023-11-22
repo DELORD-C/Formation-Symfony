@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Services\Menu;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\Cache;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController {
@@ -26,6 +27,7 @@ class DefaultController extends AbstractController {
         return new Response('Hello ' . $name . ' !');
     }
 
+    #[Cache(maxage: 86400, public: true, mustRevalidate: true)]
     function menu(Menu $menu): Response
     {
         return $this->render('Fragments/_menu.html.twig', [

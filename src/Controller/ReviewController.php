@@ -42,12 +42,18 @@ class ReviewController extends AbstractController
 
     #[Route('/all')]
     #[IsGranted('READ')]
-    function all(ReviewRepository $rep): Response
+    function all(ReviewRepository $rep, Request $request): Response
     {
+
         $reviews = $rep->findAll();
-        return $this->render('Review/all.html.twig', [
+        $response = $this->render('Review/all.html.twig', [
             'reviews' => $reviews
         ]);
+        $response->setPublic();
+        $response->setEtag(md5($response->getContent()));
+        $response->isNotModified($request);
+
+        return $response;
     }
 
     #[Route('/read/{review}')]
