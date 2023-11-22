@@ -16,7 +16,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class ReviewController extends AbstractController
 {
     #[Route('/create')]
-    #[IsGranted('CREATE-REVIEW')]
+    #[IsGranted('CREATE')]
     function create(Request $request, EntityManagerInterface $em): Response
     {
         $review = new Review();
@@ -41,7 +41,7 @@ class ReviewController extends AbstractController
     }
 
     #[Route('/all')]
-    #[IsGranted('READ-REVIEW')]
+    #[IsGranted('READ')]
     function all(ReviewRepository $rep): Response
     {
         $reviews = $rep->findAll();
@@ -51,7 +51,7 @@ class ReviewController extends AbstractController
     }
 
     #[Route('/read/{review}')]
-    #[IsGranted('READ-REVIEW')]
+    #[IsGranted('READ')]
     function read(Review $review): Response
     {
         return $this->render('Review/read.html.twig', [
@@ -60,7 +60,7 @@ class ReviewController extends AbstractController
     }
 
     #[Route('/update/{review}')]
-    #[IsGranted('UPDATE', 'review')]
+    #[IsGranted('UPDATE', 'review', 'You can only update your own reviews !', 403)]
     function update(Review $review, Request $request, EntityManagerInterface $em): Response
     {
         $form = $this->createForm(ReviewType::class, $review);

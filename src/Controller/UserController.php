@@ -17,6 +17,10 @@ class UserController extends AbstractController
     #[Route('/login')]
     public function login(AuthenticationUtils $utils): Response
     {
+        if ($this->getUser()) {
+            $this->addFlash('notice', 'You are already logged in !');
+            return $this->redirectToRoute('app_default_hello');
+        }
         return $this->render('User/login.html.twig', [
             'lastUsername' => $utils->getLastUsername(),
             'error' => $utils->getLastAuthenticationError()
@@ -26,6 +30,11 @@ class UserController extends AbstractController
     #[Route('/register')]
     public function register(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $hasher): Response
     {
+        if ($this->getUser()) {
+            $this->addFlash('notice', 'You are already logged in !');
+            return $this->redirectToRoute('app_default_hello');
+        }
+
         $user = new User();
 
         $form = $this->createForm(UserType::class, $user);
