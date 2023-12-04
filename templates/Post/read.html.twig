@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Subject</th>
+                <th>Body</th>
+                <th>Created At</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ post.id }}</td>
+                <td>{{ post.subject }}</td>
+                <td>{{ post.body }}</td>
+                <td>{{ post.createdAt|date('d/m/Y') }}</td>
+                <td>
+                
+                </td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}
