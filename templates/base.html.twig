@@ -13,9 +13,9 @@
     <body>
         <nav><ul>
             <li><a href='{{ path("app_default_index") }}'>Home</a></li>
+            {# <li><a href='{{ path("app_default_hello", {'name':'Tristan'}) }}'>Greetings</a></li> #}
             <li><a href='{{ path("app_default_helloall") }}'>Greetings</a></li>
             <li><a href='{{ path("app_default_random") }}'>Random</a></li>
-            <li><a href='{{ path("app_default_randommax", {'max':'500'}) }}'>Random Max</a></li>
         </ul></nav>
         {% block body %}{% endblock %}
     </body>
