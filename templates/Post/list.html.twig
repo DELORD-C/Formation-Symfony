@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <table>
+    <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
@@ -19,13 +19,13 @@
                     <td>{{ post.body }}</td>
                     <td>{{ post.createdAt|date('d/m/Y') }}</td>
                     <td>
-                        <a href="{{ path('app_post_read', {'post': post.id}) }}">Read</a>
-                        <a href="{{ path('app_post_update', {'post': post.id}) }}">Update</a>
-                        <a href="{{ path('app_post_delete', {'post': post.id}) }}">Delete</a>
+                        <a class="btn btn-primary" href="{{ path('app_post_read', {'post': post.id}) }}">Read</a>
+                        <a class="btn btn-primary" href="{{ path('app_post_update', {'post': post.id}) }}">Update</a>
+                        <a class="btn btn-danger" href="{{ path('app_post_delete', {'post': post.id}) }}">Delete</a>
                     </td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
-    <a href="{{ path('app_post_create') }}">Create Post</a>
+    <a class="btn btn-primary" href="{{ path('app_post_create') }}">Create Post</a>
 {% endblock %}
