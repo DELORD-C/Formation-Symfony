@@ -11,6 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 class PostType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        // Liste des types de champs : https://symfony.com/doc/current/reference/forms/types.html
         $builder
             ->add('subject', TextType::class)
             ->add('body', TextareaType::class)
