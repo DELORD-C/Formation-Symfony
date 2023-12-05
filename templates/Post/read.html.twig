@@ -1,7 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <table>
+    <h1>Post n°{{ post.id }}</h1>
+    <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
@@ -18,10 +19,19 @@
                 <td>{{ post.body }}</td>
                 <td>{{ post.createdAt|date('d/m/Y') }}</td>
                 <td>
-                    <a href="{{ path('app_post_update', {'post': post.id}) }}">Update</a>
-                    <a href="{{ path('app_post_delete', {'post': post.id}) }}">Delete</a>
+                    <a class="btn btn-primary" href="{{ path('app_post_update', {'post': post.id}) }}">Update</a>
+                    <a class="btn btn-danger" href="{{ path('app_post_delete', {'post': post.id}) }}">Delete</a>
                 </td>
             </tr>
         </tbody>
     </table>
+
+    <h2>Comments</h2>
+    <ul>
+        {% for comment in post.comments %}
+            <li>{{ comment.body }} | <a href="{{ path("app_comment_delete", {"comment": comment.id}) }}">Delete</a></li>
+        {% endfor %}
+    </ul>
+
+    {{ render(controller('App\\Controller\\CommentController::create', {'post': post.id})) }}
 {% endblock %}

@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <table>
+    <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
@@ -21,13 +21,13 @@
                     <td>{{ review.rating }}/10</td>
                     <td>{{ review.createdAt|date('d/m/Y') }}</td>
                     <td>
-                        <a href="{{ path('app_review_read', {'review': review.id}) }}">Read</a>
-                        <a href="{{ path('app_review_update', {'review': review.id}) }}">Update</a>
-                        <a href="{{ path('app_review_delete', {'review': review.id}) }}">Delete</a>
+                        <a class="btn btn-primary" href="{{ path('app_review_read', {'review': review.id}) }}">Read</a>
+                        <a class="btn btn-primary" href="{{ path('app_review_update', {'review': review.id}) }}">Update</a>
+                        <a class="btn btn-danger" href="{{ path('app_review_delete', {'review': review.id}) }}">Delete</a>
                     </td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
-    <a href="{{ path('app_review_create') }}">Create Review</a>
+    <a class="btn btn-primary" href="{{ path('app_review_create') }}">Create Review</a>
 {% endblock %}

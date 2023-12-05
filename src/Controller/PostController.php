@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Post;
+use App\Form\CommentType;
 use App\Form\PostType;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -68,7 +70,9 @@ class PostController extends AbstractController {
     // de notre route en objet de type Post (ParamConverter)
     public function read (Post $post): Response
     {
-        return $this->render('Post/read.html.twig', ['post' => $post]);
+        return $this->render('Post/read.html.twig', [
+            'post' => $post
+        ]);
     }
 
     #[Route('/delete/{post}')]
