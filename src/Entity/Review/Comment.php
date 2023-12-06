@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Review;
 
-use App\Repository\CommentRepository;
+use App\Entity\Review;
+use App\Repository\Review\CommentRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
+#[ORM\Table(name:"review_comment")]
 class Comment
 {
     #[ORM\Id]
@@ -22,7 +24,7 @@ class Comment
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Post $post = null;
+    private ?Review $review = null;
 
     public function __construct() {
         $this->createdAt = new \DateTimeImmutable;
@@ -57,14 +59,14 @@ class Comment
         return $this;
     }
 
-    public function getPost(): ?Post
+    public function getReview(): ?Review
     {
-        return $this->post;
+        return $this->review;
     }
 
-    public function setPost(?Post $post): static
+    public function setReview(?Review $review): static
     {
-        $this->post = $post;
+        $this->review = $review;
 
         return $this;
     }

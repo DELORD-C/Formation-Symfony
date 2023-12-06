@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <table>
+    <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
@@ -20,10 +20,21 @@
                 <td>{{ review.rating }}/10</td>
                 <td>{{ review.createdAt|date('d/m/Y') }}</td>
                 <td>
-                    <a href="{{ path('app_review_update', {'review': review.id}) }}">Update</a>
-                    <a href="{{ path('app_review_delete', {'review': review.id}) }}">Delete</a>
+                    <a class="btn btn-primary" href="{{ path('app_review_update', {'review': review.id}) }}">Update</a>
+                    <a class="btn btn-danger" href="{{ path('app_review_delete', {'review': review.id}) }}">Delete</a>
                 </td>
             </tr>
         </tbody>
     </table>
+
+    {% if review.comments|length > 0 %}
+        <h2>Comments</h2>
+        <ul>
+            {% for comment in review.comments %}
+                <li>{{ comment.body }} | <a href="{{ path("app_review_comment_delete", {"comment": comment.id}) }}">Delete</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {{ render(controller('App\\Controller\\Review\\CommentController::create', {'review': review.id})) }}
 {% endblock %}

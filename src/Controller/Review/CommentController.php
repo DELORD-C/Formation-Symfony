@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Review;
 
-use App\Entity\Comment;
-use App\Entity\Post;
+use App\Entity\Review\Comment;
+use App\Entity\Review;
 use App\Form\CommentType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,25 +11,25 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/comment')]
+#[Route('/reviewcomment')]
 class CommentController extends AbstractController {
-    #[Route('/create/{post}')]
-    public function create (Post $post, Request $request, EntityManagerInterface $em): Response
+    #[Route('/create/{review}')]
+    public function create (Review $review, Request $request, EntityManagerInterface $em): Response
     {
         $comment = new Comment;
 
         $form = $this->createForm(CommentType::class, $comment, [
-            'action' => $this->generateUrl('app_comment_create', ['post' => $post->getId()])
+            'action' => $this->generateUrl('app_review_comment_create', ['review' => $review->getId()])
         ]);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $comment = $form->getData();
-            $comment->setPost($post);
+            $comment->setReview($review);
             $em->persist($comment);
             $em->flush();
-            return $this->redirectToRoute('app_post_read', ['post' => $post->getId()]);
+            return $this->redirectToRoute('app_review_read', ['review' => $review->getId()]);
         }
 
         return $this->render('Comment/create.html.twig', [
@@ -42,6 +42,6 @@ class CommentController extends AbstractController {
     {
         $em->remove($comment);
         $em->flush();
-        return $this->redirectToRoute('app_post_read', ['post' => $comment->getPost()->getId()]);
+        return $this->redirectToRoute('app_review_read', ['review' => $comment->getReview()->getId()]);
     }
 }

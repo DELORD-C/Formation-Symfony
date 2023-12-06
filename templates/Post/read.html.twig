@@ -26,12 +26,14 @@
         </tbody>
     </table>
 
-    <h2>Comments</h2>
-    <ul>
-        {% for comment in post.comments %}
-            <li>{{ comment.body }} | <a href="{{ path("app_comment_delete", {"comment": comment.id}) }}">Delete</a></li>
-        {% endfor %}
-    </ul>
+    {% if post.comments|length > 0 %}
+        <h2>Comments</h2>
+        <ul>
+            {% for comment in post.comments %}
+                <li>{{ comment.body }} | <a href="{{ path("app_post_comment_delete", {"comment": comment.id}) }}">Delete</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 
-    {{ render(controller('App\\Controller\\CommentController::create', {'post': post.id})) }}
+    {{ render(controller('App\\Controller\\Post\\CommentController::create', {'post': post.id})) }}
 {% endblock %}
