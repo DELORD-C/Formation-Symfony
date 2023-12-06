@@ -30,7 +30,12 @@
         <h2>Comments</h2>
         <ul>
             {% for comment in post.comments %}
-                <li>{{ comment.body }} | <a href="{{ path("app_post_comment_delete", {"comment": comment.id}) }}">Delete</a></li>
+                <li>
+                    {{ comment.body }} |
+                    <a href="{{ path("app_post_comment_delete", {"comment": comment.id}) }}">Delete</a> |
+                    <a href="{{ path("app_like_create", {"comment": comment.id}) }}">Like</a> |
+                    {{ comment.likes|length }}
+                </li>
             {% endfor %}
         </ul>
     {% endif %}
