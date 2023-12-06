@@ -28,6 +28,10 @@ class Post
     #[ORM\OneToMany(mappedBy: 'post', targetEntity: Comment::class)]
     private Collection $comments;
 
+    #[ORM\ManyToOne(inversedBy: 'posts')]
+    #[ORM\JoinColumn(nullable: false, onDelete:"CASCADE")]
+    private ?User $user = null;
+
     public function __construct () {
         $this->createdAt = new \DateTimeImmutable;
         $this->comments = new ArrayCollection();
@@ -100,6 +104,18 @@ class Post
                 $comment->setPost(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

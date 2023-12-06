@@ -3,6 +3,7 @@
 namespace App\Entity\Review;
 
 use App\Entity\Review;
+use App\Entity\User;
 use App\Repository\Review\CommentRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -23,8 +24,12 @@ class Comment
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete:"CASCADE")]
     private ?Review $review = null;
+
+    #[ORM\ManyToOne(inversedBy: 'reviewComments')]
+    #[ORM\JoinColumn(nullable: false, onDelete:"CASCADE")]
+    private ?User $user = null;
 
     public function __construct() {
         $this->createdAt = new \DateTimeImmutable;
@@ -67,6 +72,18 @@ class Comment
     public function setReview(?Review $review): static
     {
         $this->review = $review;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

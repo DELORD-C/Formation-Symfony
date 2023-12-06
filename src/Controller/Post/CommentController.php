@@ -27,6 +27,7 @@ class CommentController extends AbstractController {
         if ($form->isSubmitted() && $form->isValid()) {
             $comment = $form->getData();
             $comment->setPost($post);
+            $comment->setUser($this->getUser());
             $em->persist($comment);
             $em->flush();
             return $this->redirectToRoute('app_post_read', ['post' => $post->getId()]);

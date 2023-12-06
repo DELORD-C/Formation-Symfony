@@ -34,6 +34,8 @@ class PostController extends AbstractController {
         if ($form->isSubmitted() && $form->isValid()) {
             // Si oui, on récupère les données du formulaire envoyé pour créer un objet Post
             $post = $form->getData();
+            // On fourni à notre Post l'utilisateur connecté
+            $post->setUser($this->getUser());            
             // On demande à l'entityManager d'inssérer le nouveau Post dans la base de donnée
             $em->persist($post);
             // On applique les modifications

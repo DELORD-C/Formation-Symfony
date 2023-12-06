@@ -25,6 +25,7 @@ class ReviewController extends AbstractController {
 
         if ($form->isSubmitted() && $form->isValid()) {
             $review = $form->getData();
+            $review->setUser($this->getUser());
             $em->persist($review);
             $em->flush();
 

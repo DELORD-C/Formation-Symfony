@@ -19,6 +19,10 @@ class Like
     #[ORM\JoinColumn(nullable: false, onDelete:"CASCADE")]
     private ?Comment $comment = null;
 
+    #[ORM\ManyToOne(inversedBy: 'likes')]
+    #[ORM\JoinColumn(nullable: false, onDelete:"CASCADE")]
+    private ?User $user = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -32,6 +36,18 @@ class Like
     public function setComment(?Comment $comment): static
     {
         $this->comment = $comment;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

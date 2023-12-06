@@ -4,6 +4,7 @@ namespace App\Entity\Post;
 
 use App\Entity\Like;
 use App\Entity\Post;
+use App\Entity\User;
 use App\Repository\Post\CommentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -30,6 +31,10 @@ class Comment
 
     #[ORM\OneToMany(mappedBy: 'comment', targetEntity: Like::class)]
     private Collection $likes;
+
+    #[ORM\ManyToOne(inversedBy: 'comments')]
+    #[ORM\JoinColumn(nullable: false, onDelete:"CASCADE")]
+    private ?User $user = null;
 
     public function __construct() {
         $this->createdAt = new \DateTimeImmutable;
@@ -103,6 +108,18 @@ class Comment
                 $like->setComment(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }
