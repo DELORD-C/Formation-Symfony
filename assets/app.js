@@ -10,3 +10,5 @@ import './styles/app.scss';
 //import 'bootstrap/dist/css/bootstrap.css';
 
 require('bootstrap');
+
+require('../assets/js/flash');

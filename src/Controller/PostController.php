@@ -39,6 +39,8 @@ class PostController extends AbstractController {
             // On applique les modifications
             $em->flush();
 
+            $this->addFlash('notice', 'Post successfully created !');
+
             // On redirige l'utilisateur vers la liste des post
             return $this->redirectToRoute('app_post_list');
         }
@@ -80,6 +82,9 @@ class PostController extends AbstractController {
         $em->remove($post);
         // On applique les modifs
         $em->flush();
+
+        $this->addFlash('notice', 'Post successfully removed !');
+
         // On redirige l'utilisateur
         return $this->redirectToRoute('app_post_list');
     }
@@ -95,6 +100,7 @@ class PostController extends AbstractController {
             $post = $form->getData();
             $em->persist($post);
             $em->flush();
+            $this->addFlash('notice', 'Post successfully updated !');
         }
 
         return $this->render('Post/create.html.twig', [
