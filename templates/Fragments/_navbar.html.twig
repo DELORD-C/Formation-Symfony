@@ -17,7 +17,9 @@
                     Posts
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="{{ path("app_post_create") }}">Create</a></li>
+                    {% if is_granted('ROLE_USER') %}
+                        <li><a class="dropdown-item" href="{{ path("app_post_create") }}">Create</a></li>
+                    {% endif %}
                     <li><a class="dropdown-item" href="{{ path("app_post_list") }}">List</a></li>
                 </ul>
             </li>
@@ -26,7 +28,9 @@
                     Reviews
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="{{ path("app_review_create") }}">Create</a></li>
+                    {% if is_granted('ROLE_USER') %}
+                        <li><a class="dropdown-item" href="{{ path("app_review_create") }}">Create</a></li>
+                    {% endif %}
                     <li><a class="dropdown-item" href="{{ path("app_review_list") }}">List</a></li>
                 </ul>
             </li>

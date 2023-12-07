@@ -1,14 +1,14 @@
 <?php
 
 namespace App\Security;
-use App\Entity\Review;
+use App\Entity\Post;
 use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class ReviewVoter extends Voter
+class PostVoter extends Voter
 {
-    const CREATE = 'createReview';
+    const CREATE = 'createPost';
     const updateOrDelete = 'updateOrDelete';
     protected function supports(string $attribute, mixed $subject): bool
     {
@@ -16,7 +16,7 @@ class ReviewVoter extends Voter
             return false;
         }
 
-        if ($attribute == self::updateOrDelete && !$subject instanceof Review) {
+        if ($attribute == self::updateOrDelete && !$subject instanceof Post) {
             return false;
         }
 
@@ -45,8 +45,8 @@ class ReviewVoter extends Voter
         };
     }
 
-    private function canUpdateOrDelete (Review $review, User $user): bool
+    private function canUpdateOrDelete (Post $post, User $user): bool
     {
-        return $user === $review->getUser();
+        return $user === $post->getUser();
     }
 }

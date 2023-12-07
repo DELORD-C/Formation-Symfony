@@ -56,7 +56,7 @@ class ReviewController extends AbstractController {
     }
 
     #[Route('/delete/{review}')]
-    #[IsGranted('editOrDelete', 'review')]
+    #[IsGranted('updateOrDelete', 'review')]
     public function delete (Review $review, EntityManagerInterface $em): Response
     {
         // if ($review->getUser() !== $this->getUser()) {
@@ -69,7 +69,7 @@ class ReviewController extends AbstractController {
     }
 
     #[Route('/update/{review}')]
-    #[IsGranted('editOrDelete', 'review')]
+    #[IsGranted('updateOrDelete', 'review')]
     public function update (Review $review, Request $request, EntityManagerInterface $em): Response
     {
         $form = $this->createForm(ReviewType::class, $review);

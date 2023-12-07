@@ -9,7 +9,9 @@
                 <th>Subject</th>
                 <th>Body</th>
                 <th>Created At</th>
-                <th>Actions</th>
+                {% if is_granted('updateOrDelete', post) %}
+                    <th>Actions</th>
+                {% endif %}
             </tr>
         </thead>
         <tbody>
@@ -18,10 +20,12 @@
                 <td>{{ post.subject }}</td>
                 <td>{{ post.body }}</td>
                 <td>{{ post.createdAt|date('d/m/Y') }}</td>
-                <td>
-                    <a class="btn btn-primary" href="{{ path('app_post_update', {'post': post.id}) }}">Update</a>
-                    <a class="btn btn-danger" href="{{ path('app_post_delete', {'post': post.id}) }}">Delete</a>
-                </td>
+                {% if is_granted('updateOrDelete', post) %}
+                    <td>
+                        <a class="btn btn-primary" href="{{ path('app_post_update', {'post': post.id}) }}">Update</a>
+                        <a class="btn btn-danger" href="{{ path('app_post_delete', {'post': post.id}) }}">Delete</a>
+                    </td>
+                {% endif %}
             </tr>
         </tbody>
     </table>
@@ -32,18 +36,27 @@
             {% for comment in post.comments %}
                 <li>
                     {{ comment.body }} |
-                    <a href="{{ path("app_like_toggle", {"comment": comment.id}) }}">
-                    {% if app.user.hasLiked(comment) %}
-                        <i class="bi bi-heart-fill"></i></a>
+                    {% if is_granted('ROLE_USER') %}
+                        <a href="{{ path("app_like_toggle", {"comment": comment.id}) }}" style="text-decoration: none;">
+                            {% if app.user.hasLiked(comment) %}
+                                <i class="bi bi-heart-fill"></i>
+                            {% else %}
+                                <i class="bi bi-heart"></i>
+                            {% endif %}
+                        </a>
                     {% else %}
-                        <i class="bi bi-heart"></i></a>
+                        <i class="bi bi-heart-fill" style="filter: contrast(0);"></i>
                     {% endif %}
                     {{ comment.likes|length }}
-                     | <a class="text-danger" href="{{ path("app_post_comment_delete", {"comment": comment.id}) }}">Delete</a>
+                    {% if is_granted('delete', comment) %}
+                         | <a class="text-danger" href="{{ path("app_post_comment_delete", {"comment": comment.id}) }}">Delete</a>
+                    {% endif %}
                 </li>
             {% endfor %}
         </ul>
     {% endif %}
 
-    {{ render(controller('App\\Controller\\Post\\CommentController::create', {'post': post.id})) }}
+    {% if is_granted('ROLE_USER') %}
+        {{ render(controller('App\\Controller\\Post\\CommentController::create', {'post': post.id})) }}
+    {% endif %}
 {% endblock %}

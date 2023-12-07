@@ -10,12 +10,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 // Route globale pour le controller, toutes les routes du controller commenceront par /post
 #[Route('/post')]
 class PostController extends AbstractController {
     // Route de la méthode
     #[Route('/create')]
+    #[IsGranted('createPost')]
     // On utilise l'Autowiring* pour accéder aux objets Request et EntityManagerInterface
     public function create (Request $request, EntityManagerInterface $em): Response
     {
@@ -78,6 +80,7 @@ class PostController extends AbstractController {
     }
 
     #[Route('/delete/{post}')]
+    #[IsGranted('updateOrDelete', 'post')]
     public function delete (Post $post, EntityManagerInterface $em): Response
     {
         // On demande à l'entityManager de supprimer le Post
@@ -92,6 +95,7 @@ class PostController extends AbstractController {
     }
 
     #[Route('/update/{post}')]
+    #[IsGranted('updateOrDelete', 'post')]
     public function update (Post $post, Request $request, EntityManagerInterface $em): Response
     {
         $form = $this->createForm(PostType::class, $post);

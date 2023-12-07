@@ -10,10 +10,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/reviewcomment')]
 class CommentController extends AbstractController {
     #[Route('/create/{review}')]
+    #[IsGranted('createComment')]
     public function create (Review $review, Request $request, EntityManagerInterface $em): Response
     {
         $comment = new Comment;
@@ -39,6 +41,7 @@ class CommentController extends AbstractController {
     }
 
     #[Route('/delete/{comment}')]
+    #[IsGranted('delete', 'comment')]
     public function delete (Comment $comment, EntityManagerInterface $em): Response
     {
         $em->remove($comment);
