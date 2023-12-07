@@ -52,6 +52,6 @@ class CommentVoter extends Voter
 
     private function canDelete (Comment|ReviewComment $comment, User $user): bool
     {
-        return $user === $comment->getUser();
+        return $user === $comment->getUser() || $user === $comment->getPost()->getUser();
     }
 }
