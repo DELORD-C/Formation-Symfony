@@ -23,7 +23,9 @@
                     <td>
                         <a class="btn btn-primary" href="{{ path('app_review_read', {'review': review.id}) }}">Read</a>
                         <a class="btn btn-primary" href="{{ path('app_review_update', {'review': review.id}) }}">Update</a>
-                        <a class="btn btn-danger" href="{{ path('app_review_delete', {'review': review.id}) }}">Delete</a>
+                        {% if app.user == review.user %}
+                            <a class="btn btn-danger" href="{{ path('app_review_delete', {'review': review.id}) }}">Delete</a>
+                        {% endif %}
                     </td>
                 </tr>
             {% endfor %}

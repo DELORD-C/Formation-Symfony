@@ -32,10 +32,11 @@
             {% for comment in post.comments %}
                 <li>
                     {{ comment.body }} |
+                    <a href="{{ path("app_like_toggle", {"comment": comment.id}) }}">
                     {% if app.user.hasLiked(comment) %}
-                        <a href="{{ path("app_like_toggle", {"comment": comment.id}) }}"><i class="bi bi-heart-fill"></i></a>
+                        <i class="bi bi-heart-fill"></i></a>
                     {% else %}
-                        <a href="{{ path("app_like_toggle", {"comment": comment.id}) }}"><i class="bi bi-heart"></i></a>
+                        <i class="bi bi-heart"></i></a>
                     {% endif %}
                     {{ comment.likes|length }}
                      | <a class="text-danger" href="{{ path("app_post_comment_delete", {"comment": comment.id}) }}">Delete</a>
