@@ -11,4 +11,5 @@ import './styles/app.scss';
 
 require('bootstrap');
 
-require('../assets/js/flash');
+require('./js/flash');
+require('./js/meteo');

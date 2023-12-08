@@ -53,6 +53,14 @@
             {% endif %}
             {% include 'Fragments/_locale.html.twig' %}
         </ul>
+        <div class="d-flex justify-center align-items-center gap-2 me-2">
+            <span id="city" class="d-flex justify-center align-items-center">
+                <img src="{{ asset('build/medias/loading.gif') }}">
+            </span> | 
+            <span id="meteo" class="d-flex justify-center align-items-center">
+                <img src="{{ asset('build/medias/loading.gif') }}">
+            </span>
+        </div>
         <form class="d-flex" role="search" action="{{ path('app_post_search') }}">
             <input class="form-control me-2" type="search" placeholder="{{ 'menu.search'|trans }}" aria-label="Search" name="query">
             <button class="btn btn-outline-success" type="submit">{{ 'menu.search'|trans }}</button>
