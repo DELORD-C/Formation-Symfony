@@ -4,11 +4,13 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\Cache;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DefaultController extends AbstractController {
     #[Route('/')]
+    #[Cache(public: true, maxage: 3600, mustRevalidate: true)]
     public function index (TranslatorInterface $trans): Response
     {
         return $this->render('default.html.twig', [
@@ -70,5 +72,11 @@ class DefaultController extends AbstractController {
             return $this->redirect($request->headers->get('referer'));
         }
         return $this->redirectToRoute('app_default_index');
+    }
+
+    #[Cache(public: true, mustRevalidate: true, maxage:3600)]
+    public function menu (): Response
+    {
+        return $this->render('Fragments/_navbar.html.twig');
     }
 }

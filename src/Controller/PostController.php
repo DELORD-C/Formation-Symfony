@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\Cache;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -58,15 +59,21 @@ class PostController extends AbstractController {
     }
 
     #[Route('/list')]
-    public function list (PostRepository $rep): Response
+    public function list (PostRepository $rep, Request $request): Response
     {
         // On récupère tous nos post grâce au repository
         $posts = $rep->findAll();
 
         // On passe nos posts en paramètre à notre vue
-        return $this->render('Post/list.html.twig', [
+        $response = $this->render('Post/list.html.twig', [
             'posts' => $posts
         ]);
+
+        $response->setPublic();
+        $response->setEtag(md5($response->getContent()));
+        $response->isNotModified($request);
+
+        return $response;
     }
 
     // On demande un paramètre {post} dans notre route

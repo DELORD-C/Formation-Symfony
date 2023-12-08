@@ -13,7 +13,7 @@
         {% endblock %}
     </head>
     <body>
-        {% include 'Fragments/_navbar.html.twig' %}
+        {{ render_esi(controller('App\\Controller\\DefaultController::menu')) }}
         {% include 'Fragments/_flash.html.twig' %}
         <div class="container-fluid p-3">{% block body %}{% endblock %}</div>
     </body>

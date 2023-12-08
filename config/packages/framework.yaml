@@ -11,13 +11,18 @@ framework:
         cookie_secure: auto
         cookie_samesite: lax
 
-    #esi: true
-    #fragments: true
+    esi: true
+    fragments: true
     php_errors:
         log: true
+
 
 when@test:
     framework:
         test: true
         session:
             storage_factory_id: session.storage.factory.mock_file
+
+when@prod:
+    framework:
+        http_cache: true
