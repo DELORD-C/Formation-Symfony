@@ -9,7 +9,9 @@
                 <th>Body</th>
                 <th>Rating</th>
                 <th>Created At</th>
-                <th>Actions</th>
+                {% if is_granted('updateOrDelete', review) %}
+                    <th>Actions</th>
+                {% endif %}
             </tr>
         </thead>
         <tbody>
@@ -19,10 +21,12 @@
                 <td>{{ review.body }}</td>
                 <td>{{ review.rating }}/10</td>
                 <td>{{ review.createdAt|date('d/m/Y') }}</td>
-                <td>
-                    <a class="btn btn-primary" href="{{ path('app_review_update', {'review': review.id}) }}">Update</a>
-                    <a class="btn btn-danger" href="{{ path('app_review_delete', {'review': review.id}) }}">Delete</a>
-                </td>
+                {% if is_granted('updateOrDelete', review) %}
+                    <td>
+                        <a class="btn btn-primary" href="{{ path('app_review_update', {'review': review.id}) }}">Update</a>
+                        <a class="btn btn-danger" href="{{ path('app_review_delete', {'review': review.id}) }}">Delete</a>
+                    </td>
+                {% endif %}
             </tr>
         </tbody>
     </table>
@@ -36,5 +40,7 @@
         </ul>
     {% endif %}
 
-    {{ render(controller('App\\Controller\\Review\\CommentController::create', {'review': review.id})) }}
+    {% if is_granted('ROLE_USER') %}
+        {{ render(controller('App\\Controller\\Review\\CommentController::create', {'review': review.id})) }}
+    {% endif %}
 {% endblock %}
