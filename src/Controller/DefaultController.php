@@ -2,15 +2,17 @@
 
 namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DefaultController extends AbstractController {
     #[Route('/')]
-    public function index (): Response
+    public function index (TranslatorInterface $trans): Response
     {
         return $this->render('default.html.twig', [
-            'text' => 'Hello World !',
+            'text' => $trans->trans('home.message'),
             'title' => 'Index'
         ]);
     }
@@ -58,5 +60,15 @@ class DefaultController extends AbstractController {
             'text' => rand($min, $max),
             'title' => 'Random Min Max'
         ]);
+    }
+
+    #[Route('/locale/{locale}')]
+    public function locale (string $locale, Request $request): Response
+    {
+        $request->getSession()->set('_locale', $locale);
+        if ($request->headers->get('referer')) {
+            return $this->redirect($request->headers->get('referer'));
+        }
+        return $this->redirectToRoute('app_default_index');
     }
 }

@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Post List</h1>
+    <h1>{{ 'post.list'|trans({'%count%': posts|length}) }}</h1>
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Subject</th>
-                <th>Body</th>
-                <th>Created At</th>
+                <th>{{ 'post.subject'|trans }}</th>
+                <th>{{ 'post.body'|trans }}</th>
+                <th>{{ 'post.created'|trans }}</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -20,10 +20,10 @@
                     <td>{{ post.body }}</td>
                     <td>{{ post.createdAt|date('d/m/Y') }}</td>
                     <td>
-                        <a class="btn btn-primary" href="{{ path('app_post_read', {'post': post.id}) }}">Read</a>
+                        <a class="btn btn-primary" href="{{ path('app_post_read', {'post': post.id}) }}">{{ 'post.read'|trans }}</a>
                         {% if is_granted('updateOrDelete', post) %}
-                            <a class="btn btn-primary" href="{{ path('app_post_update', {'post': post.id}) }}">Update</a>
-                            <a class="btn btn-danger" href="{{ path('app_post_delete', {'post': post.id}) }}">Delete</a>
+                            <a class="btn btn-primary" href="{{ path('app_post_update', {'post': post.id}) }}">{{ 'post.update'|trans }}</a>
+                            <a class="btn btn-danger" href="{{ path('app_post_delete', {'post': post.id}) }}">{{ 'post.delete'|trans }}</a>
                         {% endif %}
                     </td>
                 </tr>
@@ -31,6 +31,6 @@
         </tbody>
     </table>
     {% if is_granted('ROLE_USER') %}
-        <a class="btn btn-primary" href="{{ path('app_post_create') }}">Create Post</a>
+        <a class="btn btn-primary" href="{{ path('app_post_create') }}">{{ 'post.create'|trans }}</a>
     {% endif %}
 {% endblock %}

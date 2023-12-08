@@ -1,0 +1,23 @@
+home:
+  message: Hello World !
+menu:
+  create: Create
+  posts: Posts
+  reviews: Reviews
+  list: List
+  random: Random
+  greetings: Greetings
+  home: Home
+  users: Users
+  logout: Logout
+  login: Login
+  register: Register
+post:
+  list: Post List
+  subject: Subject
+  body: Body
+  created: Created At
+  read: Read
+  update: Update
+  delete: Delete
+  create: Create Post

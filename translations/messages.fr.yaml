@@ -1,0 +1,23 @@
+home:
+  message: Bonjour le monde !
+menu:
+  create: Créer
+  posts: Articles
+  reviews: Avis
+  list: Liste
+  random: Aléatoire
+  greetings: Salutations
+  home: Accueil
+  users: Utilisateurs
+  logout: Déconnexion
+  login: Connexion
+  register: Inscription
+post:
+  list: "{0}Aucun Article|{1}L'Article|]1,Inf[Liste des Articles"
+  subject: Sujet
+  body: Corps
+  created: Créé le
+  read: Voir
+  update: Editer
+  delete: Supprimer
+  create: Créer un article
