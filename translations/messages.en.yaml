@@ -12,6 +12,8 @@ menu:
   logout: Logout
   login: Login
   register: Register
+  search: Search
+
 post:
   list: Post List
   subject: Subject
@@ -21,3 +23,4 @@ post:
   update: Update
   delete: Delete
   create: Create Post
+  search: Post search

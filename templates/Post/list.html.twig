@@ -1,7 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>{{ 'post.list'|trans({'%count%': posts|length}) }}</h1>
+    {% if search is defined and search %}
+        <h1>{{ 'post.search'|trans }}</h1>
+    {% else %}
+        <h1>{{ 'post.list'|trans({'%count%': posts|length}) }}</h1>
+    {% endif %}
     <table class="table">
         <thead>
             <tr>

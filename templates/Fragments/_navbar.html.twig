@@ -53,10 +53,10 @@
             {% endif %}
             {% include 'Fragments/_locale.html.twig' %}
         </ul>
-        {# <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-        </form> #}
+        <form class="d-flex" role="search" action="{{ path('app_post_search') }}">
+            <input class="form-control me-2" type="search" placeholder="{{ 'menu.search'|trans }}" aria-label="Search" name="query">
+            <button class="btn btn-outline-success" type="submit">{{ 'menu.search'|trans }}</button>
+        </form>
         </div>
     </div>
 </nav>

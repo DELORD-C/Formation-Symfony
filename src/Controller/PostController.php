@@ -121,6 +121,23 @@ class PostController extends AbstractController {
             'postForm' => $form
         ]);
     }
+
+    #[Route('/search')]
+    public function search (PostRepository $rep, Request $request): Response
+    {
+        $posts = $rep->search($request->get('query'));
+
+        $response = $this->render('Post/list.html.twig', [
+            'posts' => $posts,
+            'search' => true
+        ]);
+
+        $response->setPublic();
+        $response->setEtag(md5($response->getContent()));
+        $response->isNotModified($request);
+
+        return $response;
+    }
 }
 
 // Autowiring : Lorsque on demande une classe particulière dans les paramètres d'une méthode,
