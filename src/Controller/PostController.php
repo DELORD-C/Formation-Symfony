@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 // Route globale pour le controller, toutes les routes du controller commenceront par /post
 #[Route('/post')]
@@ -96,7 +97,7 @@ class PostController extends AbstractController {
 
     #[Route('/update/{post}')]
     #[IsGranted('updateOrDelete', 'post')]
-    public function update (Post $post, Request $request, EntityManagerInterface $em): Response
+    public function update (Post $post, Request $request, EntityManagerInterface $em, TranslatorInterface $trans): Response
     {
         $form = $this->createForm(PostType::class, $post);
 
@@ -106,7 +107,7 @@ class PostController extends AbstractController {
             $post = $form->getData();
             $em->persist($post);
             $em->flush();
-            $this->addFlash('notice', 'Post successfully updated !');
+            $this->addFlash('notice', $trans->trans('Post successfully updated !'));
         }
 
         return $this->render('Post/create.html.twig', [

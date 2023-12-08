@@ -1,23 +1,21 @@
-home:
-  message: Bonjour le monde !
-menu:
-  create: Créer
-  posts: Articles
-  reviews: Avis
-  list: Liste
-  random: Aléatoire
-  greetings: Salutations
-  home: Accueil
-  users: Utilisateurs
-  logout: Déconnexion
-  login: Connexion
-  register: Inscription
-post:
-  list: "{0}Aucun Article|{1}L'Article|]1,Inf[Liste des Articles"
-  subject: Sujet
-  body: Corps
-  created: Créé le
-  read: Voir
-  update: Editer
-  delete: Supprimer
-  create: Créer un article
+home.message: 'Bonjour le monde !'
+menu.create: Créer
+menu.posts: Articles
+menu.reviews: Avis
+menu.list: Liste
+menu.random: Aléatoire
+menu.greetings: Salutations
+menu.home: Accueil
+menu.users: Utilisateurs
+menu.logout: Déconnexion
+menu.login: Connexion
+menu.register: Inscription
+post.list: "{0}Aucun Article|{1}L'Article|]1,Inf[Liste des Articles"
+post.subject: Sujet
+post.body: Corps
+post.created: 'Créé le'
+post.read: Voir
+post.update: Editer
+post.delete: Supprimer
+post.create: 'Créer un article'
+'Post successfully updated !': 'Article mis à jour avec succés !'
