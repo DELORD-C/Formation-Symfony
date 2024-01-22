@@ -26,6 +26,8 @@ class PostController extends AbstractController
             $post = $form->getData();
             $em->persist($post);
             $em->flush(); // Applique toutes les modifications en attente et vide la cache de la base de donnée
+            $this->addFlash('notice', 'Post successfully created !');
+            return $this->redirectToRoute('app_post_create');
         }
 
         return $this->render('post/create.html.twig', [
