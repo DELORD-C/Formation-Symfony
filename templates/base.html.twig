@@ -8,10 +8,12 @@
         {% endblock %}
 
         {% block javascripts %}
-{% block importmap %}{{ importmap('app') }}{% endblock %}
+        {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
     <body>
+        {% include 'parts/_nav.html.twig' %}
+{#        {{ render(controller('App\Controller\DefaultController:index')) }}#}
         {% block body %}{% endblock %}
     </body>
 </html>
