@@ -15,8 +15,10 @@
     </head>
     <body>
         {% include 'parts/_nav.html.twig' %}
-        {% include 'parts/_flash.html.twig' %}
-{#        {{ render(controller('App\Controller\DefaultController:index')) }}#}
-        {% block body %}{% endblock %}
+        <div class="container-fluid p-3">
+            {% include 'parts/_flash.html.twig' %}
+            {#        {{ render(controller('App\Controller\DefaultController:index')) }}#}
+            {% block body %}{% endblock %}
+        </div>
     </body>
 </html>
