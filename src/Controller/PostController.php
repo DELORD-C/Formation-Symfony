@@ -24,11 +24,10 @@ class PostController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $post = $form->getData();
             $em->persist($post);
             $em->flush(); // Applique toutes les modifications en attente et vide la cache de la base de donnée
             $this->addFlash('notice', 'Post successfully created !');
-            return $this->redirectToRoute('app_post_create');
+            return $this->redirectToRoute('app_post_list');
         }
 
         return $this->render('post/create.html.twig', [
@@ -41,6 +40,24 @@ class PostController extends AbstractController
         $posts = $rep->findAll();
         return $this->render('post/list.html.twig', [
            'posts' => $posts
+        ]);
+    }
+
+    #[Route('/update/{post}')]
+    function update (Post $post, Request $request, EntityManagerInterface $em): Response
+    {
+        $form = $this->createForm(PostType::class, $post);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+            $this->addFlash('notice', 'Post successfully updated !');
+            return $this->redirectToRoute('app_post_list');
+        }
+
+        return $this->render('post/create.html.twig', [
+            'postForm' => $form->createView()
         ]);
     }
 }
