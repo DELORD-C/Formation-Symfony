@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Body</th>
+                <th>Created At</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for post in posts %}
+                <tr>
+                    <td>{{ post.title }}</td>
+                    <td>{{ post.body }}</td>
+                    <td>{{ post.createdAt|date('d/m/Y H:i') }}</td>
+                    <td>
+
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

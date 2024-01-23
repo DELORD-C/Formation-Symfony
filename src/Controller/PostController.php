@@ -4,11 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Post;
 use App\Form\PostType;
+use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/post')]
 class PostController extends AbstractController
@@ -31,7 +32,15 @@ class PostController extends AbstractController
         }
 
         return $this->render('post/create.html.twig', [
-            'postForm' => $form
+            'postForm' => $form->createView()
+        ]);
+    }
+
+    #[Route('/list')]
+    function list (PostRepository $rep): Response {
+        $posts = $rep->findAll();
+        return $this->render('post/list.html.twig', [
+           'posts' => $posts
         ]);
     }
 }
