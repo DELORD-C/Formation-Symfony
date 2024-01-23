@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.body }}</p>
+    <span>{{ post.createdAt|date('d/m/Y H:i') }}</span>
+    <hr>
+    <h2>Comments</h2>
+    <dl>
+        {% for comment in post.comments %}
+            <dt>{{ comment.createdAt|date('d/m/Y H:i') }}</dt>
+            <dd>{{ comment.body }}</dd>
+        {% endfor %}
+    </dl>
+    <hr>
+    <h2>Leave a comment</h2>
+    {{ form(commentForm, {'action': path('app_comment_store', {'post': post.id})}) }}
+{% endblock %}
