@@ -60,4 +60,13 @@ class PostController extends AbstractController
             'postForm' => $form->createView()
         ]);
     }
+
+    #[Route('/delete/{post}')]
+    function delete (Post $post, EntityManagerInterface $em): Response
+    {
+        $em->remove($post);
+        $em->flush();
+        $this->addFlash('notice', 'Post successfully removed !');
+        return $this->redirectToRoute('app_post_list');
+    }
 }
