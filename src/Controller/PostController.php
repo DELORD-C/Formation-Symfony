@@ -2,11 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Comment;
 use App\Entity\Post;
-use App\Form\CommentType;
 use App\Form\PostType;
-use App\Repository\CommentRepository;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -76,11 +73,8 @@ class PostController extends AbstractController
     #[Route('/read/{post}')]
     function read (Post $post): Response
     {
-        $form = $this->createForm(CommentType::class, new Comment());
-
         return $this->render('post/read.html.twig', [
-            'post' => $post,
-            'commentForm' => $form->createView()
+            'post' => $post
         ]);
     }
 }

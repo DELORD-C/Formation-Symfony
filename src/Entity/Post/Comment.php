@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Post;
 
-use App\Repository\CommentRepository;
+use App\Entity\Post;
+use App\Repository\Post\CommentRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
+#[ORM\Table(name: 'postComment')]
 class Comment
 {
     #[ORM\Id]

@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Comment;
 use App\Entity\Post;
+use App\Entity\Post\Comment;
 use App\Form\CommentType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,6 +13,17 @@ use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/comment')]
 class CommentController extends AbstractController {
+    function create (Post $post): Response {
+        $comment = new Comment();
+
+        $form = $this->createForm(CommentType::class, $comment);
+
+        return $this->render('comment/create.html.twig', [
+            'post' => $post,
+            'form' => $form
+        ]);
+    }
+
     #[Route('/store/{post}')]
     function store (Post $post, Request $request, EntityManagerInterface $em): Response {
         $comment = new Comment();
@@ -26,7 +37,8 @@ class CommentController extends AbstractController {
             $em->persist($comment);
             $em->flush();
             $this->addFlash('notice', 'Comment successfully created !');
-            return $this->redirectToRoute('app_post_read', ['post' => $post->getId()]);
         }
+
+        return $this->redirectToRoute('app_post_read', ['post' => $post->getId()]);
     }
 }
