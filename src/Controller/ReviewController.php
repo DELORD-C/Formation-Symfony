@@ -17,6 +17,8 @@ class ReviewController extends AbstractController
     #[Route('/create')]
     function create (Request $request, EntityManagerInterface $em): Response {
 
+        dump('test');
+
         $review = new Review();
 
         $form = $this->createForm(ReviewType::class, $review);
