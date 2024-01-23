@@ -14,5 +14,5 @@
     </dl>
     <hr>
     <h2>Leave a comment</h2>
-    {{  render(controller('App\\Controller\\CommentController::create', {'post': post.id})) }}
+    {{  render(controller('App\\Controller\\Post\\CommentController::create', {'post': post.id})) }}
 {% endblock %}

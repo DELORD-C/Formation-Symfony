@@ -13,8 +13,22 @@ class ReviewType extends AbstractType {
     public function buildForm (FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('movieTitle', TextType::class)
-            ->add('body', TextareaType::class)
+            ->add('movieTitle', TextType::class, [
+                'attr' => [
+                    'placeholder' => 'Title'
+                ],
+                'row_attr' => [
+                    'class' => 'form-floating mb-3'
+                ]
+            ])
+            ->add('body', TextareaType::class, [
+                'attr' => [
+                    'placeholder' => 'Title'
+                ],
+                'row_attr' => [
+                    'class' => 'form-floating mb-3'
+                ]
+            ])
             ->add('rating', RangeType::class, [
                 'attr' => [
                     'min' => 0,

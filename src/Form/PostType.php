@@ -17,10 +17,17 @@ class PostType extends AbstractType {
                     'placeholder' => 'Title'
                 ],
                 'row_attr' => [
-                    'class' => 'form-floating'
+                    'class' => 'form-floating mb-3'
                 ]
             ])
-            ->add('body', TextareaType::class)
+            ->add('body', TextareaType::class, [
+                'attr' => [
+                    'placeholder' => 'Title'
+                ],
+                'row_attr' => [
+                    'class' => 'form-floating mb-3'
+                ]
+            ])
             ->add('submit', SubmitType::class)
         ;
     }
