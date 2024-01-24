@@ -2,7 +2,10 @@
 
 namespace App\Entity;
 
+use App\Entity\Post\Comment;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -34,6 +37,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 //        message: "Your password must at least contain an uppercase letter, a lowercase letter, a number and 8 characters"
     )]
     private $rawPassword;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Comment::class, orphanRemoval: true)]
+    private Collection $postComments;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: \App\Entity\Review\Comment::class, orphanRemoval: true)]
+    private Collection $reviewComments;
+
+    public function __construct()
+    {
+        $this->postComments = new ArrayCollection();
+        $this->reviewComments = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -113,6 +128,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setRawPassword(string $rawPassword): static
     {
         $this->rawPassword = $rawPassword;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getPostComments(): Collection
+    {
+        return $this->postComments;
+    }
+
+    public function addPostComment(Comment $postComment): static
+    {
+        if (!$this->postComments->contains($postComment)) {
+            $this->postComments->add($postComment);
+            $postComment->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePostComment(Comment $postComment): static
+    {
+        if ($this->postComments->removeElement($postComment)) {
+            // set the owning side to null (unless already changed)
+            if ($postComment->getUser() === $this) {
+                $postComment->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, \App\Entity\Review\Comment>
+     */
+    public function getReviewComments(): Collection
+    {
+        return $this->reviewComments;
+    }
+
+    public function addReviewComment(\App\Entity\Review\Comment $reviewComment): static
+    {
+        if (!$this->reviewComments->contains($reviewComment)) {
+            $this->reviewComments->add($reviewComment);
+            $reviewComment->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReviewComment(\App\Entity\Review\Comment $reviewComment): static
+    {
+        if ($this->reviewComments->removeElement($reviewComment)) {
+            // set the owning side to null (unless already changed)
+            if ($reviewComment->getUser() === $this) {
+                $reviewComment->setUser(null);
+            }
+        }
 
         return $this;
     }

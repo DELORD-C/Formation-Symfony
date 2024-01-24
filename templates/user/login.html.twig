@@ -16,6 +16,6 @@
         <div class="mb-3">
             <button type="submit" id="user_submit" name="user[submit]" class="btn-primary btn">Submit</button>
         </div>
-        <input type="hidden" name="csrf" value="{{ csrf_token('test') }}">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
     </form>
 {% endblock %}

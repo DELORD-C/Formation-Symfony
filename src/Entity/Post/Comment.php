@@ -3,6 +3,7 @@
 namespace App\Entity\Post;
 
 use App\Entity\Post;
+use App\Entity\User;
 use App\Repository\Post\CommentRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -25,6 +26,10 @@ class Comment
     #[ORM\ManyToOne(inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Post $post = null;
+
+    #[ORM\ManyToOne(inversedBy: 'postComments')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
 
     public function __construct() {
         $this->createdAt = new \DateTimeImmutable();
@@ -67,6 +72,18 @@ class Comment
     public function setPost(?Post $post): static
     {
         $this->post = $post;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

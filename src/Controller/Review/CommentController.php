@@ -10,8 +10,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/review/comment')]
+#[IsGranted('IS_AUTHENTICATED_FULLY')]
 class CommentController extends AbstractController {
     function create (Review $review): Response {
         $comment = new Comment();
@@ -25,6 +27,7 @@ class CommentController extends AbstractController {
     }
 
     #[Route('/store/{review}')]
+    #[IsGranted('IS_AUTHENTICATED_FULLY')]
     function store (Review $review, Request $request, EntityManagerInterface $em): Response {
         $comment = new Comment();
 
@@ -34,6 +37,7 @@ class CommentController extends AbstractController {
 
         if ($form->isSubmitted() && $form->isValid()) {
             $comment->setReview($review);
+            $comment->setUser($this->getUser());
             $em->persist($comment);
             $em->flush();
             $this->addFlash('notice', 'Comment successfully created !');

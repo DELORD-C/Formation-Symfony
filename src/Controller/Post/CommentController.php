@@ -10,9 +10,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/post/comment')]
 class CommentController extends AbstractController {
+    #[IsGranted('IS_AUTHENTICATED_FULLY')]
     function create (Post $post): Response {
         $comment = new Comment();
 
@@ -25,6 +27,7 @@ class CommentController extends AbstractController {
     }
 
     #[Route('/store/{post}')]
+    #[IsGranted('IS_AUTHENTICATED_FULLY')]
     function store (Post $post, Request $request, EntityManagerInterface $em): Response {
         $comment = new Comment();
 
@@ -34,6 +37,7 @@ class CommentController extends AbstractController {
 
         if ($form->isSubmitted() && $form->isValid()) {
             $comment->setPost($post);
+            $comment->setUser($this->getUser());
             $em->persist($comment);
             $em->flush();
             $this->addFlash('notice', 'Comment successfully created !');
@@ -42,6 +46,7 @@ class CommentController extends AbstractController {
         return $this->redirectToRoute('app_post_read', ['post' => $post->getId()]);
     }
 
+    #[IsGranted('DELETE', 'comment')]
     #[Route('/delete/{comment}')]
     function delete (Comment $comment, EntityManagerInterface $em): Response {
         $em->remove($comment);

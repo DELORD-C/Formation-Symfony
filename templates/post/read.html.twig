@@ -4,8 +4,8 @@
     <h1>{{ post.title }}</h1>
     <p>{{ post.body }}</p>
     <span>{{ post.createdAt|date('d/m/Y H:i') }}</span>
-    <hr>
     {% if (post.comments|length > 0) %}
+        <hr>
         <h2>Comments</h2>
         <dl>
             {% for comment in post.comments %}
@@ -13,8 +13,10 @@
                 <dd>{{ comment.body }} <a href="{{ path('app_post_comment_delete', {'comment': comment.id}) }}">Delete</a></dd>
             {% endfor %}
         </dl>
-        <hr>
     {% endif %}
-    <h2>Leave a comment</h2>
-    {{  render(controller('App\\Controller\\Post\\CommentController::create', {'post': post.id})) }}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <hr>
+        <h2>Leave a comment</h2>
+        {{  render(controller('App\\Controller\\Post\\CommentController::create', {'post': post.id})) }}
+    {% endif %}
 {% endblock %}
