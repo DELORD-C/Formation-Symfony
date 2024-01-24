@@ -20,8 +20,12 @@
                     <td>{{ post.createdAt|date('d/m/Y H:i') }}</td>
                     <td>
                         <a class="btn btn-primary" href="{{ path('app_post_read', {'post': post.id}) }}">Read</a>
-                        <a class="btn btn-primary" href="{{ path('app_post_update', {'post': post.id}) }}">Update</a>
-                        <a class="btn btn-danger" href="{{ path('app_post_delete', {'post': post.id}) }}">Delete</a>
+                        {% if(is_granted('UPDATE', post)) %}
+                            <a class="btn btn-primary" href="{{ path('app_post_update', {'post': post.id}) }}">Update</a>
+                        {% endif %}
+                        {% if(is_granted('DELETE', post)) %}
+                            <a class="btn btn-danger" href="{{ path('app_post_delete', {'post': post.id}) }}">Delete</a>
+                        {% endif %}
                     </td>
                 </tr>
             {% endfor %}

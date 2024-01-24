@@ -48,6 +48,7 @@ class PostController extends AbstractController
         ]);
     }
 
+    #[IsGranted('UPDATE', 'post')]
     #[Route('/update/{post}')]
     function update (Post $post, Request $request, EntityManagerInterface $em): Response
     {
@@ -66,6 +67,7 @@ class PostController extends AbstractController
         ]);
     }
 
+    #[IsGranted('DELETE', 'post')]
     #[Route('/delete/{post}')]
     function delete (Post $post, EntityManagerInterface $em): Response
     {

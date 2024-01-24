@@ -46,6 +46,7 @@ class ReviewController extends AbstractController
         ]);
     }
 
+    #[IsGranted('UPDATE', 'review')]
     #[Route('/update/{review}')]
     function update (Review $review, Request $request, EntityManagerInterface $em): Response
     {
@@ -64,6 +65,7 @@ class ReviewController extends AbstractController
         ]);
     }
 
+    #[IsGranted('DELETE', 'review')]
     #[Route('/delete/{review}')]
     function delete (Review $review, EntityManagerInterface $em): Response
     {

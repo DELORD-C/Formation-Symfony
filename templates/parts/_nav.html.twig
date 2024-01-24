@@ -22,7 +22,9 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{{ path('app_post_list') }}">List</a></li>
-                        <li><a class="dropdown-item" href="{{ path('app_post_create') }}">Create</a></li>
+                        {% if (is_granted('IS_AUTHENTICATED_FULLY')) %}
+                            <li><a class="dropdown-item" href="{{ path('app_post_create') }}">Create</a></li>
+                        {% endif %}
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -31,24 +33,29 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{{ path('app_review_list') }}">List</a></li>
-                        <li><a class="dropdown-item" href="{{ path('app_review_create') }}">Create</a></li>
+                        {% if (is_granted('IS_AUTHENTICATED_FULLY')) %}
+                            <li><a class="dropdown-item" href="{{ path('app_review_create') }}">Create</a></li>
+                        {% endif %}
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_user_register') }}">
-                        Register
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_user_login') }}">
-                        Login
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_user_logout') }}">
-                        Logout
-                    </a>
-                </li>
+                {% if (not is_granted('IS_AUTHENTICATED')) %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_user_register') }}">
+                            Register
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_user_login') }}">
+                            Login
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_user_logout') }}">
+                            Logout
+                        </a>
+                    </li>
+                {% endif %}
             </ul>
 {#            <form class="d-flex" role="search">#}
 {#                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">#}
