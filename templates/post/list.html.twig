@@ -6,6 +6,7 @@
             <tr>
                 <th>Title</th>
                 <th>Body</th>
+                <th>Comments</th>
                 <th>Created At</th>
                 <th>Action</th>
             </tr>
@@ -15,6 +16,7 @@
                 <tr>
                     <td>{{ post.title }}</td>
                     <td>{{ post.body }}</td>
+                    <td>{{ post.comments|length }}</td>
                     <td>{{ post.createdAt|date('d/m/Y H:i') }}</td>
                     <td>
                         <a class="btn btn-primary" href="{{ path('app_post_read', {'post': post.id}) }}">Read</a>

@@ -5,14 +5,16 @@
     <p>{{ post.body }}</p>
     <span>{{ post.createdAt|date('d/m/Y H:i') }}</span>
     <hr>
-    <h2>Comments</h2>
-    <dl>
-        {% for comment in post.comments %}
-            <dt>{{ comment.createdAt|date('d/m/Y H:i') }}</dt>
-            <dd>{{ comment.body }}</dd>
-        {% endfor %}
-    </dl>
-    <hr>
+    {% if (post.comments|length > 0) %}
+        <h2>Comments</h2>
+        <dl>
+            {% for comment in post.comments %}
+                <dt>{{ comment.createdAt|date('d/m/Y H:i') }}</dt>
+                <dd>{{ comment.body }} <a href="{{ path('app_post_comment_delete', {'comment': comment.id}) }}">Delete</a></dd>
+            {% endfor %}
+        </dl>
+        <hr>
+    {% endif %}
     <h2>Leave a comment</h2>
     {{  render(controller('App\\Controller\\Post\\CommentController::create', {'post': post.id})) }}
 {% endblock %}

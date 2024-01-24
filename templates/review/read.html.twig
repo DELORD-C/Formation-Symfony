@@ -6,14 +6,16 @@
     <p>{{ review.rating }} / 10</p>
     <span>{{ review.createdAt|date('d/m/Y H:i') }}</span>
     <hr>
-    <h2>Comments</h2>
-    <dl>
-        {% for comment in review.comments %}
-            <dt>{{ comment.createdAt|date('d/m/Y H:i') }}</dt>
-            <dd>{{ comment.body }}</dd>
-        {% endfor %}
-    </dl>
-    <hr>
+    {% if (review.comments|length > 0) %}
+        <h2>Comments</h2>
+        <dl>
+            {% for comment in review.comments %}
+                <dt>{{ comment.createdAt|date('d/m/Y H:i') }}</dt>
+                <dd>{{ comment.body }} <a href="{{ path('app_review_comment_delete', {'comment': comment.id}) }}">Delete</a></dd>
+            {% endfor %}
+        </dl>
+        <hr>
+    {% endif %}
     <h2>Leave a comment</h2>
     {{  render(controller('App\\Controller\\Review\\CommentController::create', {'review': review.id})) }}
 {% endblock %}

@@ -41,4 +41,12 @@ class CommentController extends AbstractController {
 
         return $this->redirectToRoute('app_review_read', ['review' => $review->getId()]);
     }
+
+    #[Route('/delete/{comment}')]
+    function delete (Comment $comment, EntityManagerInterface $em): Response {
+        $em->remove($comment);
+        $em->flush();
+        $this->addFlash('notice', 'Comment successfully removed !');
+        return $this->redirectToRoute('app_review_read', ['review' => $comment->getReview()->getId()]);
+    }
 }
