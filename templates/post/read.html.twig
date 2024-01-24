@@ -10,9 +10,13 @@
         <dl>
             {% for comment in post.comments %}
                 <dt>{{ comment.createdAt|date('d/m/Y H:i') }}</dt>
+                <dd>By : {{ comment.user.email }}</dd>
 
                     <dd>
                         {{ comment.body }}
+                        {% if is_granted('UPDATE', comment) %}
+                            <a href="{{ path('app_post_comment_update', {'comment': comment.id}) }}">Update</a>
+                        {% endif %}
                         {% if is_granted('DELETE', comment) %}
                             <a href="{{ path('app_post_comment_delete', {'comment': comment.id}) }}">Delete</a>
                         {% endif %}

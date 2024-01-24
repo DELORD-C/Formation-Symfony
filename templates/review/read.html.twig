@@ -14,6 +14,9 @@
 
                     <dd>
                         {{ comment.body }}
+                        {% if is_granted('UPDATE', comment) %}
+                            <a href="{{ path('app_review_comment_update', {'comment': comment.id}) }}">Update</a>
+                        {% endif %}
                         {% if is_granted('DELETE', comment) %}
                             <a href="{{ path('app_review_comment_delete', {'comment': comment.id}) }}">Delete</a>
                         {% endif %}

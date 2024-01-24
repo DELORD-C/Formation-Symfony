@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class CommentVoter extends Voter
 {
-    const SITUATIONS = ['DELETE'];
+    const SITUATIONS = ['DELETE', 'UPDATE'];
 
     protected function supports(string $attribute, mixed $subject): bool
     {
@@ -38,7 +38,8 @@ class CommentVoter extends Voter
         }
 
         return match($attribute) {
-            'DELETE' => $this->canDelete($subject, $user)
+            'DELETE' => $this->canDelete($subject, $user),
+            'UPDATE' => $this->canUpdate($subject, $user)
         };
     }
 
@@ -53,5 +54,10 @@ class CommentVoter extends Voter
         else {
             return $user === $subject->getReview()->getUser();
         }
+    }
+
+    private function canUpdate(mixed $subject, User $user): bool
+    {
+    return $subject->getUser() === $user;
     }
 }

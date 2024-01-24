@@ -33,8 +33,9 @@ class ReviewController extends AbstractController
             return $this->redirectToRoute('app_review_list');
         }
 
-        return $this->render('review/create.html.twig', [
-            'reviewForm' => $form->createView()
+        return $this->render('default/form.html.twig', [
+            'form' => $form->createView(),
+            'title' => 'Create review'
         ]);
     }
 
@@ -60,8 +61,9 @@ class ReviewController extends AbstractController
             return $this->redirectToRoute('app_review_list');
         }
 
-        return $this->render('review/create.html.twig', [
-            'reviewForm' => $form->createView()
+        return $this->render('default/form.html.twig', [
+            'form' => $form->createView(),
+            'title' => 'Update review'
         ]);
     }
 

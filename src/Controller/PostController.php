@@ -34,8 +34,9 @@ class PostController extends AbstractController
             return $this->redirectToRoute('app_post_list');
         }
 
-        return $this->render('post/create.html.twig', [
-            'postForm' => $form->createView()
+        return $this->render('default/form.html.twig', [
+            'form' => $form->createView(),
+            'title' => 'Create post'
         ]);
     }
 
@@ -62,8 +63,9 @@ class PostController extends AbstractController
             return $this->redirectToRoute('app_post_list');
         }
 
-        return $this->render('post/create.html.twig', [
-            'postForm' => $form->createView()
+        return $this->render('default/form.html.twig', [
+            'form' => $form->createView(),
+            'title' => 'Update post'
         ]);
     }
 
