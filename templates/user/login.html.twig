@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+    <form method="post">
+        <div class="form-floating mb-3">
+            <input type="email" id="user_email" name="_username" required="required" placeholder="Email" class="form-control" value="{{ last_username }}">
+            <label for="user_email" class="form-label required">Email</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="password" id="user_rawPassword" name="_password" required="required" placeholder="Password" class="form-control">
+            <label for="user_rawPassword" class="form-label required">Password</label>
+        </div>
+        <div class="mb-3">
+            <button type="submit" id="user_submit" name="user[submit]" class="btn-primary btn">Submit</button>
+        </div>
+        <input type="hidden" name="csrf" value="{{ csrf_token('test') }}">
+    </form>
+{% endblock %}

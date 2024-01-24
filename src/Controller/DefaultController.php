@@ -16,21 +16,24 @@ class DefaultController extends AbstractController
     }
 
     #[Route('/random')]
-    function random (): Response {
+    function random (): Response
+    {
         return $this->render('default.html.twig', [
             'text' => rand(0, 100)
         ]);
     }
 
     #[Route('/display/{value}', requirements: ['value' => '^[A-z]+$'])]
-    function display ($value = 'Hello World !'): Response {
+    function display ($value = 'Hello World !'): Response
+    {
         return $this->render('default.html.twig', [
             'text' => $value
         ]);
     }
 
     #[Route('/display/bienvenue', priority: 1)]
-    function displayBienvenue (): Response {
+    function displayBienvenue (): Response
+    {
         return $this->render('default.html.twig', [
             'text' => '<h1>Bienvenue</h1>'
         ]);

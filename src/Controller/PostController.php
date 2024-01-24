@@ -15,7 +15,8 @@ use Symfony\Component\Routing\Attribute\Route;
 class PostController extends AbstractController
 {
     #[Route('/create')]
-    function create (Request $request, EntityManagerInterface $em): Response {
+    function create (Request $request, EntityManagerInterface $em): Response
+    {
 
         $post = new Post();
 
@@ -36,7 +37,8 @@ class PostController extends AbstractController
     }
 
     #[Route('/list')]
-    function list (PostRepository $rep): Response {
+    function list (PostRepository $rep): Response
+    {
         $posts = $rep->findAll();
         return $this->render('post/list.html.twig', [
            'posts' => $posts
