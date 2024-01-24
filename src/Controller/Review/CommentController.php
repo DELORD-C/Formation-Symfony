@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Controller\Post;
+namespace App\Controller\Review;
 
-use App\Entity\Post;
-use App\Entity\Post\Comment;
+use App\Entity\Review;
+use App\Entity\Review\Comment;
 use App\Form\CommentType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,21 +11,21 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/post/comment')]
+#[Route('/review/comment')]
 class CommentController extends AbstractController {
-    function create (Post $post): Response {
+    function create (Review $review): Response {
         $comment = new Comment();
 
         $form = $this->createForm(CommentType::class, $comment);
 
-        return $this->render('post/comment/create.html.twig', [
-            'post' => $post,
+        return $this->render('review/comment/create.html.twig', [
+            'review' => $review,
             'form' => $form
         ]);
     }
 
-    #[Route('/store/{post}')]
-    function store (Post $post, Request $request, EntityManagerInterface $em): Response {
+    #[Route('/store/{review}')]
+    function store (Review $review, Request $request, EntityManagerInterface $em): Response {
         $comment = new Comment();
 
         $form = $this->createForm(CommentType::class, $comment);
@@ -33,12 +33,12 @@ class CommentController extends AbstractController {
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $comment->setPost($post);
+            $comment->setReview($review);
             $em->persist($comment);
             $em->flush();
             $this->addFlash('notice', 'Comment successfully created !');
         }
 
-        return $this->redirectToRoute('app_post_read', ['post' => $post->getId()]);
+        return $this->redirectToRoute('app_review_read', ['review' => $review->getId()]);
     }
 }

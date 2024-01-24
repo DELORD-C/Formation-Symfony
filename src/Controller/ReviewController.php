@@ -69,4 +69,12 @@ class ReviewController extends AbstractController
         $this->addFlash('notice', 'Review successfully removed !');
         return $this->redirectToRoute('app_review_list');
     }
+
+    #[Route('/read/{review}')]
+    function read (Review $review): Response
+    {
+        return $this->render('review/read.html.twig', [
+            'review' => $review
+        ]);
+    }
 }

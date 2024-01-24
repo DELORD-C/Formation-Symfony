@@ -19,6 +19,7 @@
                 <td>{{ review.rating }} / 10</td>
                 <td>{{ review.createdAt|date('d/m/Y H:i') }}</td>
                 <td>
+                    <a class="btn btn-primary" href="{{ path('app_review_read', {'review': review.id}) }}">Read</a>
                     <a class="btn btn-primary" href="{{ path('app_review_update', {'review': review.id}) }}">Update</a>
                     <a class="btn btn-danger" href="{{ path('app_review_delete', {'review': review.id}) }}">Delete</a>
                 </td>

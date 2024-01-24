@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>{{ review.movieTitle }}</h1>
+    <p>{{ review.body }}</p>
+    <p>{{ review.rating }} / 10</p>
+    <span>{{ review.createdAt|date('d/m/Y H:i') }}</span>
+    <hr>
+    <h2>Comments</h2>
+    <dl>
+        {% for comment in review.comments %}
+            <dt>{{ comment.createdAt|date('d/m/Y H:i') }}</dt>
+            <dd>{{ comment.body }}</dd>
+        {% endfor %}
+    </dl>
+    <hr>
+    <h2>Leave a comment</h2>
+    {{  render(controller('App\\Controller\\Review\\CommentController::create', {'review': review.id})) }}
+{% endblock %}
