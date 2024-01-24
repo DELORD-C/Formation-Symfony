@@ -10,11 +10,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/review')]
 class ReviewController extends AbstractController
 {
     #[Route('/create')]
+    #[IsGranted('IS_AUTHENTICATED_FULLY')]
     function create (Request $request, EntityManagerInterface $em): Response {
 
         $review = new Review();
@@ -24,6 +26,7 @@ class ReviewController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $review->setUser($this->getUser());
             $em->persist($review);
             $em->flush();
             $this->addFlash('notice', 'Review successfully created !');

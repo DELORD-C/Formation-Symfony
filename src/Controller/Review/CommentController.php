@@ -15,6 +15,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[Route('/review/comment')]
 #[IsGranted('IS_AUTHENTICATED_FULLY')]
 class CommentController extends AbstractController {
+    #[IsGranted('IS_AUTHENTICATED_FULLY')]
     function create (Review $review): Response {
         $comment = new Comment();
 
@@ -26,8 +27,8 @@ class CommentController extends AbstractController {
         ]);
     }
 
-    #[Route('/store/{review}')]
     #[IsGranted('IS_AUTHENTICATED_FULLY')]
+    #[Route('/store/{review}')]
     function store (Review $review, Request $request, EntityManagerInterface $em): Response {
         $comment = new Comment();
 
@@ -46,6 +47,7 @@ class CommentController extends AbstractController {
         return $this->redirectToRoute('app_review_read', ['review' => $review->getId()]);
     }
 
+    #[IsGranted('DELETE', 'comment')]
     #[Route('/delete/{comment}')]
     function delete (Comment $comment, EntityManagerInterface $em): Response {
         $em->remove($comment);

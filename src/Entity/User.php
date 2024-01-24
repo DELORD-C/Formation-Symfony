@@ -32,10 +32,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[Assert\PasswordStrength(
+//    #[Assert\PasswordStrength(
 //        minScore: Assert\PasswordStrength::STRENGTH_MEDIUM,
 //        message: "Your password must at least contain an uppercase letter, a lowercase letter, a number and 8 characters"
-    )]
+//    )]
     private $rawPassword;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Comment::class, orphanRemoval: true)]
@@ -44,10 +44,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: \App\Entity\Review\Comment::class, orphanRemoval: true)]
     private Collection $reviewComments;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Post::class)]
+    private Collection $post;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Review::class)]
+    private Collection $review;
+
     public function __construct()
     {
         $this->postComments = new ArrayCollection();
         $this->reviewComments = new ArrayCollection();
+        $this->post = new ArrayCollection();
+        $this->review = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -186,6 +194,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($reviewComment->getUser() === $this) {
                 $reviewComment->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Post>
+     */
+    public function getPost(): Collection
+    {
+        return $this->post;
+    }
+
+    public function addPost(Post $post): static
+    {
+        if (!$this->post->contains($post)) {
+            $this->post->add($post);
+            $post->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePost(Post $post): static
+    {
+        if ($this->post->removeElement($post)) {
+            // set the owning side to null (unless already changed)
+            if ($post->getUser() === $this) {
+                $post->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Review>
+     */
+    public function getReview(): Collection
+    {
+        return $this->review;
+    }
+
+    public function addReview(Review $review): static
+    {
+        if (!$this->review->contains($review)) {
+            $this->review->add($review);
+            $review->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReview(Review $review): static
+    {
+        if ($this->review->removeElement($review)) {
+            // set the owning side to null (unless already changed)
+            if ($review->getUser() === $this) {
+                $review->setUser(null);
             }
         }
 

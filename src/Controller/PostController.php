@@ -16,6 +16,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class PostController extends AbstractController
 {
     #[Route('/create')]
+    #[IsGranted('IS_AUTHENTICATED_FULLY')]
     function create (Request $request, EntityManagerInterface $em): Response
     {
 
@@ -26,6 +27,7 @@ class PostController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $post->setUser($this->getUser());
             $em->persist($post);
             $em->flush(); // Applique toutes les modifications en attente et vide la cache de la base de donnée
             $this->addFlash('notice', 'Post successfully created !');

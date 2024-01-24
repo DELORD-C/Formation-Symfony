@@ -10,7 +10,14 @@
         <dl>
             {% for comment in post.comments %}
                 <dt>{{ comment.createdAt|date('d/m/Y H:i') }}</dt>
-                <dd>{{ comment.body }} <a href="{{ path('app_post_comment_delete', {'comment': comment.id}) }}">Delete</a></dd>
+
+                    <dd>
+                        {{ comment.body }}
+                        {% if is_granted('DELETE', comment) %}
+                            <a href="{{ path('app_post_comment_delete', {'comment': comment.id}) }}">Delete</a>
+                        {% endif %}
+                    </dd>
+
             {% endfor %}
         </dl>
     {% endif %}

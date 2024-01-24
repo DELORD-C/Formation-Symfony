@@ -36,6 +36,10 @@ class Review
     #[ORM\OneToMany(mappedBy: 'review', targetEntity: Comment::class)]
     private Collection $comments;
 
+    #[ORM\ManyToOne(inversedBy: 'review')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
     public function __construct() {
         $this->createdAt = new \DateTimeImmutable();
         $this->comments = new ArrayCollection();
@@ -120,6 +124,18 @@ class Review
                 $comment->setReview(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }
