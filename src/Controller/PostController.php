@@ -19,7 +19,6 @@ class PostController extends AbstractController
     #[IsGranted('IS_AUTHENTICATED_FULLY')]
     function create (Request $request, EntityManagerInterface $em): Response
     {
-
         $post = new Post();
 
         $form = $this->createForm(PostType::class, $post);

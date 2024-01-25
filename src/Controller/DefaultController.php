@@ -11,7 +11,7 @@ class DefaultController extends AbstractController
     #[Route('/', methods: ['GET'])]
     function index (): Response {
         return $this->render('default.html.twig', [
-            'text' => 'Hello World !'
+            'text' => '<h1>Hello World !</h1>'
         ]);
     }
 
@@ -19,7 +19,7 @@ class DefaultController extends AbstractController
     function random (): Response
     {
         return $this->render('default.html.twig', [
-            'text' => rand(0, 100)
+            'text' => '<h2>Random</h2><p>' . rand(0, 100) . '</p>'
         ]);
     }
 
