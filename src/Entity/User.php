@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\Post\Comment;
+use App\Entity\Post\Comment\Like;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -50,12 +51,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Review::class)]
     private Collection $review;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Like::class)]
+    private Collection $postCommentLikes;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: \App\Entity\Review\Comment\Like::class)]
+    private Collection $reviewCommentLikes;
+
     public function __construct()
     {
         $this->postComments = new ArrayCollection();
         $this->reviewComments = new ArrayCollection();
         $this->post = new ArrayCollection();
         $this->review = new ArrayCollection();
+        $this->postCommentLikes = new ArrayCollection();
+        $this->reviewCommentLikes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -254,6 +263,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($review->getUser() === $this) {
                 $review->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Like>
+     */
+    public function getPostCommentLikes(): Collection
+    {
+        return $this->postCommentLikes;
+    }
+
+    public function addPostCommentLike(Like $postCommentLike): static
+    {
+        if (!$this->postCommentLikes->contains($postCommentLike)) {
+            $this->postCommentLikes->add($postCommentLike);
+            $postCommentLike->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePostCommentLike(Like $postCommentLike): static
+    {
+        if ($this->postCommentLikes->removeElement($postCommentLike)) {
+            // set the owning side to null (unless already changed)
+            if ($postCommentLike->getUser() === $this) {
+                $postCommentLike->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, \App\Entity\Review\Comment\Like>
+     */
+    public function getReviewCommentLikes(): Collection
+    {
+        return $this->reviewCommentLikes;
+    }
+
+    public function addReviewCommentLike(\App\Entity\Review\Comment\Like $reviewCommentLike): static
+    {
+        if (!$this->reviewCommentLikes->contains($reviewCommentLike)) {
+            $this->reviewCommentLikes->add($reviewCommentLike);
+            $reviewCommentLike->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReviewCommentLike(\App\Entity\Review\Comment\Like $reviewCommentLike): static
+    {
+        if ($this->reviewCommentLikes->removeElement($reviewCommentLike)) {
+            // set the owning side to null (unless already changed)
+            if ($reviewCommentLike->getUser() === $this) {
+                $reviewCommentLike->setUser(null);
             }
         }
 

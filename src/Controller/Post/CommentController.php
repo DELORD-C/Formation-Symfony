@@ -73,4 +73,9 @@ class CommentController extends AbstractController {
             'form' => $form
         ]);
     }
+
+    #[Route('/like/{comment}')]
+    function likeToggle(Comment $comment) {
+
+    }
 }
