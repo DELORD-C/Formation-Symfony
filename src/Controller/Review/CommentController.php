@@ -4,7 +4,9 @@ namespace App\Controller\Review;
 
 use App\Entity\Review;
 use App\Entity\Review\Comment;
+use App\Entity\Review\Comment\Like;
 use App\Form\CommentType;
+use App\Repository\Review\Comment\LikeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -73,5 +75,25 @@ class CommentController extends AbstractController {
             'title' => 'Update comment',
             'form' => $form
         ]);
+    }
+
+    #[Route('/like/{comment}')]
+    #[IsGranted('IS_AUTHENTICATED_FULLY')]
+    function likeToggle(Comment $comment, LikeRepository $rep, EntityManagerInterface $em): Response
+    {
+        $like = $rep->findOneBy(['comment' => $comment, 'user' => $this->getUser()]);
+        if ($like) {
+            $em->remove($like);
+            $this->addFlash('notice', 'Comment Successfully unliked.');
+        }
+        else {
+            $like = new Like();
+            $like->setComment($comment);
+            $like->setUser($this->getUser());
+            $em->persist($like);
+            $this->addFlash('notice', 'Comment Successfully liked.');
+        }
+        $em->flush();
+        return $this->redirectToRoute('app_review_read', ['review' => $comment->getReview()->getId()]);
     }
 }

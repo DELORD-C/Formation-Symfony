@@ -3,8 +3,10 @@
 namespace App\Controller\Post;
 
 use App\Entity\Post;
+use App\Entity\Post\Comment\Like;
 use App\Entity\Post\Comment;
 use App\Form\CommentType;
+use App\Repository\Post\Comment\LikeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,8 +48,8 @@ class CommentController extends AbstractController {
         return $this->redirectToRoute('app_post_read', ['post' => $post->getId()]);
     }
 
-    #[IsGranted('DELETE', 'comment')]
     #[Route('/delete/{comment}')]
+    #[IsGranted('DELETE', 'comment')]
     function delete (Comment $comment, EntityManagerInterface $em): Response {
         $em->remove($comment);
         $em->flush();
@@ -75,7 +77,42 @@ class CommentController extends AbstractController {
     }
 
     #[Route('/like/{comment}')]
-    function likeToggle(Comment $comment) {
+    #[IsGranted('IS_AUTHENTICATED_FULLY')]
+    function likeToggle(Comment $comment, LikeRepository $rep, EntityManagerInterface $em): Response
+    {
+        $like = $rep->findOneBy(['comment' => $comment, 'user' => $this->getUser()]);
+        if ($like) {
+            $em->remove($like);
+            $this->addFlash('notice', 'Comment Successfully unliked.');
+        }
+        else {
+            $like = new Like();
+            $like->setComment($comment);
+            $like->setUser($this->getUser());
+            $em->persist($like);
+            $this->addFlash('notice', 'Comment Successfully liked.');
+        }
+        $em->flush();
+        return $this->redirectToRoute('app_post_read', ['post' => $comment->getPost()->getId()]);
+    }
 
+    #[Route('/like/api/{comment}')]
+    #[IsGranted('IS_AUTHENTICATED_FULLY')]
+    function likeToggleAjax(Comment $comment, LikeRepository $rep, EntityManagerInterface $em): Response
+    {
+        $like = $rep->findOneBy(['comment' => $comment, 'user' => $this->getUser()]);
+        if ($like) {
+            $em->remove($like);
+            $em->flush();
+            return $this->json(false);
+        }
+        else {
+            $like = new Like();
+            $like->setComment($comment);
+            $like->setUser($this->getUser());
+            $em->persist($like);
+            $em->flush();
+            return $this->json(true);
+        }
     }
 }

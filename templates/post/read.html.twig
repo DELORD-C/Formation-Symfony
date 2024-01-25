@@ -20,6 +20,15 @@
                         {% if is_granted('DELETE', comment) %}
                             <a href="{{ path('app_post_comment_delete', {'comment': comment.id}) }}">Delete</a>
                         {% endif %}
+                        | {{ comment.likes|length }}
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            {% set heart = 'bi bi-heart' %}
+                            {% if (app.user.hasLiked(comment)) %}
+                                {% set heart = 'bi bi-heart-fill' %}
+                            {% endif %}
+                            <a href="{{ path('app_post_comment_liketoggle', {'comment': comment.id}) }}"><i class="{{ heart }}"></i></a>
+{#                            <a onclick="fetch('{{ path('app_post_comment_liketoggleajax', {'comment': comment.id}) }}')"><i class="{{ heart }}"></i></a>#}
+                        {% endif %}
                     </dd>
 
             {% endfor %}

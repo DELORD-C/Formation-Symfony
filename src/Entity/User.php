@@ -2,7 +2,8 @@
 
 namespace App\Entity;
 
-use App\Entity\Post\Comment;
+use App\Entity\Post\Comment as PostComment;
+use App\Entity\Review\Comment as ReviewComment;
 use App\Entity\Post\Comment\Like;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -39,10 +40,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 //    )]
     private $rawPassword;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Comment::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: PostComment::class, orphanRemoval: true)]
     private Collection $postComments;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: \App\Entity\Review\Comment::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: ReviewComment::class, orphanRemoval: true)]
     private Collection $reviewComments;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Post::class)]
@@ -54,7 +55,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Like::class)]
     private Collection $postCommentLikes;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: \App\Entity\Review\Comment\Like::class)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: ReviewComment\Like::class)]
     private Collection $reviewCommentLikes;
 
     public function __construct()
@@ -150,14 +151,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Comment>
+     * @return Collection<int, PostComment>
      */
     public function getPostComments(): Collection
     {
         return $this->postComments;
     }
 
-    public function addPostComment(Comment $postComment): static
+    public function addPostComment(PostComment $postComment): static
     {
         if (!$this->postComments->contains($postComment)) {
             $this->postComments->add($postComment);
@@ -167,7 +168,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removePostComment(Comment $postComment): static
+    public function removePostComment(PostComment $postComment): static
     {
         if ($this->postComments->removeElement($postComment)) {
             // set the owning side to null (unless already changed)
@@ -180,14 +181,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, \App\Entity\Review\Comment>
+     * @return Collection<int, ReviewComment>
      */
     public function getReviewComments(): Collection
     {
         return $this->reviewComments;
     }
 
-    public function addReviewComment(\App\Entity\Review\Comment $reviewComment): static
+    public function addReviewComment(ReviewComment $reviewComment): static
     {
         if (!$this->reviewComments->contains($reviewComment)) {
             $this->reviewComments->add($reviewComment);
@@ -197,7 +198,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removeReviewComment(\App\Entity\Review\Comment $reviewComment): static
+    public function removeReviewComment(ReviewComment $reviewComment): static
     {
         if ($this->reviewComments->removeElement($reviewComment)) {
             // set the owning side to null (unless already changed)
@@ -300,14 +301,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, \App\Entity\Review\Comment\Like>
+     * @return Collection<int, ReviewComment\Like>
      */
     public function getReviewCommentLikes(): Collection
     {
         return $this->reviewCommentLikes;
     }
 
-    public function addReviewCommentLike(\App\Entity\Review\Comment\Like $reviewCommentLike): static
+    public function addReviewCommentLike(ReviewComment\Like $reviewCommentLike): static
     {
         if (!$this->reviewCommentLikes->contains($reviewCommentLike)) {
             $this->reviewCommentLikes->add($reviewCommentLike);
@@ -317,7 +318,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removeReviewCommentLike(\App\Entity\Review\Comment\Like $reviewCommentLike): static
+    public function removeReviewCommentLike(ReviewComment\Like $reviewCommentLike): static
     {
         if ($this->reviewCommentLikes->removeElement($reviewCommentLike)) {
             // set the owning side to null (unless already changed)
@@ -327,5 +328,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
+    }
+
+    public function hasLiked (PostComment | ReviewComment $comment): bool
+    {
+        if ($comment instanceof PostComment) {
+            foreach ($this->postCommentLikes as $like) {
+                if ($like->getComment() === $comment) {
+                    return true;
+                }
+            }
+        }
+        else {
+            foreach ($this->reviewCommentLikes as $like) {
+                if ($like->getComment() === $comment) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
