@@ -8,6 +8,9 @@ framework:
 
     esi: true
     fragments: true
+#    serializer:
+#        default_context:
+#            enable_max_depth: true
 
 #when@prod:
 #    framework:

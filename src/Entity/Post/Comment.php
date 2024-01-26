@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
 #[ORM\Table(name: 'postComment')]
@@ -31,10 +32,11 @@ class Comment
     private ?Post $post = null;
 
     #[ORM\ManyToOne(inversedBy: 'postComments')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $user = null;
 
     #[ORM\OneToMany(mappedBy: 'comment', targetEntity: Like::class)]
+    #[ORM\JoinColumn(onDelete: "CASCADE")]
     private Collection $likes;
 
     public function __construct() {

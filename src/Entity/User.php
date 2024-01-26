@@ -47,12 +47,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $reviewComments;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Post::class)]
+    #[ORM\JoinColumn(onDelete: "SET NULL")]
     private Collection $post;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Review::class)]
+    #[ORM\JoinColumn(onDelete: "SET NULL")]
     private Collection $review;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Like::class)]
+    #[ORM\JoinColumn(onDelete: "CASCADE")]
     private Collection $postCommentLikes;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: ReviewComment\Like::class)]

@@ -34,10 +34,11 @@ class Review
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\OneToMany(mappedBy: 'review', targetEntity: Comment::class)]
+    #[ORM\JoinColumn(onDelete: "CASCADE")]
     private Collection $comments;
 
     #[ORM\ManyToOne(inversedBy: 'review')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $user = null;
 
     public function __construct() {

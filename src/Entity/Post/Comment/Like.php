@@ -6,6 +6,7 @@ use App\Entity\Post\Comment;
 use App\Entity\User;
 use App\Repository\Post\Comment\LikeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: LikeRepository::class)]
 #[ORM\Table(name: 'postCommentLike')]
