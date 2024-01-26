@@ -2,22 +2,23 @@
 
 namespace App\Service;
 
-use Psr\Log\LoggerInterface;
 
 readonly class WeatherApi
 {
-    function __construct(private LoggerInterface $logger) {}
-    function getCurrent(): mixed
+    function getCurrent(string $lat, string $lon): mixed
     {
-        $json = file_get_contents("https://api.open-meteo.com/v1/forecast?latitude=45.73&longitude=4.85&current=temperature_2m");
-        $this->logger->info($json);
+        $json = $this->getCurrentRaw($lat, $lon);
         return json_decode($json);
     }
 
-    function getDaily(): mixed
+    function getCurrentRaw(string $lat, string $lon): string
     {
-        $json = file_get_contents("https://api.open-meteo.com/v1/forecast?latitude=45.73&longitude=4.85&daily=temperature_2m_max,temperature_2m_min");
-        $this->logger->info($json);
+        return file_get_contents("https://api.open-meteo.com/v1/forecast?latitude=$lat&longitude=$lon&current=temperature_2m");
+    }
+
+    function getDaily(string $lat, string $lon): mixed
+    {
+        $json = file_get_contents("https://api.open-meteo.com/v1/forecast?latitude=$lat&longitude=$lon&daily=temperature_2m_max,temperature_2m_min");
         return json_decode($json);
     }
 }

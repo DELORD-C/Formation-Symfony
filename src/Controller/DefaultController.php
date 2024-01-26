@@ -53,13 +53,4 @@ class DefaultController extends AbstractController
         }
         return $this->redirectToRoute('app_default_index');
     }
-
-    #[Route('/weather')]
-    function weather (WeatherApi $api): Response
-    {
-        return $this->render('weather.html.twig', [
-            'current' => $api->getCurrent(),
-            'daily' => $api->getDaily()
-        ]);
-    }
 }
