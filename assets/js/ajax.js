@@ -26,3 +26,12 @@ async function updateWeather (lat = 48.85, lon = 2.29) {
     let element = document.querySelector("#weather");
     element.innerHTML = response.current.temperature_2m + '°C';
 }
+
+// Version avec Paramètres d'URL
+
+// async function updateWeather (lat = 48.85, lon = 2.29) {
+//     let json = await fetch('/api/weather/' + lat + "/" + lon);
+//     let response = await json.json();
+//     let element = document.querySelector("#weather");
+//     element.innerHTML = response.current.temperature_2m + '°C';
+// }
