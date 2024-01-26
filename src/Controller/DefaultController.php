@@ -3,15 +3,17 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DefaultController extends AbstractController
 {
     #[Route('/', methods: ['GET'])]
-    function index (): Response {
+    function index (TranslatorInterface $translator): Response {
         return $this->render('default.html.twig', [
-            'text' => '<h1>Hello World !</h1>'
+            'text' => '<h1>' . $translator->trans('home.message') . '</h1>'
         ]);
     }
 
@@ -37,5 +39,15 @@ class DefaultController extends AbstractController
         return $this->render('default.html.twig', [
             'text' => '<h1>Bienvenue</h1>'
         ]);
+    }
+
+    #[Route('/locale/{locale}')]
+    function locale (string $locale, Request $request): Response
+    {
+        $request->getSession()->set('_locale', $locale);
+        if ($request->headers->get('referer')) {
+            return $this->redirect($request->headers->get('referer'));
+        }
+        return $this->redirectToRoute('app_default_index');
     }
 }

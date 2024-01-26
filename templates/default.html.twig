@@ -1,3 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}{{ text|raw }}{% endblock %}
+{% block body %}
+    {{ text|raw }}
+{#    {{ render(controller('App\\Controller\\DataTables\\DTController::showAction')) }}#}
+{% endblock %}

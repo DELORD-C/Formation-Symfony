@@ -8,65 +8,76 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Default
+                        {{ 'Default'|trans }}
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{{ path('app_default_random') }}">Random</a></li>
-                        <li><a class="dropdown-item" href="{{ path('app_default_displaybienvenue') }}">Display Bienvenue</a></li>
-                        <li><a class="dropdown-item" href="{{ path('app_default_display', {"value": "Test"}) }}">Display</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_default_random') }}">{{ 'Random'|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_default_displaybienvenue') }}">{{'Display Bienvenue'|trans}}</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_default_display', {"value": "Test"}) }}">{{'Display'|trans}}</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Post
+                                {{'Post'|trans}}
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{{ path('app_post_list') }}">List</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_post_list') }}">{{'List'|trans}}</a></li>
                         {% if (is_granted('IS_AUTHENTICATED_FULLY')) %}
-                            <li><a class="dropdown-item" href="{{ path('app_post_create') }}">Create</a></li>
+                            <li><a class="dropdown-item" href="{{ path('app_post_create') }}">{{'Create'|trans}}</a></li>
                         {% endif %}
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Review
+                                {{'Review'|trans}}
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{{ path('app_review_list') }}">List</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_review_list') }}">{{'List'|trans}}</a></li>
                         {% if (is_granted('IS_AUTHENTICATED_FULLY')) %}
-                            <li><a class="dropdown-item" href="{{ path('app_review_create') }}">Create</a></li>
+                            <li><a class="dropdown-item" href="{{ path('app_review_create') }}">{{'Create'|trans}}</a></li>
                         {% endif %}
                     </ul>
                 </li>
                 {% if (is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')) %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Admin
+                                {{'Admin'|trans}}
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{{ path('app_admin_user_list') }}">Users</a></li>
+                            <li><a class="dropdown-item" href="{{ path('app_admin_user_list') }}">{{'Users'|trans}}</a></li>
                         </ul>
                     </li>
                 {% endif %}
                 {% if (not is_granted('IS_AUTHENTICATED')) %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_user_register') }}">
-                            Register
+                                {{'Register'|trans}}
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_user_login') }}">
-                            Login
+                                {{'Login'|trans}}
                         </a>
                     </li>
                 {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_user_logout') }}">
-                            Logout
+                                {{'Logout'|trans}}
                         </a>
                     </li>
                 {% endif %}
             </ul>
+            <div>
+                {% if app.session.get('_locale') != 'en' %}
+                    <a href="{{ path('app_default_locale', {"locale": 'en'}) }}"><span class="fi fi-gb"></span></a>
+                {% endif %}
+                {% if app.session.get('_locale') != 'fr' %}
+                    <a href="{{ path('app_default_locale', {"locale": 'fr'}) }}"><span class="fi fi-fr"></span></a>
+                {% endif %}
+                {% if app.session.get('_locale') != 'es' %}
+                    <a href="{{ path('app_default_locale', {"locale": 'es'}) }}"><span class="fi fi-es"></span></a>
+                {% endif %}
+            </div>
 {#            <form class="d-flex" role="search">#}
 {#                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">#}
 {#                <button class="btn btn-outline-success" type="submit">Search</button>#}
