@@ -1,0 +1,6 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2>{{ current.current.temperature_2m }}°C</h2>
+    {{ dump(daily) }}
+{% endblock %}

@@ -40,12 +40,19 @@ class PostController extends AbstractController
     }
 
     #[Route('/list')]
-    function list (PostRepository $rep): Response
+    function list (PostRepository $rep, Request $request): Response
     {
         $posts = $rep->findAll();
-        return $this->render('post/list.html.twig', [
+
+        $response = $this->render('post/list.html.twig', [
            'posts' => $posts
         ]);
+        $etag = md5($response->getContent());
+        $response->setEtag($etag);
+        $response->setPublic();
+        $response->isNotModified($request);
+
+        return $response;
     }
 
     #[IsGranted('UPDATE', 'post')]

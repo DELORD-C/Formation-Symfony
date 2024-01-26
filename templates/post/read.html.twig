@@ -37,6 +37,6 @@
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
         <hr>
         <h2>Leave a comment</h2>
-        {{  render(controller('App\\Controller\\Post\\CommentController::create', {'post': post.id})) }}
+        {{  render_esi(controller('App\\Controller\\Post\\CommentController::create', {'post': post.id})) }}
     {% endif %}
 {% endblock %}

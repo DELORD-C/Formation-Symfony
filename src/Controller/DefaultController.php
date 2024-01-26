@@ -2,14 +2,17 @@
 
 namespace App\Controller;
 
+use App\Service\WeatherApi;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\Cache;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DefaultController extends AbstractController
 {
+    #[Cache(maxage: 3600, public: true, mustRevalidate: true)]
     #[Route('/', methods: ['GET'])]
     function index (TranslatorInterface $translator): Response {
         return $this->render('default.html.twig', [
@@ -49,5 +52,14 @@ class DefaultController extends AbstractController
             return $this->redirect($request->headers->get('referer'));
         }
         return $this->redirectToRoute('app_default_index');
+    }
+
+    #[Route('/weather')]
+    function weather (WeatherApi $api): Response
+    {
+        return $this->render('weather.html.twig', [
+            'current' => $api->getCurrent(),
+            'daily' => $api->getDaily()
+        ]);
     }
 }
