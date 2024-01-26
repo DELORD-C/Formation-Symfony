@@ -55,6 +55,16 @@ class PostController extends AbstractController
         return $response;
     }
 
+    #[Route('/specialList')]
+    function specialList (PostRepository $rep, Request $request): Response
+    {
+        $posts = $rep->findPostWithCommentsHavingNbLikes(3);
+
+        return $this->render('post/list.html.twig', [
+            'posts' => $posts
+        ]);
+    }
+
     #[IsGranted('UPDATE', 'post')]
     #[Route('/update/{post}')]
     function update (Post $post, Request $request, EntityManagerInterface $em): Response

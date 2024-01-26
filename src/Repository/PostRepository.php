@@ -45,4 +45,20 @@ class PostRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    /**
+     * @return Post[] Returns an array of Post objects
+     */
+    public function findPostWithCommentsHavingNbLikes($nb): array
+    {
+        $query = $this->createQueryBuilder('p')
+            ->leftJoin('p.comments',  'c')
+            ->leftJoin('c.likes', 'l');
+
+        $query->having('COUNT(p) >= :likeNumber')
+            ->groupBy('l.id')
+            ->setParameter('likeNumber', $nb);
+
+        return $query->getQuery()->getResult();
+    }
 }
